@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  uid: MyString
+  gender: MyString
+  win: 1
+  loss: 1
+  score: 9.99
+
+two:
+  name: MyString
+  uid: MyString
+  gender: MyString
+  win: 1
+  loss: 1
+  score: 9.99
