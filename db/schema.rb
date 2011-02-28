@@ -10,15 +10,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110228085122) do
+ActiveRecord::Schema.define(:version => 20110228091104) do
 
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "uid"
     t.string   "gender"
-    t.integer  "win"
-    t.integer  "loss"
-    t.decimal  "score"
+    t.integer  "win",        :default => 0
+    t.integer  "loss",       :default => 0
+    t.decimal  "score",      :default => 1600.0
     t.datetime "created_at"
     t.datetime "updated_at"
   end

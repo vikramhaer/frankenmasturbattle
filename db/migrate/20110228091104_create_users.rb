@@ -4,9 +4,9 @@ class CreateUsers < ActiveRecord::Migration
       t.string :name
       t.string :uid
       t.string :gender
-      t.integer :win
-      t.integer :loss
-      t.decimal :score
+      t.integer :win, :default => 0
+      t.integer :loss, :default => 0
+      t.decimal :score, :default => 1600
 
       t.timestamps
     end

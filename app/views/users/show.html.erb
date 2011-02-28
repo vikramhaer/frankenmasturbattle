@@ -1,8 +1,12 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <%= image_tag("http://graph.facebook.com/#{@user.uid}/picture?type=large") %>
+</p>
+
+<p>
   <b>Name:</b>
-  <%= @user.name %>
+  <%= link_to @user.name, "http://www.facebook.com/profile.php?id=#{@user.uid}" %>
 </p>
 
 <p>
