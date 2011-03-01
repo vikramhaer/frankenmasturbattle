@@ -2,8 +2,8 @@ class SessionsController < ApplicationController
   def create
     auth = request.env["omniauth.auth"]
     user = User.find_by_uid(auth["uid"]) || User.create_with_omniauth(auth)
-    user.update_networks(auth)
-    #raise auth.to_yaml
+    user.add_friends(auth) if true #user.friendships.empty?
+    user.update_groups(auth)
     session[:user_id] = user.id
     redirect_to user, :notice => "Signed in!"
   end

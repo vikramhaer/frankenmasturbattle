@@ -37,3 +37,16 @@
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
+
+<h2>Friends</h2>
+<ul>
+  <% for friend in @user.friends %>
+    <li>
+      <%=h friend.name %>
+    </li>
+  <% end %>
+  <% for friend in @user.inverse_friends %>  
+    <li>
+      <%= h friend.name %></li>  
+  <% end %>  
+</ul>
