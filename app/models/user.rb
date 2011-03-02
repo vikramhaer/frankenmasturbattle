@@ -13,6 +13,27 @@ class User < ActiveRecord::Base
     end
   end
 
+  def random_match(gender, group = nil)
+    if group
+      group.users.find(:all, :conditions => ["gender = ? AND NOT id = ?", gender, self.id], :limit => 2,  :order => "RANDOM()", :select => "uid")
+    else
+      self.friends.find(:all, :conditions => ["gender = ?", gender], :limit => 2, :order => "RANDOM()", :select => "uid")
+    end
+  end
+
+  def self.update_win_loss_by_uid(uid1, uid2) #ELO Rating system.
+    user1 = User.find_by_uid(uid1)
+    user2 = User.find_by_uid(uid2)      
+    if !user1 or !user2 then return -1 end
+
+    k = 40
+    winp = 1/(10 ** ((user2.score - user1.score)/400.0) + 1)
+    dscore = (k * (1 - winp))
+    user1.update_attributes({:score => user1.score + dscore, :win => user1.win + 1})
+    user2.update_attributes({:score => user2.score - dscore, :win => user2.loss + 1})
+    return dscore
+end
+
   def add_friends(auth)
     #full query = "SELECT uid, name, sex, current_location, education_history, work_history  FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 =#{auth["uid"]})"
     friends = FbGraph::Query.new(

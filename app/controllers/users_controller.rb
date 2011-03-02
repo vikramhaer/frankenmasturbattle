@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.xml
   def index
-    @users = User.all
+    @users = User.find(:all, :order => "score desc")
 
     respond_to do |format|
       format.html # index.html.erb

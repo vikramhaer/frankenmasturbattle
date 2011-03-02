@@ -6,7 +6,7 @@ Masterater::Application.routes.draw do
   get "user/destroy"
 
   get "user/show"
-
+  match "home/battle", :via=>[:get, :post]
   get "home/index"
   root :to => "home#index"
   match "/auth/:provider/callback" => "sessions#create"
