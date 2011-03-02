@@ -1,7 +1,7 @@
 function Choose(item) {
   new Ajax.Request('/home/battle', {
     method: 'get',
-    parameters: {company: item}
+    parameters: {choice: item}
   });
   //alert("You picked " + item);
   //$.get("/home/battle", { choice: item });

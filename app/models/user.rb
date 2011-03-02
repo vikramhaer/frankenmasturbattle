@@ -53,29 +53,34 @@ end
   def update_groups(auth)
     #fq = FbGraph::Query.new("SELECT work_history,education_history,current_location FROM user where uid=#{auth["uid"]}").fetch(auth["credentials"]["token"])
     hash = auth['extra']['user_hash']
-
-    loc_group = Group.find_by_gid(hash['location']['id'].to_s)
-    if loc_group
-      self.groups << loc_group if !self.groups.exists?(loc_group)
-    else
-      self.groups.create(:name => hash['location']['name'], :gid => hash['location']['id'].to_s, :type => 'loc') 
+    if hash['location']
+      loc_group = Group.find_by_gid(hash['location']['id'].to_s)
+      if loc_group
+        self.groups << loc_group if !self.groups.exists?(loc_group)
+      else
+        self.groups.create(:name => hash['location']['name'], :gid => hash['location']['id'].to_s, :type => 'loc') 
+      end
     end
 
-    hash['work'].each do |job|
-      job_group = Group.find_by_gid(job['employer']['id'].to_s)
-      if job_group
-        self.groups << job_group if !self.groups.exists?(job_group)
-      else
-        self.groups.create(:name => job['employer']['name'], :gid => job['employer']['id'].to_s, :type => 'job')
+    if hash['work']
+      hash['work'].each do |job|
+        job_group = Group.find_by_gid(job['employer']['id'].to_s)
+        if job_group
+          self.groups << job_group if !self.groups.exists?(job_group)
+        else
+          self.groups.create(:name => job['employer']['name'], :gid => job['employer']['id'].to_s, :type => 'job')
+        end
       end
     end
     
-    hash['education'].each do |edu|
-      edu_group = Group.find_by_gid(edu['school']['id'].to_s)
-      if edu_group
-        self.groups << edu_group if !self.groups.exists?(edu_group)
-      else
-        self.groups.create(:name => edu['school']['name'], :gid => edu['school']['id'].to_s, :type => 'edu')   
+    if hash['education']
+      hash['education'].each do |edu|
+        edu_group = Group.find_by_gid(edu['school']['id'].to_s)
+        if edu_group
+          self.groups << edu_group if !self.groups.exists?(edu_group)
+        else
+          self.groups.create(:name => edu['school']['name'], :gid => edu['school']['id'].to_s, :type => 'edu')   
+        end
       end
     end
   end
