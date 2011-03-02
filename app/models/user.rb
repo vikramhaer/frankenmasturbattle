@@ -43,7 +43,7 @@ end
       "SELECT uid, name, sex, current_location FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 =#{auth["uid"]})"
     ).fetch(auth["credentials"]["token"])
     friends.each do |fq|
-      existing_friend = User.find_by_uid(fq["uid"]) || User.create!(:uid => fq["uid"], :name => fq["name"], :gender => fq["sex"])
+      existing_friend = User.find_by_uid(fq["uid"]) || User.create!(:uid => fq["uid"].to_s, :name => fq["name"], :gender => fq["sex"])
 
       self.friendships.find_or_create_by_friend_id(existing_friend.id) if !self.inverse_friendships.find_by_friend_id(existing_friend.id)
       existing_friend.update_groups_with_fql(fq)
@@ -54,39 +54,39 @@ end
     #fq = FbGraph::Query.new("SELECT work_history,education_history,current_location FROM user where uid=#{auth["uid"]}").fetch(auth["credentials"]["token"])
     hash = auth['extra']['user_hash']
 
-    loc_group = Group.find_by_gid(hash['location']['id'])
+    loc_group = Group.find_by_gid(hash['location']['id'].to_s)
     if loc_group
       self.groups << loc_group if !self.groups.exists?(loc_group)
     else
-      self.groups.create(:name => hash['location']['name'], :gid => hash['location']['id'], :type => 'loc') 
+      self.groups.create(:name => hash['location']['name'], :gid => hash['location']['id'].to_s, :type => 'loc') 
     end
 
     hash['work'].each do |job|
-      job_group = Group.find_by_gid(job['employer']['id'])
+      job_group = Group.find_by_gid(job['employer']['id'].to_s)
       if job_group
         self.groups << job_group if !self.groups.exists?(job_group)
       else
-        self.groups.create(:name => job['employer']['name'], :gid => job['employer']['id'], :type => 'job')
+        self.groups.create(:name => job['employer']['name'], :gid => job['employer']['id'].to_s, :type => 'job')
       end
     end
     
     hash['education'].each do |edu|
-      edu_group = Group.find_by_gid(edu['school']['id'])
+      edu_group = Group.find_by_gid(edu['school']['id'].to_s)
       if edu_group
         self.groups << edu_group if !self.groups.exists?(edu_group)
       else
-        self.groups.create(:name => edu['school']['name'], :gid => edu['school']['id'], :type => 'edu')   
+        self.groups.create(:name => edu['school']['name'], :gid => edu['school']['id'].to_s, :type => 'edu')   
       end
     end
   end
 
   def update_groups_with_fql(fq) #moving to not use fql because it doesn't give ids so gonna be deprecated.
     if fq['current_location']
-      loc_group = Group.find_by_gid(fq['current_location']['id'])
+      loc_group = Group.find_by_gid(fq['current_location']['id'].to_s)
       if loc_group
         self.groups << loc_group if !self.groups.exists?(loc_group)
       else
-        self.groups.create(:name => fq['current_location']['name'], :gid => fq['current_location']['id'], :type => 'loc')
+        self.groups.create(:name => fq['current_location']['name'], :gid => fq['current_location']['id'].to_s, :type => 'loc')
       end
     end
   end
