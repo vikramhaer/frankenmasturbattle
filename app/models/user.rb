@@ -13,7 +13,13 @@ class User < ActiveRecord::Base
     end
   end
 
-  def random_match(gender, group = nil)
+  def random_match(gender = nil, group = nil)
+    #specify opposite gender
+    if !gender
+      gender = "female"
+      gender = "male" if self.gender == "female"
+    end
+
     if group
       group.users.find(:all, :conditions => ["gender = ? AND NOT id = ?", gender, self.id], :limit => 2,  :order => "RANDOM()", :select => "uid")
     else
