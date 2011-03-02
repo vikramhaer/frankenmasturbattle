@@ -1,0 +1,468 @@
+* {
+margin: 0 auto;
+}
+
+body {
+background: #fff;
+font-family: "Museo 300","Helvetica Neue (TT)","Helvetica Neue", Helvetica, Arial, san-serif; 
+font-size:15px;
+}
+
+@font-face {
+font-family: "Museo 300";
+src: url("fonts/Museo300-Regular.eot");
+src: local("Museo 300"), local("Museo 300"),
+url("fonts/Museo300-Regular.otf") format("opentype"),
+url("fonts/Museo300-Regular.woff") format("woff"),
+url("fonts/Museo300-Regular.svg#Museo 300") format("svg");
+}
+
+@font-face {
+font-family: "Museo 700";
+src: url("fonts/Museo700-Regular.eot");
+src: local("Museo 700"), local("Museo 700"),
+url("fonts/Museo700-Regular.otf") format("opentype"),
+url("fonts/Museo700-Regular.woff") format("woff"),
+url("fonts/Museo700-Regular.svg#Museo 700") format("svg");
+}
+
+h2 {
+font-family: 'Museo 700';
+font-size: 25px;
+margin: 4px;
+text-shadow: 0px 1px 0px white;
+}
+
+#wrapper {
+width: 960px;
+height: 100%;
+margin: 0px auto;
+}
+
+.left{
+float:left;
+}
+
+.right{
+float:right;
+}
+
+.clear {
+clear:both;
+}
+
+/* ------- HEADER ------- */
+
+#header {
+background: #3B5998;
+/* border-bottom: 1px solid white; */
+color: #fff;
+height: 75px;
+}
+
+#header h1 {
+margin:10px;
+font-size: 40px;
+font-family: 'Lobster', Helvetica, Arial, san-serif; 
+color: c5c5c5;
+text-shadow: 0px 1px 0px white;
+float: left;
+}
+
+h1:visited {
+l
+}
+
+#right-nav {
+float: right;
+width: 400px;
+}
+
+ul {
+list-style: none;
+}
+
+#header ul li {
+float: right;
+padding: 30px 15px 0 0;
+}
+
+.userimg {
+float: right;
+margin: 25px 10px 0 0;
+border: 2px solid #BAD3EA;
+-webkit-border-radius: 2px;
+-moz-border-radius: 2px;
+border-radius: 2px;
+height: 30px;
+width: 30px;
+}
+
+/* ------- END OF HEADER ------- */
+
+/* ------- MAIN AREA ------- */
+
+#content {
+background: #fff;
+}
+
+#left-column {
+float: left;
+width: 150px;
+}
+
+.ad-col{
+width: 120px;
+margin: 10px auto;
+}
+
+#main {
+width: 640px;
+float: left;
+margin: 10px;
+
+}
+
+#battleground {
+background: #f0f0f0 url(gray.png) repeat;
+width: 590px;
+margin: 10px 10px 50px 10px;
+}
+
+#right-column {
+float: right;
+width: 150px;
+}
+
+
+#top-ad {
+width: 728px;
+height: 90px;
+margin: 20px auto;
+}
+
+
+
+/* ------- END OF MAIN RANKING AREA ------- */
+
+/* ------- HOME PAGE STUFF ------- */
+#notification {
+width: 900px;
+margin: 50px auto;
+padding: 20px;
+text-align: center;
+background: #f0f0f0 url(gray.png) repeat;
+}
+
+
+#steps {
+width: 280px;
+float:left;
+padding: 10px;
+}
+
+.step {
+margin-top: 20px;
+font-family: 'museo 700';
+}
+
+/* ------- END OF HOME PAGE STUFF -------- */
+
+.clearit {
+clear:both;
+}
+
+.username {
+font-size: 45px;
+font-family: 'museo 700';
+margin: 10px;
+color: #666;
+}
+
+.profimg {
+width:75px;
+margin: 20px;
+}
+
+/* STATS */
+
+.statbox4 {
+float: left;
+width: 200px;
+margin: 25px 20px 10px 20px;
+}
+
+.statbox2 {
+float: left;
+width: 440px;
+padding: 20px;
+}
+
+.statbox1 {
+padding: 10px 20px;
+margin: 10px 0;
+}
+
+.statlists {
+width: 420px;
+list-style: none;
+margin: 20px 5px;
+padding: 0;
+}
+
+.statlists li {
+clear: both;
+margin: 20px 0;
+padding: 0 0 1.8em 0;
+position: relative;
+border-bottom: dashed 1px #888;
+}
+
+.emph {
+background: #3B5998;
+color: #fff;
+padding: 5px;
+-webkit-border-radius: 4px; 
+-moz-border-radius: 4px; 
+border-radius: 4px;
+font-size: 20px;
+}
+
+.statlists strong {
+background: #3B5998;
+color: #fff;
+padding: 5px;
+-webkit-border-radius: 4px; 
+-moz-border-radius: 4px; 
+border-radius: 4px;
+font-size: 20px;
+position: absolute;
+bottom: -.3em;
+left: 0;
+}
+
+.statlists em {
+background: #fff;
+padding: 0 0 0 5px;
+position: absolute;
+color: #777;
+font-size: 30px;
+bottom: -.2em;
+right: 0;
+}
+
+.statlists sup {
+font-size: 10px;
+color: #666;
+margin-left: 3px;
+}
+
+
+.stattitle {
+font-size: 18px;
+border-bottom: 1px solid #888;
+margin-bottom: 10px;
+}
+
+.ranktitle {
+font-size: 24px;
+border-bottom: 1px solid #888;
+margin-bottom: 10px;
+padding-bottom: 10px;
+}
+
+.statboxbig .stattitle {
+font-size: 18px;
+color: #777;
+border-bottom: 1px solid #888;
+margin-bottom: 10px;
+}
+
+.statcontent {
+color: #777;
+}
+
+.bignumber{
+font-size: 90px;
+}
+
+.friend-box {
+float:left;
+border: 1px solid #BAD3EA;
+-webkit-border-radius:5px;
+-moz-border-radius:5px; 
+border-radius:5px;
+width: 120px;
+margin-right: 10px;
+margin-bottom: 10px;
+padding: 10px;
+}
+
+.friend-box:hover {
+cursor: pointer;
+background: #3B5998;
+color: #fff;
+}
+
+.score {
+font-size: 25px;
+text-align: center;
+}
+
+
+/* END STATS */
+
+
+
+#profileops {
+width: 250px;
+margin: 10px auto;
+float: right;
+}
+
+#profileops ul {
+margin: 0 auto;
+}
+
+#profileops ul li {
+float: left;
+position: relative;
+font-size: 15px;
+background: #3B5998;
+color: white;
+padding: 4px;
+margin-right: 10px;
+-webkit-border-radius: 4px; 
+-moz-border-radius: 4px; 
+border-radius: 4px;
+list-style: none;
+}
+
+
+
+.lastround {
+font-size: 12px;
+margin: 0 10px;
+text-align: center;
+}
+
+.boldit {
+font-family: 'museo 700';
+}
+
+.user {
+border: 1px solid #c2c2c2;
+-webkit-border-radius:10px;
+-moz-border-radius:10px; 
+border-radius:10px;
+margin: 25px;
+padding: 10px;
+}
+
+#left {
+float: left;
+width: 250px;
+margin: 10px;
+}
+
+#right {
+float: right;
+width: 250px;
+margin: 10px;
+}
+
+.battle {
+display: block;
+margin: 0 auto;
+}
+
+
+#footer {
+background: whiteSmoke;
+height: 100px;
+margin-top: 25px;
+border-top: 2px solid #c6c6c6;
+}
+
+
+/* RANKING */
+.rankbox1 {
+float: left;
+width: 750px;
+padding: 10px 10px;
+margin: 10px 0;
+}
+
+.rankads {
+float: right;
+width: 150px;
+margin-top: 50px;
+}
+
+
+.friend-box {
+float:left;
+border: 1px solid #BAD3EA;
+-webkit-border-radius:5px;
+-moz-border-radius:5px; 
+border-radius:5px;
+width: 100px;
+margin: 5px;
+padding: 5px;
+}
+
+.friend-box:hover {
+cursor: pointer;
+background: #3B5998;
+color: #fff;
+}
+
+.score {
+font-size: 25px;
+text-align: center;
+}
+
+/* Drop Shadows */
+ .drop-shadow {
+
+            position:relative;
+            width:40%;    
+
+            padding:1em; 
+
+            margin:2em 10px 4em; 
+
+            background:#fff;
+
+            -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 0, 0, 0.7) inset;
+
+               -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 0, 0, 0.7) inset;
+                    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 0, 0, 0.7) inset;
+
+        }
+
+
+
+        .drop-shadow:before,
+
+        .drop-shadow:after {
+
+            content:"";
+
+            position:absolute; 
+
+            z-index:-2;
+
+        }
+
+        
+
+        .drop-shadow p {
+
+            font-size:16px;
+
+            font-weight:bold;
+
+        }
+
+    

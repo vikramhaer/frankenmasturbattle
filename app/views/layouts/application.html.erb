@@ -2,21 +2,30 @@
 <html>
 <head>
   <title>getFrankd</title>
-  <%= stylesheet_link_tag :all %>
+  <%= stylesheet_link_tag "style" %>
+   <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
-<% if current_user %>
-  <%= link_to "Start Franking", root_path %> | 
-  <%= link_to "Global High Scores", users_path %> |
-  <%= link_to "Your Profile", current_user %> |
-  Welcome <%= current_user.name %>!
-  <%= link_to "Sign Out", signout_path %>
+</head>
+<body>
+  <div id="header">
+	<div id="wrapper">
+		<h1><%= link_to "getFrankd", root_path %></h1>
+		<div id="right-nav">
+		<% if current_user %>
+		<ul>
+			<li><%= link_to "Sign Out", signout_path %></li>
+		<!--	<li><%= link_to "Start Franking", root_path %></li> -->
+			<li><%= link_to "Rankings", users_path %></li>
+			<li><%= link_to current_user.name, current_user %></li>
+		</ul>
+		<%= image_tag("http://graph.facebook.com/#{current_user.uid}/picture" , :class=>"left userimg") %>
 <% else %>
   <%= link_to "Sign in with Facebook", "/auth/facebook" %>
 <% end %>
-</head>
-<body>
-
+		</div>
+	</div>
+  </div>
 <%= yield %>
 
 </body>
