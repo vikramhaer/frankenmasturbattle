@@ -53,6 +53,10 @@ clear:both;
 
 /* ------- HEADER ------- */
 
+a:link {
+text-decoration: none;
+}
+
 #header {
 background: #3B5998;
 /* border-bottom: 1px solid white; */
@@ -69,8 +73,8 @@ text-shadow: 0px 1px 0px white;
 float: left;
 }
 
-h1:visited {
-l
+.no-dec:visited{
+text-decoration: none;
 }
 
 #right-nav {
@@ -85,6 +89,10 @@ list-style: none;
 #header ul li {
 float: right;
 padding: 30px 15px 0 0;
+}
+
+a:link {
+text-decoration: none;
 }
 
 .userimg {

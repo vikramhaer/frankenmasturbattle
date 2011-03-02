@@ -21,9 +21,9 @@ class User < ActiveRecord::Base
     end
 
     if group
-      group.users.find(:all, :conditions => ["gender = ? AND NOT id = ?", gender, self.id], :limit => 2,  :order => "RANDOM()", :select => "uid")
+      group.users.find(:all, :conditions => ["gender = ? AND NOT id = ?", gender, self.id], :limit => 2,  :order => "RANDOM()", :select => "uid, name")
     else
-      self.friends.find(:all, :conditions => ["gender = ?", gender], :limit => 2, :order => "RANDOM()", :select => "uid")
+      self.friends.find(:all, :conditions => ["gender = ?", gender], :limit => 2, :order => "RANDOM()", :select => "uid, name")
     end
   end
 

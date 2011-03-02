@@ -10,7 +10,7 @@
 <body>
   <div id="header">
 	<div id="wrapper">
-		<h1><%= link_to "getFrankd", root_path %></h1>
+		<h1><%= link_to "getFrankd", root_path, :class=>"no-dec" %></h1>
 		<div id="right-nav">
 		<% if current_user %>
 		<ul>
@@ -26,7 +26,14 @@
 		</div>
 	</div>
   </div>
-<%= yield %>
+    <div id="content">
 
+	<div id="wrapper">
+<%= yield %>
+  </div>
+  </div>
+  	<div id="footer">
+	
+	</div>
 </body>
 </html>

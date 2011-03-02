@@ -1,9 +1,49 @@
 <%= if current_user then javascript_include_tag "battle" end %>
-<h1>Home#index</h1>
 
-<p>Find me in app/views/home/index.html.erb</p>
-<div id='battleground'>
   <% if current_user %>
+  <div id="top-ad">
+				<%= image_tag("http://dummyimage.com/728x90") %>
+				<!-- <img src="http://dummyimage.com/728x90" /> -->
+			</div>
+	
+			<div id="left-column">
+				<div class="ad-col">
+					<img src="http://dummyimage.com/120x240" class="side-ad" />
+					<img src="http://dummyimage.com/120x240" class="side-ad" />
+				</div>
+			</div>
+			<div id="main">
+				<div id="filters">
+			<!-- THIS PART NEEDS TO BE FILLED IN FOR FILTERING -->
+				</div>
+				<div id="battleground" class="drop-shadow lifted">
     <%= render "bground" %>
-  <% end %>
 </div>
+				<div id="battleground" class="drop-shadow lifted old">
+					<h2 style="text-align:center;">Last Battle</h2>
+					<div id="left">
+						<img src="http://graph.facebook.com/disquared/picture" class="battle" />
+						<p class="lastround boldit"> Di Di </p>
+						<p class="lastround"> Score: 1500 </p>
+						<p class="lastround"> Wins: 25/70 </p>
+					</div>
+					<div id="right">
+						<img src="http://graph.facebook.com/cloudedstrife/picture" class="battle" />
+						<p class="lastround boldit"> Jeff Hsu </p>
+						<p class="lastround"> Score: 1200 </p>
+						<p class="lastround"> Wins: 25/80 </p>
+					</div>
+					<div style="clear:both;"></div>
+				</div>
+			</div>
+			<div id="right-column">
+				<div class="ad-col">
+					<img src="http://dummyimage.com/120x240" class="side-ad"/>
+					<img src="http://dummyimage.com/120x240" class="side-ad"/>
+				</div>
+			</div>
+			<div style="clear:both;"></div>
+			<div id="top-ad">
+				<img src="http://dummyimage.com/728x90" />
+			</div>
+  <% end %>
