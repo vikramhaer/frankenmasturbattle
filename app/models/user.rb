@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 
   def self.create_with_omniauth(auth)
     create! do |user|
-      user.uid = auth["uid"]
+      user.uid = auth["uid"].to_s
       user.name = auth["user_info"]["name"]
       user.gender = auth["extra"]["user_hash"]["gender"]
     end
@@ -43,7 +43,7 @@ end
       "SELECT uid, name, sex, current_location FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 =#{auth["uid"]})"
     ).fetch(auth["credentials"]["token"])
     friends.each do |fq|
-      existing_friend = User.find_by_uid(fq["uid"]) || User.create!(:uid => fq["uid"].to_s, :name => fq["name"], :gender => fq["sex"])
+      existing_friend = User.find_by_uid(fq["uid"].to_s) || User.create!(:uid => fq["uid"].to_s, :name => fq["name"], :gender => fq["sex"])
 
       self.friendships.find_or_create_by_friend_id(existing_friend.id) if !self.inverse_friendships.find_by_friend_id(existing_friend.id)
       existing_friend.update_groups_with_fql(fq)
