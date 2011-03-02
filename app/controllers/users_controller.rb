@@ -2,6 +2,8 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.xml
   def index
+    @user_count = User.count
+    @group_count = Group.count
     @users = User.find(:all, :order => "score desc", :limit => 50)
 
     respond_to do |format|
