@@ -21,6 +21,9 @@ class User < ActiveRecord::Base
     end
   end
 
+
+
+
   def self.update_win_loss_by_uid(uid1, uid2) #ELO Rating system.
     user1 = User.find_by_uid(uid1)
     user2 = User.find_by_uid(uid2)      
@@ -30,7 +33,7 @@ class User < ActiveRecord::Base
     winp = 1/(10 ** ((user2.score - user1.score)/400.0) + 1)
     dscore = (k * (1 - winp))
     user1.update_attributes({:score => user1.score + dscore, :win => user1.win + 1})
-    user2.update_attributes({:score => user2.score - dscore, :win => user2.loss + 1})
+    user2.update_attributes({:score => user2.score - dscore, :loss => user2.loss + 1})
     return dscore
 end
 
@@ -50,16 +53,41 @@ end
   def update_groups(auth)
     #fq = FbGraph::Query.new("SELECT work_history,education_history,current_location FROM user where uid=#{auth["uid"]}").fetch(auth["credentials"]["token"])
     hash = auth['extra']['user_hash']
-    self.groups.find_or_create_by_name_and_gid_and_type(hash['location']['name'], hash['location']['id'], 'loc')
-    hash['work'].each do |job|
-      self.groups.find_or_create_by_name_and_gid_and_type(job['employer']['name'], job['employer']['id'], 'job')
+
+    loc_group = Group.find_by_gid(hash['location']['id'])
+    if loc_group
+      self.groups << loc_group if !self.groups.exists?(loc_group)
+    else
+      self.groups.create(:name => hash['location']['name'], :gid => hash['location']['id'], :type => 'loc') 
     end
+
+    hash['work'].each do |job|
+      job_group = Group.find_by_gid(job['employer']['id'])
+      if job_group
+        self.groups << job_group if !self.groups.exists?(job_group)
+      else
+        self.groups.create(:name => job['employer']['name'], :gid => job['employer']['id'], :type => 'job')
+      end
+    end
+    
     hash['education'].each do |edu|
-      self.groups.find_or_create_by_name_and_gid_and_type(edu['school']['name'], edu['school']['id'], 'edu')
+      edu_group = Group.find_by_gid(edu['school']['id'])
+      if edu_group
+        self.groups << edu_group if !self.groups.exists?(edu_group)
+      else
+        self.groups.create(:name => edu['school']['name'], :gid => edu['school']['id'], :type => 'edu')   
+      end
     end
   end
 
-  def update_groups_with_fql(fq)
-    self.groups.find_or_create_by_name_and_gid_and_type(fq['current_location']['name'], fq['current_location']['id'], 'loc') if fq['current_location']
+  def update_groups_with_fql(fq) #moving to not use fql because it doesn't give ids so gonna be deprecated.
+    if fq['current_location']
+      loc_group = Group.find_by_gid(fq['current_location']['id'])
+      if loc_group
+        self.groups << loc_group if !self.groups.exists?(loc_group)
+      else
+        self.groups.create(:name => fq['current_location']['name'], :gid => fq['current_location']['id'], :type => 'loc')
+      end
+    end
   end
 end

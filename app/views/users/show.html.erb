@@ -41,7 +41,7 @@
 <ul>
   <% for group in @user.groups %>
     <li>
-      <%=h group.name %>
+      <%=h link_to group.name, group %>
     </li>
   <% end %>
 

@@ -1,4 +1,6 @@
 Masterater::Application.routes.draw do
+  resources :groups
+
   get "user/index"
 
   get "user/create"

@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Masterater</title>
+  <title>getFrankd</title>
   <%= stylesheet_link_tag :all %>
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
 <% if current_user %>
+  <%= link_to "Start Franking", root_path %> | 
+  <%= link_to "Global High Scores", users_path %> |
+  <%= link_to "Your Profile", current_user %> |
   Welcome <%= current_user.name %>!
   <%= link_to "Sign Out", signout_path %>
 <% else %>

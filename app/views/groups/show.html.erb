@@ -1,0 +1,48 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @group.name %>
+</p>
+
+<p>
+  <b>Type:</b>
+  <%= @group.type %>
+</p>
+
+<p>
+  <b>Gid:</b>
+  <%= @group.gid %>
+</p>
+
+
+<%= link_to 'Edit', edit_group_path(@group) %> |
+<%= link_to 'Back', groups_path %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Uid</th>
+    <th>Gender</th>
+    <th>Win</th>
+    <th>Loss</th>
+    <th>Score</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @users.each do |user| %>
+  <tr>
+    <td><%= user.name %></td>
+    <td><%= user.uid %></td>
+    <td><%= user.gender %></td>
+    <td><%= user.win %></td>
+    <td><%= user.loss %></td>
+    <td><%= user.score %></td>
+    <td><%= link_to 'Show', user %></td>
+    <td><%= link_to 'Edit', edit_user_path(user) %></td>
+    <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
