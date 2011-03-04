@@ -47,13 +47,9 @@
 
 <h2>Friends</h2>
 <ul>
-  <% for friend in @user.friends %>
+  <% for friend in @user_friends %>
     <li>
       <%=h friend.name %>
     </li>
   <% end %>
-  <% for friend in @user.inverse_friends %>  
-    <li>
-      <%= h friend.name %></li>  
-  <% end %>  
 </ul>

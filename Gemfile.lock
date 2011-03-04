@@ -24,6 +24,8 @@ GEM
       activesupport (= 3.0.4)
       arel (~> 2.0.2)
       tzinfo (~> 0.3.23)
+    activerecord-import (0.2.5)
+      activerecord (~> 3.0.0)
     activeresource (3.0.4)
       activemodel (= 3.0.4)
       activesupport (= 3.0.4)
@@ -131,6 +133,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  activerecord-import
   fb_graph
   omniauth
   rails (= 3.0.4)
