@@ -8,11 +8,13 @@ class User < ActiveRecord::Base
   scope :female, where("gender = ?", "female")
 
   def increment_login_count
-    self.update_attributes(:login_count => self.login_count + 1)
+    lg = self.login_count + 1
+    self.update_attributes(:login_count => lg.to_i)
   end
 
   def increment_rating_count
-    self.update_attributes(:rating_count => self.rating_count + 1)
+    rt = self.rating_count + 1
+    self.update_attributes(:rating_count => rt.to_i)
   end
 
   def all_friends
