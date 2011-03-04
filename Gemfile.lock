@@ -24,8 +24,6 @@ GEM
       activesupport (= 3.0.4)
       arel (~> 2.0.2)
       tzinfo (~> 0.3.23)
-    activerecord-import (0.2.5)
-      activerecord (~> 3.0.0)
     activeresource (3.0.4)
       activemodel (= 3.0.4)
       activesupport (= 3.0.4)
@@ -33,6 +31,7 @@ GEM
     addressable (2.2.4)
     arel (2.0.9)
     builder (2.1.2)
+    crewait (0.1.7)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     faraday (0.5.7)
@@ -91,6 +90,7 @@ GEM
       oa-enterprise (= 0.1.6)
       oa-oauth (= 0.1.6)
       oa-openid (= 0.1.6)
+    pg (0.10.1)
     polyglot (0.3.1)
     pyu-ruby-sasl (0.0.3.2)
     rack (1.2.1)
@@ -133,8 +133,9 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
-  activerecord-import
+  crewait
   fb_graph
   omniauth
+  pg
   rails (= 3.0.4)
   sqlite3

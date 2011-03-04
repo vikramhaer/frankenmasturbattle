@@ -3,10 +3,16 @@ class User < ActiveRecord::Base
   has_many :friends, :through => :friendships
   has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user
-  has_and_belongs_to_many :groups
+  has_and_belongs_to_many :groups  
 
   def all_friends
-    self.friends + self.inverse_friends
+    self.friends | self.inverse_friends  
+  end
+
+  def all_friends_order_by_score_desc_limit(limit)
+    list = self.friends.order("score desc").limit(limit) | self.inverse_friends.order("score desc").limit(limit)
+    list.sort! { |b,a| a.score <=> b.score }
+    list[0..limit-1]
   end
 
   def self.create_with_omniauth(auth)
@@ -24,16 +30,15 @@ class User < ActiveRecord::Base
     fbquery = "SELECT uid, name, sex, current_location FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 =#{auth["uid"]})"
     friends = FbGraph::Query.new(fbquery).fetch(auth["credentials"]["token"]) #this might take a while...
     filtered_friends = friends.reject{ |fq| current_friends_uids.index(fq["uid"].to_s) }
-    #filtered_friends.chunk(50).each do |batch|
-    user_batch_import = []
-    friendship_batch_import = []
+
+    Crewait.start_waiting
     filtered_friends.each do |fq|
-      #user_batch_import << User.new(:uid => fq["uid"].to_s, :name => fq["name"], :gender => fq["sex"])
-      friend = User.create!(:uid => fq["uid"].to_s, :name => fq["name"], :gender => fq["sex"])
-      friendship_batch_import << Friendship.new(:user_id => user.id, :friend_id => friend.id)
+      friend = User.crewait(:uid => fq["uid"].to_s, :name => fq["name"], :gender => fq["sex"])
+      Friendship.crewait(:user_id => user.id, :friend_id => friend.id)
     end
+    Crewait.go!
     #User.import user_batch_import
-    Friendship.import friendship_batch_import
+    #Friendship.import friendship_batch_import
 
     #raise (user.all_friends.collect{ | friend| friend.uid} - current_friends_uids).to_yaml
     #friendship_batch_import = []
@@ -80,19 +85,6 @@ class User < ActiveRecord::Base
     user2.update_attributes({:score => user2.score - dscore, :loss => user2.loss + 1})
     return dscore
 end
-
-  def add_friends(auth)
-    #full query = "SELECT uid, name, sex, current_location, education_history, work_history  FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 =#{auth["uid"]})"
-    friends = FbGraph::Query.new(
-      "SELECT uid, name, sex, current_location FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 =#{auth["uid"]})"
-    ).fetch(auth["credentials"]["token"])
-    friends.each do |fq|
-      existing_friend = User.find_by_uid(fq["uid"].to_s) || User.create!(:uid => fq["uid"].to_s, :name => fq["name"], :gender => fq["sex"])
-
-      self.friendships.find_or_create_by_friend_id(existing_friend.id) if !self.inverse_friendships.find_by_friend_id(existing_friend.id)
-      existing_friend.update_groups_with_fql(fq)
-    end
-  end
 
   def update_groups(auth)
     #fq = FbGraph::Query.new("SELECT work_history,education_history,current_location FROM user where uid=#{auth["uid"]}").fetch(auth["credentials"]["token"])

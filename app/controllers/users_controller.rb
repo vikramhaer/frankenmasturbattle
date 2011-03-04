@@ -16,6 +16,7 @@ class UsersController < ApplicationController
   # GET /users/1.xml
   def show
     @user = User.find(params[:id])
+    #raise @user.all_friends_order_by_score_desc_limit(12).to_yaml
     @user_friends = @user.friends.find(:all, :order => "score desc", :limit => 12)
     respond_to do |format|
       format.html # show.html.erb
