@@ -3,7 +3,9 @@ class User < ActiveRecord::Base
   has_many :friends, :through => :friendships
   has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user
-  has_and_belongs_to_many :groups  
+  has_and_belongs_to_many :groups
+  scope :male, where("gender = ?", "male")
+  scope :female, where("gender = ?", "female")
 
   def all_friends
     self.friends | self.inverse_friends  
@@ -37,21 +39,6 @@ class User < ActiveRecord::Base
       Friendship.crewait(:user_id => user.id, :friend_id => friend.id)
     end
     Crewait.go!
-    #User.import user_batch_import
-    #Friendship.import friendship_batch_import
-
-    #raise (user.all_friends.collect{ | friend| friend.uid} - current_friends_uids).to_yaml
-    #friendship_batch_import = []
-    #all_friends_plus_new = user.all_friends
-    #new_friends = all_friends_plus_new.reject{ |friend| current_friends_uids.index(friend.uid) }
-    #new_friends.each do |friend|
-    #  friendship_batch_import << Friendship.new(:user_id => user.id, :friend_id => friend.id)
-    #end
-    #raise friendship_batch_import.to_yaml
-    #Friendship.import friendship_batch_import
-      #friend = User.create!(:uid => fq["uid"].to_s, :name => fq["name"], :gender => fq["sex"])
-      #user.friendships.create!(:friend_id => fq["uid"].to_s)
-      #friend.update_groups_with_fq(fq)
     #raise "create with omniauth and add friends took #{(Time.now - begin_time)*1000}ms"
     return user
   end
@@ -66,25 +53,45 @@ class User < ActiveRecord::Base
     if group
       group.users.find(:all, :conditions => ["gender = ? AND NOT id = ?", gender, self.id], :limit => 2,  :order => "RANDOM()")
     else
-      self.friends.find(:all, :conditions => ["gender = ?", gender], :limit => 2, :order => "RANDOM()")
+      # OLD RANDOM      self.friends.find(:all, :conditions => ["gender = ?", gender], :limit => 2, :order => "RANDOM()")
+      size = self.friends.where(:gender => gender).size 
+      self.friends.where(:gender => gender).offset(rand(size)).order("RANDOM()").limit(2) [0..1] #.order("RANDOM()").offset(0).limit(2)
     end
   end
 
 
 
 
-  def self.update_win_loss_by_uid(uid1, uid2) #ELO Rating system.
-    user1 = User.find_by_uid(uid1)
-    user2 = User.find_by_uid(uid2)      
-    if !user1 or !user2 then return -1 end
+  def self.update_scores_by_uid(users, choice) #ELO Rating system.
+    def add_win(dscore)
+      self.update_attributes({:score => self.score + dscore, :win => self.win + 1})
+    end
+
+    def add_loss(dscore)
+      self.update_attributes({:score => self.score - dscore, :loss => self.loss + 1})
+    end
+  
+    #perform lookup since score cannot be guaranteed
+    user0 = User.find_by_uid(users[0].uid)
+    user1 = User.find_by_uid(users[1].uid)
+    if !user0 or !user1 then return -1 end
 
     k = 25
-    winp = 1/(10 ** ((user2.score - user1.score)/400.0) + 1)
+    winp = 1/(10 ** ((user1.score - user0.score)/400.0) + 1)
     dscore = (k * (1 - winp))
-    user1.update_attributes({:score => user1.score + dscore, :win => user1.win + 1})
-    user2.update_attributes({:score => user2.score - dscore, :loss => user2.loss + 1})
-    return dscore
-end
+
+    if choice == "left" then
+      user0.add_win(dscore)
+      user1.add_loss(dscore)
+    elsif choice == "right" then
+      user1.add_win(dscore)
+      user0.add_loss(dscore)
+    else
+      return -1
+    end
+
+    return [user0, user1, dscore]
+  end
 
   def update_groups(auth)
     #fq = FbGraph::Query.new("SELECT work_history,education_history,current_location FROM user where uid=#{auth["uid"]}").fetch(auth["credentials"]["token"])
@@ -130,5 +137,10 @@ end
         self.groups.create(:name => fq['current_location']['name'], :gid => fq['current_location']['id'].to_s, :type => 'loc')
       end
     end
+  end
+
+  #pretty formatting stuff for the views
+  def win_loss
+    "#{self.win}/#{self.win + self.loss}"
   end
 end

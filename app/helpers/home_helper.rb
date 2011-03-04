@@ -1,29 +1,30 @@
 module HomeHelper
   def large_pic(user)
-    "http://graph.facebook.com/#{user.uid}/picture?type=large"
+    image_tag("http://graph.facebook.com/#{user.uid}/picture?type=large")
   end
 
-  def left_user_name
-    session[:battle_uids][0]["name"]
+  def reg_pic(user, params = nil)
+    image_tag("http://graph.facebook.com/#{user.uid}/picture", params)
   end
 
-  def right_user_name
-    session[:battle_uids][1]["name"]
+  def left_user
+    session[:battle_uids][0]
   end
 
-  def left_user_pic
-    image_tag "http://graph.facebook.com/#{session[:battle_uids][0].uid}/picture?type=large"
+  def right_user
+    session[:battle_uids][1]
   end
 
-  def right_user_pic
-    image_tag "http://graph.facebook.com/#{session[:battle_uids][1].uid}/picture?type=large"
+  def old_left_user
+    session[:last_battle][0]
   end
 
-  def last_left_pic
-    image_tag "http://graph.facebook.com/#{session[:last_battle][0].uid}/picture?type=small" if session[:last_battle]
+  def old_right_user
+    session[:last_battle][1]
   end
 
-  def last_right_pic
-    image_tag "http://graph.facebook.com/#{session[:last_battle][1].uid}/picture?type=small" if session[:last_battle]
+  def round(score)
+    score.round.to_s
   end
+
 end

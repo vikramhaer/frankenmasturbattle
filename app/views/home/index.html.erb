@@ -17,23 +17,10 @@
 			<!-- THIS PART NEEDS TO BE FILLED IN FOR FILTERING -->
 				</div>
 				<div id="battleground" class="drop-shadow lifted">
-    <%= render "bground" %>
-</div>
-				<div id="battleground" class="drop-shadow lifted old">
-					<h2 style="text-align:center;">Last Battle</h2>
-					<div id="left">
-						<img src="http://graph.facebook.com/disquared/picture" class="battle" />
-						<p class="lastround boldit"> Di Di </p>
-						<p class="lastround"> Score: 1500 </p>
-						<p class="lastround"> Wins: 25/70 </p>
-					</div>
-					<div id="right">
-						<img src="http://graph.facebook.com/cloudedstrife/picture" class="battle" />
-						<p class="lastround boldit"> Jeff Hsu </p>
-						<p class="lastround"> Score: 1200 </p>
-						<p class="lastround"> Wins: 25/80 </p>
-					</div>
-					<div style="clear:both;"></div>
+          <%= render "bground" %>
+        </div>
+				<div id="battleground-history" class="drop-shadow lifted old">
+					<%= render "bground_history" %>
 				</div>
 			</div>
 			<div id="right-column">
