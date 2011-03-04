@@ -1,11 +1,11 @@
 <div id="left">
   <p class="name"><%= @left_user.name %> </p>
-  <%= link_to large_pic(@left_user), {:controller=>"home", :action => "battle", :choice => 'left'}, :remote => true, :id=>"left-link" %>
+  <%= link_to large_pic(@left_user, {:class=>"fixedheight"}), {:controller=>"home", :action => "battle", :choice => 'left'}, :remote => true, :id=>"left-link" %>
 </div>
 
 <div id="right">
   <p class="name"><%= @right_user.name %></p>
-  <%= link_to large_pic(@right_user), {:controller=>"home", :action=>"battle", :choice => 'right'}, :remote=>true, :id=>"right-link" %>
+  <%= link_to large_pic(@right_user, {:class=>"fixedheight"}), {:controller=>"home", :action=>"battle", :choice => 'right'}, :remote=>true, :id=>"right-link" %>
 </div>
 <div style="clear:both;"></div>
 
