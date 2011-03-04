@@ -144,7 +144,29 @@ margin: 10px;
 #battleground {
 background: #f0f0f0 url(gray.png) repeat;
 width: 590px;
-margin: 10px 10px 50px 10px;
+margin: 10px 10px 50px 10px; 
+padding: 10px;
+-webkit-box-shadow: 0 1px 2px #999;
+-moz-box-shadow: 0 1px 2px #999;
+-webkit-border-radius: 8px;
+-moz-border-radius: 8px;
+border-radius: 8px;
+text-align: center;
+background: #eee repeat;
+}
+
+#battleground-history{
+background: #f0f0f0 url(gray.png) repeat;
+width: 590px;
+margin: 10px 10px 50px 10px; 
+padding: 10px;
+-webkit-box-shadow: 0 1px 2px #999;
+-moz-box-shadow: 0 1px 2px #999;
+-webkit-border-radius: 8px;
+-moz-border-radius: 8px;
+border-radius: 8px;
+text-align: center;
+background: #eee repeat;
 }
 
 #right-column {
