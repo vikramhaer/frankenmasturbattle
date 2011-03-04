@@ -199,6 +199,7 @@ background: white;
 margin: 25px auto 0 auto;
 border-top: 2px solid #c6c6c6;
 text-align: center;
+min-height: 100px;
 }
 
 #footer ul {
