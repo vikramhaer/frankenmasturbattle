@@ -5,6 +5,10 @@ class User < ActiveRecord::Base
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user
   has_and_belongs_to_many :groups
 
+  def all_friends
+    self.friends + self.inverse_friends
+  end
+
   def self.create_with_omniauth(auth)
     create! do |user|
       user.uid = auth["uid"].to_s
@@ -13,11 +17,51 @@ class User < ActiveRecord::Base
     end
   end
 
-  def random_match(gender, group = nil)
+  def self.create_with_omniauth_and_add_friends(auth)
+    begin_time = Time.now
+    user = User.create_with_omniauth(auth)
+    current_friends_uids = user.all_friends.collect { |friend| friend.uid }
+    fbquery = "SELECT uid, name, sex, current_location FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 =#{auth["uid"]})"
+    friends = FbGraph::Query.new(fbquery).fetch(auth["credentials"]["token"]) #this might take a while...
+    filtered_friends = friends.reject{ |fq| current_friends_uids.index(fq["uid"].to_s) }
+    #filtered_friends.chunk(50).each do |batch|
+    user_batch_import = []
+    friendship_batch_import = []
+    filtered_friends.each do |fq|
+      #user_batch_import << User.new(:uid => fq["uid"].to_s, :name => fq["name"], :gender => fq["sex"])
+      friend = User.create!(:uid => fq["uid"].to_s, :name => fq["name"], :gender => fq["sex"])
+      friendship_batch_import << Friendship.new(:user_id => user.id, :friend_id => friend.id)
+    end
+    #User.import user_batch_import
+    Friendship.import friendship_batch_import
+
+    #raise (user.all_friends.collect{ | friend| friend.uid} - current_friends_uids).to_yaml
+    #friendship_batch_import = []
+    #all_friends_plus_new = user.all_friends
+    #new_friends = all_friends_plus_new.reject{ |friend| current_friends_uids.index(friend.uid) }
+    #new_friends.each do |friend|
+    #  friendship_batch_import << Friendship.new(:user_id => user.id, :friend_id => friend.id)
+    #end
+    #raise friendship_batch_import.to_yaml
+    #Friendship.import friendship_batch_import
+      #friend = User.create!(:uid => fq["uid"].to_s, :name => fq["name"], :gender => fq["sex"])
+      #user.friendships.create!(:friend_id => fq["uid"].to_s)
+      #friend.update_groups_with_fq(fq)
+    #raise "create with omniauth and add friends took #{(Time.now - begin_time)*1000}ms"
+    return user
+  end
+
+  def random_match(gender = nil, group = nil)
+    #specify opposite gender
+    if !gender
+      gender = "female"
+      gender = "male" if self.gender == "female"
+    end
+
     if group
-      group.users.find(:all, :conditions => ["gender = ? AND NOT id = ?", gender, self.id], :limit => 2,  :order => "RANDOM()", :select => "uid, name")
+      group.users.find(:all, :conditions => ["gender = ? AND NOT id = ?", gender, self.id], :limit => 2,  :order => "RANDOM()")
     else
-      self.friends.find(:all, :conditions => ["gender = ?", gender], :limit => 2, :order => "RANDOM()", :select => "uid, name")
+      self.friends.find(:all, :conditions => ["gender = ?", gender], :limit => 2, :order => "RANDOM()")
     end
   end
 

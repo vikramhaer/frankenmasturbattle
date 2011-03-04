@@ -4,6 +4,7 @@ gem 'rails', '3.0.4'
 gem 'omniauth'
 gem 'sqlite3'
 gem 'fb_graph'
+gem 'activerecord-import'
 
 # Use unicorn as the web server
 # gem 'unicorn'
