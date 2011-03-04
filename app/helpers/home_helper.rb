@@ -1,6 +1,6 @@
 module HomeHelper
-  def large_pic(user)
-    image_tag("http://graph.facebook.com/#{user.uid}/picture?type=large")
+  def large_pic(user, params = nil)
+    image_tag("http://graph.facebook.com/#{user.uid}/picture?type=large", params)
   end
 
   def reg_pic(user, params = nil)
