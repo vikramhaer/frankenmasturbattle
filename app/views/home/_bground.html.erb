@@ -1,12 +1,13 @@
 <div id="left">
-  <p class="name"><%= left_user.name %> </p>
-  <%= link_to image_tag(large_pic(left_user)), {:controller=>"home", :action => "battle", :choice => 'left'}, :remote => true, :id=>"left-link" %>
+  <p class="name"><%= left_user_name %> </p>
+  <%= link_to left_user_pic, {:controller=>"home", :action => "battle", :choice => 'left'}, :remote => true, :id=>"left-link" %>
+<%= last_left_pic %>
 </div>
 
 <div id="right">
-  <p class="name"><%= right_user.name %></p>
-  <%= link_to image_tag(large_pic(right_user)), {:controller=>"home", :action=>"battle", :choice => 'right'}, :remote=>true, :id=>"right-link" %>
+  <p class="name"><%= right_user_name %></p>
+  <%= link_to right_user_pic, {:controller=>"home", :action=>"battle", :choice => 'right'}, :remote=>true, :id=>"right-link" %>
+<%= last_right_pic %>
 </div>
-
 <div style="clear:both;"></div>
 
