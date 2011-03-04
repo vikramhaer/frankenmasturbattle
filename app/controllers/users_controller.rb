@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   def index
     @user_count = User.count
     @group_count = Group.count
-    @users = User.find(:all, :order => "score desc", :limit => 50)
+    @users = User.find(:all, :order => "score desc")
 
     respond_to do |format|
       format.html # index.html.erb
