@@ -37,6 +37,7 @@ class User < ActiveRecord::Base
 
   def login_procedure(auth)
     if self.login_count == 0
+      if self.score < 1000 then self.update_attributes(:score => 1000) end
       self.add_friends(auth)
     end
     self.update_groups(auth)
@@ -44,16 +45,26 @@ class User < ActiveRecord::Base
   end
 
   def add_friends(auth)
-    current_friends_uids = self.all_friends.collect { |friend| friend.uid }
+    friends_who_friended_you = self.all_friends.collect { |friend| friend.uid }
     fbquery = "SELECT uid, name, sex, current_location FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 =#{auth["uid"]})"
-    friends = FbGraph::Query.new(fbquery).fetch(auth["credentials"]["token"]) #this might take a while...
-    filtered_friends = friends.reject{ |fq| current_friends_uids.index(fq["uid"].to_s) }
+    fb_friends = FbGraph::Query.new(fbquery).fetch(auth["credentials"]["token"]) #this might take a while...
+
+    friends_in_the_database = User.where(:uid => fb_friends.collect{ |fq| fq["uid"].to_s }) #User objects who have uids matching one in the fbquery
+    uids_of_friends_in_the_database = friends_in_the_database.collect { |friend| friend.uid }
+
+    friends_not_in_the_database = fb_friends.reject{ |fq| uids_of_friends_in_the_database.index(fq["uid"].to_s) } #fq objects which aren't in the db
+
+    friends_who_have_not_friended_you = friends_in_the_database.reject{ |friend| friends_who_friended_you.index(friend.uid) } #User objects in the db who don't have you as a friend
 
     Crewait.start_waiting
-    filtered_friends.each do |fq|
+    friends_not_in_the_database.each do |fq|
       friend = User.crewait(:uid => fq["uid"].to_s, :name => fq["name"], :gender => fq["sex"])
       Friendship.crewait(:user_id => self.id, :friend_id => friend.id)
     end
+    friends_who_have_not_friended_you.each do |friend|
+      Friendship.crewait(:user_id => self.id, :friend_id => friend.id)
+    end
+
     Crewait.go!
     #raise "create with omniauth and add friends took #{(Time.now - begin_time)*1000}ms"
     return self
