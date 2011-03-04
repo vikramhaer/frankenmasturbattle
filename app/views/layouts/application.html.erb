@@ -21,7 +21,12 @@
 		</ul>
 		<%= image_tag("http://graph.facebook.com/#{current_user.uid}/picture" , :class=>"left userimg") %>
 <% else %>
+  <div id="right-nav">
+  <ul>
+  <li>
   <%= link_to "Sign in with Facebook", "/auth/facebook" %>
+  </li>
+  </ul>
 <% end %>
 		</div>
 	</div>

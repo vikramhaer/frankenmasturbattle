@@ -53,10 +53,6 @@ clear:both;
 
 /* ------- HEADER ------- */
 
-a:link {
-text-decoration: none;
-}
-
 #header {
 background: #3B5998;
 /* border-bottom: 1px solid white; */
@@ -73,9 +69,6 @@ text-shadow: 0px 1px 0px white;
 float: left;
 }
 
-.no-dec:visited{
-text-decoration: none;
-}
 
 #right-nav {
 float: right;
@@ -197,12 +190,12 @@ margin: 20px;
 .statbox4 {
 float: left;
 width: 200px;
-margin: 25px 20px 10px 20px;
+margin: 25px 5px 10px 10px;
 }
 
 .statbox2 {
 float: left;
-width: 440px;
+width: 400px;
 padding: 20px;
 }
 
@@ -220,10 +213,9 @@ padding: 0;
 
 .statlists li {
 clear: both;
-margin: 20px 0;
-padding: 0 0 1.8em 0;
+margin: 5px 0;
+padding: 5px 0;
 position: relative;
-border-bottom: dashed 1px #888;
 }
 
 .emph {
@@ -236,6 +228,16 @@ border-radius: 4px;
 font-size: 20px;
 }
 
+#header a:link, #header a:visited {
+color: #fff;
+text-decoration: none;
+}
+
+.statlists a:link, .statlists a:visited {
+color: #fff;
+text-decoration: none;
+}
+
 .statlists strong {
 background: #3B5998;
 color: #fff;
@@ -244,25 +246,7 @@ padding: 5px;
 -moz-border-radius: 4px; 
 border-radius: 4px;
 font-size: 20px;
-position: absolute;
-bottom: -.3em;
 left: 0;
-}
-
-.statlists em {
-background: #fff;
-padding: 0 0 0 5px;
-position: absolute;
-color: #777;
-font-size: 30px;
-bottom: -.2em;
-right: 0;
-}
-
-.statlists sup {
-font-size: 10px;
-color: #666;
-margin-left: 3px;
 }
 
 
@@ -363,8 +347,8 @@ border: 1px solid #c2c2c2;
 -webkit-border-radius:10px;
 -moz-border-radius:10px; 
 border-radius:10px;
-margin: 25px;
-padding: 10px;
+margin: 20px;
+padding: 5px;
 }
 
 #left {

@@ -1,15 +1,60 @@
-<p id="notice"><%= notice %></p>
+	<div id="top-ad">
+			<img src="http://dummyimage.com/728x90" />
+		</div>
+		<div class="user">
 
-<p>
-  <%= image_tag("http://graph.facebook.com/#{@user.uid}/picture?type=large") %>
-</p>
+<!-- <p id="notice"><%= notice %></p> -->
 
-<p>
-  <b>Name:</b>
+  <%= image_tag("http://graph.facebook.com/#{@user.uid}/picture?type=large", :class=>"left profimg") %>
+
+<p class="username left">
   <%= link_to @user.name, "http://www.facebook.com/profile.php?id=#{@user.uid}" %>
 </p>
+<div style="clear:both;"></div>
+				<div class="statbox4">
+					<div class="stattitle">Battles Voted On</div>
+					<div class="statcontent">
+						<span class="bignumber">?</span>
+					</div>
+				</div>
+				<div class="statbox4">
+					<div class="stattitle">Battles Won</div>
+					<div class="statcontent">
+						<span class="bignumber"><%= @user.win %></span>/<%= @user.win + @user.loss %>
+					</div>
+				</div>
+				<div class="statbox4">
+					<div class="stattitle">Score</div>
+					<div class="statcontent">
+						<span class="bignumber"><%= Integer(@user.score.round) %></span>
+					</div>
+				</div>
+				<div class="statbox4">
+					<div class="stattitle">Frankers</div>
+					<div class="statcontent">
+						<span class="bignumber">?</span>
+					</div>
+          <div style="clear:both;"></div>	
+				</div>
+						
+	<div class="statbox2">
+				<div class="stattitle">Network Rankings</div>
+<img src="http://chart.apis.google.com/chart?chs=400x210&cht=gm&chd=t:70" width="400" height="210" alt="" />
+				</div>
+				
+				<div class="statbox2">
+								<div class="stattitle">Networks</div>
 
-<p>
+				<ul class="statlists">
+          <% for group in @user.groups %>
+          <li><strong><%=h link_to group.name, group %></strong</li>
+          <% end %>
+				</ul>
+				</div>
+			
+			<div style="clear:both;"></div>
+ <!-- 
+  <p>
   <b>Uid:</b>
   <%= @user.uid %>
 </p>
@@ -18,6 +63,7 @@
   <b>Gender:</b>
   <%= @user.gender %>
 </p>
+-->
 
 <p>
   <b>Win:</b>
@@ -51,6 +97,9 @@
     <li>
       <%=h friend.name %>
     </li>
+<!--    <li>
+    <%= image_tag("http://graph.facebook.com/#{friend.uid}/picture") %>
+    </li>  -->
   <% end %>
   <% for friend in @user.inverse_friends %>  
     <li>
