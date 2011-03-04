@@ -14,7 +14,9 @@ class HomeController < ApplicationController
   def battle
     if params[:choice] == "left" || params["choice"] == "right"
       current_user.increment_rating_count
-      session[:last_battle] = User.update_scores_by_uid(session[:battle_uids], params[:choice]) 
+      uids = session[:battle_uids]
+      session[:battle_uids] = nil
+      session[:last_battle] = User.update_scores_by_uid(uids, params[:choice])
     end
     if @dscore == -1 then raise session[:battle_uids].to_yaml end
     @left_user, @right_user = current_user.random_match()

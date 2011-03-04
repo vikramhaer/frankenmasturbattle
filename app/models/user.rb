@@ -71,6 +71,7 @@ class User < ActiveRecord::Base
 
 
   def self.update_scores_by_uid(uids, choice) #ELO Rating system.
+    return [nil,nil] if uids == nil
     def add_win(dscore)
       self.update_attributes({:score => self.score + dscore, :win => self.win + 1})
     end
