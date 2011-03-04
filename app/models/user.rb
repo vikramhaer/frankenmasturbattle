@@ -35,10 +35,16 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.create_with_omniauth_and_add_friends(auth)
-    begin_time = Time.now
-    user = User.create_with_omniauth(auth)
-    current_friends_uids = user.all_friends.collect { |friend| friend.uid }
+  def login_procedure(auth)
+    if self.login_count == 0
+      self.add_friends(auth)
+    end
+    self.update_groups(auth)
+    self.increment_login_count
+  end
+
+  def add_friends(auth)
+    current_friends_uids = self.all_friends.collect { |friend| friend.uid }
     fbquery = "SELECT uid, name, sex, current_location FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 =#{auth["uid"]})"
     friends = FbGraph::Query.new(fbquery).fetch(auth["credentials"]["token"]) #this might take a while...
     filtered_friends = friends.reject{ |fq| current_friends_uids.index(fq["uid"].to_s) }
@@ -46,11 +52,11 @@ class User < ActiveRecord::Base
     Crewait.start_waiting
     filtered_friends.each do |fq|
       friend = User.crewait(:uid => fq["uid"].to_s, :name => fq["name"], :gender => fq["sex"])
-      Friendship.crewait(:user_id => user.id, :friend_id => friend.id)
+      Friendship.crewait(:user_id => self.id, :friend_id => friend.id)
     end
     Crewait.go!
     #raise "create with omniauth and add friends took #{(Time.now - begin_time)*1000}ms"
-    return user
+    return self
   end
 
   def random_match(gender = nil, group = nil)
