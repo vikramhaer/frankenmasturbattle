@@ -1,8 +1,8 @@
 class CreateUsers < ActiveRecord::Migration
   def self.up
     create_table :users do |t|
-      t.string :name
-      t.string :uid
+      t.string :name, :null => false
+      t.string :uid, :unique => "true", :null => false
       t.string :gender
       t.integer :login_count, :default => 0
       t.integer :rating_count, :default => 0

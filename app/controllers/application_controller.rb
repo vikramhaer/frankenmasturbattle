@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   private
 
   def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    #raise User.find(session[:user_id]).to_yaml
+    @current_user ||= User.find_by_id(session[:user_id]) if session[:user_id]
+    #session[:user_id] = nil if !@current_user
   end
 end
