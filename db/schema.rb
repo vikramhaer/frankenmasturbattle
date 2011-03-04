@@ -36,9 +36,11 @@ ActiveRecord::Schema.define(:version => 20110301043719) do
     t.string   "name"
     t.string   "uid"
     t.string   "gender"
-    t.integer  "win",        :default => 0
-    t.integer  "loss",       :default => 0
-    t.decimal  "score",      :default => 1000.0
+    t.integer  "login_count",  :default => 0
+    t.integer  "rating_count", :default => 0
+    t.integer  "win",          :default => 0
+    t.integer  "loss",         :default => 0
+    t.decimal  "score",        :default => 1000.0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
