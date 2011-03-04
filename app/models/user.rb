@@ -7,6 +7,14 @@ class User < ActiveRecord::Base
   scope :male, where("gender = ?", "male")
   scope :female, where("gender = ?", "female")
 
+  def increment_login_count
+    self.update_attributes(:login_count => self.login_count + 1)
+  end
+
+  def increment_rating_count
+    self.update_attributes(:rating_count => self.rating_count + 1)
+  end
+
   def all_friends
     self.friends | self.inverse_friends  
   end
@@ -96,6 +104,8 @@ class User < ActiveRecord::Base
   def update_groups(auth)
     #fq = FbGraph::Query.new("SELECT work_history,education_history,current_location FROM user where uid=#{auth["uid"]}").fetch(auth["credentials"]["token"])
     hash = auth['extra']['user_hash']
+    all_groups = self.groups
+
     if hash['location']
       loc_group = Group.find_by_gid(hash['location']['id'].to_s)
       if loc_group
