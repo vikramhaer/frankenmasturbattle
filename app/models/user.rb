@@ -55,14 +55,14 @@ class User < ActiveRecord::Base
     else
       # OLD RANDOM      self.friends.find(:all, :conditions => ["gender = ?", gender], :limit => 2, :order => "RANDOM()")
       size = self.friends.where(:gender => gender).size 
-      self.friends.where(:gender => gender).offset(rand(size)).order("RANDOM()").limit(2) [0..1] #.order("RANDOM()").offset(0).limit(2)
+      self.friends.where(:gender => gender).offset(rand(size)).order("RANDOM()").limit(2) [0..1]
     end
   end
 
 
 
 
-  def self.update_scores_by_uid(users, choice) #ELO Rating system.
+  def self.update_scores_by_uid(uids, choice) #ELO Rating system.
     def add_win(dscore)
       self.update_attributes({:score => self.score + dscore, :win => self.win + 1})
     end
@@ -72,8 +72,8 @@ class User < ActiveRecord::Base
     end
   
     #perform lookup since score cannot be guaranteed
-    user0 = User.find_by_uid(users[0].uid)
-    user1 = User.find_by_uid(users[1].uid)
+    user0 = User.find_by_uid(uids[0])
+    user1 = User.find_by_uid(uids[1])
     if !user0 or !user1 then return -1 end
 
     k = 25
