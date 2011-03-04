@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(:version => 20110301043719) do
     t.string   "gender"
     t.integer  "win",        :default => 0
     t.integer  "loss",       :default => 0
-    t.decimal  "score",      :default => 1600.0
+    t.decimal  "score",      :default => 1000.0
     t.datetime "created_at"
     t.datetime "updated_at"
   end

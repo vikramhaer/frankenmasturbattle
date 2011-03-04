@@ -78,7 +78,7 @@ class User < ActiveRecord::Base
     user2 = User.find_by_uid(uid2)      
     if !user1 or !user2 then return -1 end
 
-    k = 40
+    k = 25
     winp = 1/(10 ** ((user2.score - user1.score)/400.0) + 1)
     dscore = (k * (1 - winp))
     user1.update_attributes({:score => user1.score + dscore, :win => user1.win + 1})

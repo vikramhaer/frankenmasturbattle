@@ -6,7 +6,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :gender
       t.integer :win, :default => 0
       t.integer :loss, :default => 0
-      t.decimal :score, :default => 1600
+      t.decimal :score, :default => 1000
 
       t.timestamps
     end
