@@ -173,6 +173,6 @@ class User < ActiveRecord::Base
 
   #pretty formatting stuff for the views
   def win_loss
-    "#{self.win}/#{self.win + self.loss}"
+    "Wins: #{self.win} Losses: #{self.loss}"
   end
 end
