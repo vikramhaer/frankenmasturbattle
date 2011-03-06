@@ -76,15 +76,19 @@ text-align: center;
 background: #3B5998;
 /* border-bottom: 1px solid white; */
 color: #fff;
-height: 75px;
+height: 50px;
 }
 
 #header h1 {
-margin:10px;
 font-size: 40px;
 font-family: 'Lobster', Helvetica, Arial, san-serif; 
 text-shadow: 0px 1px 0px white;
 float: left;
+}
+
+#social-butts {
+margin: 15px;
+float:left;
 }
 
 #right-nav {
@@ -98,7 +102,7 @@ list-style: none;
 
 #header ul li {
 float: right;
-padding: 30px 15px 0 0;
+padding: 20px 15px 0 0;
 }
 
 a:link {
@@ -107,7 +111,7 @@ text-decoration: none;
 
 .userimg {
 float: right;
-margin: 25px 10px 0 0;
+margin: 10px 10px 0 0;
 border: 2px solid #BAD3EA;
 -webkit-border-radius: 2px;
 -moz-border-radius: 2px;
@@ -143,9 +147,9 @@ margin: 10px;
 
 #battleground {
 background: #f0f0f0 url(gray.png) repeat;
-width: 590px;
+width: 600px;
 height: 300px;
-margin: 10px 10px 50px 10px; 
+margin: 10px auto 50px auto; 
 padding: 10px;
 -webkit-box-shadow: 0 1px 2px #999;
 -moz-box-shadow: 0 1px 2px #999;
@@ -159,7 +163,7 @@ background: #eee repeat;
 #battleground-history{
 background: #f0f0f0 url(gray.png) repeat;
 width: 590px;
-margin: 10px 10px 50px 10px; 
+margin: 10px auto 20px auto; 
 padding: 10px;
 -webkit-box-shadow: 0 1px 2px #999;
 -moz-box-shadow: 0 1px 2px #999;
@@ -176,7 +180,7 @@ width: 150px;
 }
 
 .fixedheight {
-max-width: 100%;
+max-width: 200px;
 height: 200px;
 vertical-align: middle;
 }
@@ -188,6 +192,16 @@ height: 90px;
 margin: 20px auto;
 }
 
+.notice {
+width: 500px;
+margin: 5px auto;
+border: 1px solid #999;
+background: #ccc;
+padding: 5px;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+}
 
 
 /* ------- END OF MAIN RANKING AREA ------- */
@@ -271,6 +285,11 @@ font-family: 'museo 700';
 
 .clearit {
 clear:both;
+}
+
+.name {
+font-family: "museo 700";
+margin: 10px auto;
 }
 
 .username {
@@ -456,10 +475,60 @@ margin: 20px;
 padding: 5px;
 }
 
+.battlesquare {
+background: white;
+height: 250px;
+-webkit-border-radius:10px;
+-moz-border-radius:10px; 
+border-radius:10px;
+}
+
+.battlesquare-old {
+background: white;
+padding: 10px;
+height: 100px;
+width: 200px;
+-webkit-border-radius:10px;
+-moz-border-radius:10px; 
+border-radius:10px;
+}
+
 #left {
+
 float: left;
 width: 250px;
 margin: 10px;
+}
+
+#left-old {
+float: left;
+width: 180px;
+margin: 10px;
+}
+
+#mid-old{
+float: left;
+width: 150px;
+margin: 50px auto;
+text-align: center;
+font-size: 25px;
+font-family: "museo 700"
+}
+
+#right-old {
+
+float: right;
+width: 180px;
+margin: 10px;
+}
+
+#mid {
+float: left;
+width: 60px;
+margin: 75px auto;
+text-align: center;
+font-size: 25px;
+font-family: "museo 700"
 }
 
 #right {
