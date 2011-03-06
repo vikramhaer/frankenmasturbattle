@@ -1,5 +1,4 @@
-<h1>Ranking#index</h1>
-<p>Find me in app/views/ranking/index.html.erb</p>
+
   <div class="statbox1">
 				<div class="stattitle">Hottest Global Rankings </div>
         <% for user in @global_males %>
@@ -9,7 +8,7 @@
 				<p class="boldit score"><%=h Integer(user.score.round) %></p>
 				</div>
         <% end %>
-        <div class="friend-box"><h3> See Global Hottest Males </h3></div>
+        <div class="friend-box"><h3> See More Hot Global Males </h3></div>
         <% for user in @global_females %>
 				<div class="friend-box">
 				<%= image_tag("http://graph.facebook.com/#{user.uid}/picture", :class=>"battle") %>
@@ -17,7 +16,7 @@
 				<p class="boldit score"><%=h Integer(user.score.round) %></p>
 				</div>
         <% end %>
-        <div class="friend-box"><h3> See Global Hottest Females </h3></div>
+        <div class="friend-box"><h3> See More Hot Global Females </h3></div>
         <div style="clear:both;"></div>
 	</div>
 
@@ -30,7 +29,7 @@
 				<p class="boldit score"><%=h Integer(user.score.round) %></p>
 				</div>
         <% end %>
-        <div class="friend-box"><h3> See Hottest Male Friends </h3></div>
+        <div class="friend-box"><h3> See More Hottest Male Friends </h3></div>
         <% for user in @friend_females %>
 				<div class="friend-box">
 				<%= image_tag("http://graph.facebook.com/#{user.uid}/picture", :class=>"battle") %>
@@ -38,12 +37,12 @@
 				<p class="boldit score"><%=h Integer(user.score.round) %></p>
 				</div>
         <% end %>
-        <div class="friend-box"><h3> See Hottest Female Friends </h3></div>
+        <div class="friend-box"><h3> See More Hottest Female Friends </h3></div>
         <div style="clear:both;"></div>
 	</div>
   
   <div class="statbox1">
-				<div class="stattitle">Hottest Global Rankings </div>
+				<div class="stattitle">Hottest Group Rankings </div>
         <% for user in @global_males %>
 				<div class="friend-box">
 				<%= image_tag("http://graph.facebook.com/#{user.uid}/picture", :class=>"battle") %>
