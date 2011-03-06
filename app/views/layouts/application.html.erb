@@ -24,6 +24,13 @@
 			<li><%= link_to "Sign Out", signout_path %></li>
 		<!--	<li><%= link_to "Start Franking", root_path %></li> -->
 			<li><%= link_to "Rankings", rankings_path %></li>
+        <ul>
+          <li>Global</li>
+          <li>Friends</li>
+          <li>Berkeley</li>
+          <li>Le Bocage International School</li>
+          <li>UC Berkeley</li>
+        </ul>
 			<li><%= link_to current_user.name, current_user %></li>
 		</ul>
 		<%= image_tag("http://graph.facebook.com/#{current_user.uid}/picture" , :class=>"left userimg") %>
