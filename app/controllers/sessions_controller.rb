@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
     user = User.find_by_uid(auth["uid"]) || User.create_with_omniauth(auth)
     user.login_procedure(auth)
     session[:user_id] = user.id
-    redirect_to user, :notice => "Signed in!"
+    redirect_to root_path, :notice => "Signed in!"
   end
 
   def destroy
