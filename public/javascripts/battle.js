@@ -1,10 +1,10 @@
 function Choose(item) {
-  new Ajax.Request('/home/battle', {
+  new Ajax.Request('/battle_update', {
     method: 'get',
     parameters: {choice: item}
   });
   //alert("You picked " + item);
-  //$.get("/home/battle", { choice: item });
+  //$.get("/battle_update", { choice: item });
 }
 
 var lastKeyPressTime = 0;

@@ -1,0 +1,27 @@
+<%= javascript_include_tag "battle" %>
+
+  <% if current_user %>
+	
+			<div id="left-column">
+				<div class="ad-col">
+          <%= render "left-ad" %>
+				</div>
+			</div>
+			<div id="main">
+				<div id="battleground">
+          <%= render "bground" %>
+
+        </div>
+				<div id="battleground-history" class="old">
+					<%= render "bground_history" %>
+				</div>
+			</div>
+			<div id="right-column">
+				<div class="ad-col">
+          <%= render "right-ad" %>
+				</div>
+			</div>
+			<div style="clear:both;"></div>
+  <% else %>
+      <%= render "splash" %>
+  <% end %>

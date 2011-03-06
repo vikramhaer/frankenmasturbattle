@@ -13,20 +13,31 @@ class HomeController < ApplicationController
   end
 
   def index
-    if current_user
-        users = current_user.random_match()
-        @left_user = users[0]
-        @right_user = users[1]
-        session[:battle_uids] = [users[0].uid, users[1].uid]
-        session[:last_battle] = nil
-    end
+      redirect_to splash_path
+    #respond_to do |format|
+    #  format.html
+    #  format.js { render :layout=>false }
+    #end
+  end
+
+  def splash
     respond_to do |format|
       format.html
-      format.js { render :layout=>false }
+    end
+  end
+
+  def battle
+    users = current_user.random_match()
+    @left_user = users[0]
+    @right_user = users[1]
+    session[:battle_uids] = [users[0].uid, users[1].uid]
+    session[:last_battle] = nil
+    respond_to do |format|
+      format.html
     end
   end
   
-  def battle
+  def battle_update
     if params[:choice] == "left" || params["choice"] == "right"
       current_user.increment_rating_count
       uids = session[:battle_uids]
