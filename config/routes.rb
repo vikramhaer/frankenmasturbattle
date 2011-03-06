@@ -1,29 +1,29 @@
 Masterater::Application.routes.draw do
   get "rankings/global"
-
   get "rankings/friends"
-
   get "rankings/groups"
-
   match "rankings" => "rankings#index"
-
   match 'rankings/groups/:id' => 'groups#show'
 
   resources :groups
 
-  get "user/index"
-  
+  get "user/index"  
   get "user/create"
-
   get "user/destroy"
-
   get "user/show"
-  match "home/battle", :via=>[:get, :post]
-  get "home/index"
-  root :to => "home#index"
-  match "/auth/:provider/callback" => "sessions#create"
-  match "/signout" => "sessions#destroy", :as => :signout
   resources :users
+
+  match "/about" => "home#about"
+  match "/privacy" => "home#privacy"
+  match "home/battle", :via=>[:get, :post]
+
+  get "home/index"
+
+  root :to => "home#index"
+
+  match "/auth/:provider/callback" => "sessions#create"
+
+  match "/signout" => "sessions#destroy", :as => :signout
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

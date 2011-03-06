@@ -1,4 +1,17 @@
 class HomeController < ApplicationController
+
+  def about
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def privacy
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def index
     if current_user
         users = current_user.random_match()
