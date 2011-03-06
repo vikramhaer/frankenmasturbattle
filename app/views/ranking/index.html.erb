@@ -1,46 +1,64 @@
 <h1>Ranking#index</h1>
 <p>Find me in app/views/ranking/index.html.erb</p>
-    <table>
-      <tr>
-      <tr><th>Hottest global males</th></tr>
-      <tr>
-        <th>Name</th>
-        <th>Uid</th>
-        <th>Gender</th>
-        <th>Win</th>
-        <th>Loss</th>
-        <th>Score</th>
-        <th></th>
-        <th></th>
-        <th></th>
-      </tr>
+  <div class="statbox1">
+				<div class="stattitle">Hottest Global Rankings </div>
+        <% for user in @global_males %>
+				<div class="friend-box">
+				<%= image_tag("http://graph.facebook.com/#{user.uid}/picture", :class=>"battle") %>
+				<p class="boldit lastround"><%=h user.name %></p>
+				<p class="boldit score"><%=h Integer(user.score.round) %></p>
+				</div>
+        <% end %>
+        <div class="friend-box"><h3> See Global Hottest Males </h3></div>
+        <% for user in @global_females %>
+				<div class="friend-box">
+				<%= image_tag("http://graph.facebook.com/#{user.uid}/picture", :class=>"battle") %>
+				<p class="boldit lastround"><%=h user.name %></p>
+				<p class="boldit score"><%=h Integer(user.score.round) %></p>
+				</div>
+        <% end %>
+        <div class="friend-box"><h3> See Global Hottest Females </h3></div>
+        <div style="clear:both;"></div>
+	</div>
 
-    <% @global_males.each do |user| %>
-      <tr>
-        <td><%= user.name %></td>
-        <td><%= user.uid %></td>
-        <td><%= user.gender %></td>
-        <td><%= user.win %></td>
-        <td><%= user.loss %></td>
-        <td><%= user.score %></td>
-      </tr>
-    <% end %>
-      <tr>
-        <th>Hottest global females</th>
-        <th></th>
-        <th></th>
-        <th></th>
-      </tr>
-
-    <% @global_females.each do |user| %>
-      <tr>
-        <td><%= user.name %></td>
-        <td><%= user.uid %></td>
-        <td><%= user.gender %></td>
-        <td><%= user.win %></td>
-        <td><%= user.loss %></td>
-        <td><%= user.score %></td>
-      </tr>
-    <% end %>
-  </table>
-
+  <div class="statbox1">
+				<div class="stattitle">Hottest Friends </div>
+        <% for user in @friend_males %>
+				<div class="friend-box">
+				<%= image_tag("http://graph.facebook.com/#{user.uid}/picture", :class=>"battle") %>
+				<p class="boldit lastround"><%=h user.name %></p>
+				<p class="boldit score"><%=h Integer(user.score.round) %></p>
+				</div>
+        <% end %>
+        <div class="friend-box"><h3> See Hottest Male Friends </h3></div>
+        <% for user in @friend_females %>
+				<div class="friend-box">
+				<%= image_tag("http://graph.facebook.com/#{user.uid}/picture", :class=>"battle") %>
+				<p class="boldit lastround"><%=h user.name %></p>
+				<p class="boldit score"><%=h Integer(user.score.round) %></p>
+				</div>
+        <% end %>
+        <div class="friend-box"><h3> See Hottest Female Friends </h3></div>
+        <div style="clear:both;"></div>
+	</div>
+  
+  <div class="statbox1">
+				<div class="stattitle">Hottest Global Rankings </div>
+        <% for user in @global_males %>
+				<div class="friend-box">
+				<%= image_tag("http://graph.facebook.com/#{user.uid}/picture", :class=>"battle") %>
+				<p class="boldit lastround"><%=h user.name %></p>
+				<p class="boldit score"><%=h Integer(user.score.round) %></p>
+				</div>
+        <% end %>
+        <div class="friend-box"><h3> See Global Hottest Males </h3></div>
+        <% for user in @global_females %>
+				<div class="friend-box">
+				<%= image_tag("http://graph.facebook.com/#{user.uid}/picture", :class=>"battle") %>
+				<p class="boldit lastround"><%=h user.name %></p>
+				<p class="boldit score"><%=h Integer(user.score.round) %></p>
+				</div>
+        <% end %>
+        <div class="friend-box"><h3> See Global Hottest Males </h3></div>
+        <div style="clear:both;"></div>
+	</div>
