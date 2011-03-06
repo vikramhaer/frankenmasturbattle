@@ -1,12 +1,12 @@
 <div class="notice">Use your arrow keys or click on the image to vote on who's hotter! </div>
-<div id="left" class="battlesquare">
+<div id="left" class="battlesquare hoverable">
   <p class="name"><%= @left_user.name %> </p>
   <%= link_to large_pic(@left_user, {:class=>"fixedheight"}), {:controller=>"home", :action => "battle", :choice => 'left'}, :remote => true, :id=>"left-link" %>
 </div>
 <div id="mid">
 VS.
 </div>
-<div id="right" class="battlesquare">
+<div id="right" class="battlesquare hoverable">
   <p class="name"><%= @right_user.name %></p>
   <%= link_to large_pic(@right_user, {:class=>"fixedheight"}), {:controller=>"home", :action=>"battle", :choice => 'right'}, :remote=>true, :id=>"right-link" %>
 </div>

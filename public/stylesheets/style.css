@@ -179,9 +179,15 @@ float: right;
 width: 150px;
 }
 
+.hoverable:hover {
+cursor: pointer;
+background: #3B5998;
+color: #fff;
+}
+
 .fixedheight {
 max-width: 200px;
-height: 200px;
+max-height: 200px;
 vertical-align: middle;
 }
 
