@@ -11,6 +11,7 @@ font-size:15px;
 
 a:link, a:visited {
 color: #000;
+text-decoration: none;
 }
 
 @font-face {
@@ -56,8 +57,7 @@ float:right;
 clear:both;
 }
 
-/* ------- HEADER ------- */
-
+/* ------- HOME PAGE STUFF ------- */
 #homehead  h1{
 font-size: 125px;
 color: #000;
@@ -67,6 +67,20 @@ margin: -20px 0;
 text-shadow: 2px 2px 5px #999;
 }
 
+.notification {
+width: 900px;
+margin: 15px auto 25px 0;
+padding: 10px;
+-webkit-box-shadow: 0 1px 2px #999;
+-moz-box-shadow: 0 1px 2px #999;
+-webkit-border-radius: 8px;
+-moz-border-radius: 8px;
+border-radius: 8px;
+text-align: center;
+background: #eee repeat;
+}
+
+/* Used for podium image on logged out homepage */
 .smaller {
 width: 250px;
 }
@@ -77,9 +91,52 @@ font-family: 'lobster', helvetica, arial, san-serif;
 text-align: center;
 }
 
+.button {
+-webkit-border-radius: 15px;
+-moz-border-radius: 15px;
+border-radius: 15px;
+padding: 10px 25px;
+background: #246;
+color: #fff;
+font-size: 20px;
+text-shadow: 0px 1px 0px #5C9FC0;
+-webkit-box-shadow: 0 0 5px #5C9FC0, 0 0 6px #5C9FC0;
+}
+
+.smallbutton {
+-webkit-border-radius: 10px;
+-moz-border-radius: 10px;
+border-radius: 10px;
+padding: 5px 15px;
+background: #ccc;
+color: #000;
+font-size: 20px;
+-webkit-box-shadow: 0px 1px 0px white;
+}
+
+#buttonhold {
+margin-top: 25px;
+margin-bottom: 30px;
+}
+
+#steps {
+width: 280px;
+float:left;
+padding: 10px;
+}
+
+.step {
+margin-top: 10px;
+font-family: 'museo 700';
+}
+
+/* ------- END OF HOME PAGE STUFF -------- */
+
+/* ------- HEADER ------- */
+
 #header {
 background: #3B5998;
-/* border-bottom: 1px solid white; */
+border-bottom: 1px solid #ccc;
 color: #fff;
 height: 50px;
 }
@@ -101,16 +158,6 @@ float: right;
 width: 400px;
 }
 
-#right-nav li ul {
-list-style: none;
-position: absolute;
-left: -9999em;
-}
-
-#right-nav li:hover ul{
-left: 0;
-}
-
 #right-nav ul {
 list-style: none;
 float: left;
@@ -120,10 +167,6 @@ padding-left: 5px;
 #header ul li {
 float: left;
 padding: 20px 15px 0 0;
-}
-
-a:link {
-text-decoration: none;
 }
 
 .userimg {
@@ -249,62 +292,7 @@ margin-right: 10px;
 display: inline;
 }
 
-/* ------- HOME PAGE STUFF ------- */
-.notification {
-width: 900px;
-margin: 15px auto 25px 0;
-padding: 10px;
--webkit-box-shadow: 0 1px 2px #999;
--moz-box-shadow: 0 1px 2px #999;
--webkit-border-radius: 8px;
--moz-border-radius: 8px;
-border-radius: 8px;
-text-align: center;
-background: #eee repeat;
-}
 
-.button {
--webkit-border-radius: 15px;
--moz-border-radius: 15px;
-border-radius: 15px;
-padding: 10px 25px;
-background: #246;
-color: #fff;
-font-size: 20px;
-text-shadow: 0px 1px 0px #5C9FC0;
--webkit-box-shadow: 0 0 5px #5C9FC0, 0 0 6px #5C9FC0;
-}
-
-.button:hover, .smallbutton:hover { text-decoration: none; -webkit-box-shadow: 0 0 3px #5C9FC0, 0 0 6px #5C9FC0; }
-
-.smallbutton {
--webkit-border-radius: 10px;
--moz-border-radius: 10px;
-border-radius: 10px;
-padding: 5px 15px;
-background: #ccc;
-color: #000;
-font-size: 20px;
--webkit-box-shadow: 0px 1px 0px white;
-}
-
-#buttonhold {
-margin-top: 25px;
-margin-bottom: 30px;
-}
-
-#steps {
-width: 280px;
-float:left;
-padding: 10px;
-}
-
-.step {
-margin-top: 10px;
-font-family: 'museo 700';
-}
-
-/* ------- END OF HOME PAGE STUFF -------- */
 
 .clearit {
 clear:both;
