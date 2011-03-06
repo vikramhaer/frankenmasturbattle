@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  #before_filter :authorize, :only => [:battle, :battle_update]
+  skip_before_filter :authenticate
 
   def about
     respond_to do |format|
@@ -13,15 +13,12 @@ class HomeController < ApplicationController
     end
   end
 
-  def index
-      redirect_to splash_path
-    #respond_to do |format|
-    #  format.html
-    #  format.js { render :layout=>false }
-    #end
-  end
+  def index #this is the splash page
+    if current_user then 
+      redirect_to battle_path #if logged in just go to battle
+      return
+    end
 
-  def splash
     respond_to do |format|
       format.html
     end

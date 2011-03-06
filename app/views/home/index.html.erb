@@ -1,1 +1,38 @@
-stick invite code here
+  <div id="homehead">
+	<div id="wrapper">
+		<h1>getFrankd</h1>
+    <p class="tagline">Where do you Frank?</p>
+
+	</div>
+  </div>
+  <div id="content">
+	<div id="wrapper">
+		<div class="notification">
+    <h2>Rank your friends based on their hotness.</h2>
+    <h2>Find out how hot your friends think you are.</h2>
+    <%= image_tag("/images/podium.png" , :class=>"smaller") %>
+    <div id="buttonhold"><span class="button"><%= link_to "Sign in with Facebook", "/auth/facebook" %></span></div>
+     <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FGetFrankd%2F167851896596886&amp;layout=button_count&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:21px;" allowTransparency="true"></iframe>
+     <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.getFrankd.com" data-text="I've been Frankd!" data-count="horizontal" data-via="getFrankd">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+		</div>
+		<div class="notification">
+			<div id="steps" class="1">
+			<h2>Step 1 </h2>
+			<p class="step">Sign in up with Facebook and invite your friends. The more the merrier! </p>
+      <%= image_tag("/images/friends.png") %>
+      </div>
+			<div id="steps" class="1">
+			<h2>Step 2 </h2>
+			<p class="step">Franking is simple. Left or right? Use your arrow keys to decide the victor!</p>
+      <%= image_tag("/images/judge.png") %>
+			</div>
+			<div id="steps" class="1">
+			<h2>Step 3</h2>
+			<p class="step">Battle of the networks! Which groups have the hottest people?</p>
+
+      <%= image_tag("/images/versus.png") %>
+			</div>	
+<div style="clear:both;"></div>		
+		</div>
+	</div>
+  </div>

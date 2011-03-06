@@ -13,12 +13,11 @@ Masterater::Application.routes.draw do
   get "user/show"
   resources :users
 
-  match "splash" => "home#splash"
   match "/about" => "home#about"
   match "/privacy" => "home#privacy"
   match "/battle_update" => "home#battle_update", :via=>[:get, :post]
 
-  get "home/index"
+  #get "home/index"
   match "/battle" => "home#battle"
 
   root :to => "home#index"
