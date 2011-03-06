@@ -1,18 +1,12 @@
 <% if session[:last_battle] %>
 
-  <div id="left-old" class="battlesquare-old hoverable">
-	  <%= reg_pic(old_left_user, {:class => "battle"}) %>
-	  <p class="lastround boldit"> <%= old_left_user.name %> </p>
-	  <p class="lastround"> Score: <%= old_left_user.score.to_i %> </p>
-	  <p class="lastround"> <%= old_left_user.win_loss %> </p>
-  </div>
+<div id="left-old">
+  <%= user_tile(old_left_user) %>
+</div>
   <div id="mid-old">Last Battle</div>
-  <div id="right-old" class="battlesquare-old hoverable">
-	  <%= reg_pic(old_right_user, {:class => "battle"}) %>
-	  <p class="lastround boldit"> <%= old_right_user.name %> </p>
-	  <p class="lastround"> Score: <%= old_right_user.score.to_i %> </p>
-	  <p class="lastround"> <%= old_right_user.win_loss %> </p>
-  </div>
+<div id="right-old">
+  <%= user_tile(old_right_user) %>
+</div>
 
 <% end %>
 

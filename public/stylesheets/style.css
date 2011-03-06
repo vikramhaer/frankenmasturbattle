@@ -1,11 +1,16 @@
 * {
 margin: 0 auto;
+padding: 0;
 }
 
 body {
 background: #fff;
 font-family: "Museo 300","Helvetica Neue (TT)","Helvetica Neue", Helvetica, Arial, san-serif; 
 font-size:15px;
+}
+
+a:link, a:visited {
+color: #000;
 }
 
 @font-face {
@@ -87,7 +92,7 @@ float: left;
 }
 
 #social-butts {
-margin: 15px;
+margin: 15px 0 0 50px;;
 float:left;
 }
 
@@ -97,21 +102,23 @@ width: 400px;
 }
 
 #right-nav li ul {
+list-style: none;
 position: absolute;
-width: 10em;
-left: -999em;
+left: -9999em;
 }
 
 #right-nav li:hover ul{
-left: auto;
+left: 0;
 }
 
-ul {
+#right-nav ul {
 list-style: none;
+float: left;
+padding-left: 5px;
 }
 
 #header ul li {
-float: right;
+float: left;
 padding: 20px 15px 0 0;
 }
 
@@ -120,8 +127,7 @@ text-decoration: none;
 }
 
 .userimg {
-float: right;
-margin: 10px 10px 0 0;
+margin: 10px 0 0 0;
 border: 2px solid #BAD3EA;
 -webkit-border-radius: 2px;
 -moz-border-radius: 2px;
@@ -196,6 +202,7 @@ color: #fff;
 }
 
 .fixedheight {
+margin-top: 5px;
 max-width: 200px;
 max-height: 200px;
 vertical-align: middle;
@@ -373,7 +380,6 @@ color: #fff;
 text-decoration: none;
 }
 
-
 .statlists a:link, .statlists a:visited {
 color: #fff;
 text-decoration: none;
@@ -421,6 +427,7 @@ font-size: 90px;
 
 .friend-box {
 float:left;
+background: white;
 border: 1px solid #BAD3EA;
 -webkit-border-radius:5px;
 -moz-border-radius:5px; 
@@ -492,19 +499,13 @@ margin: 20px;
 padding: 5px;
 }
 
+.battlepic {
+height: 210px;
+}
+
 .battlesquare {
 background: white;
 height: 250px;
--webkit-border-radius:10px;
--moz-border-radius:10px; 
-border-radius:10px;
-}
-
-.battlesquare-old {
-background: white;
-padding: 10px;
-height: 100px;
-width: 200px;
 -webkit-border-radius:10px;
 -moz-border-radius:10px; 
 border-radius:10px;
@@ -519,13 +520,13 @@ margin: 10px;
 
 #left-old {
 float: left;
-width: 180px;
+width: 150px;
 margin: 10px;
 }
 
 #mid-old{
 float: left;
-width: 150px;
+width: 250px;
 margin: 50px auto;
 text-align: center;
 font-size: 25px;
@@ -533,9 +534,8 @@ font-family: "museo 700"
 }
 
 #right-old {
-
 float: right;
-width: 180px;
+width: 150px;
 margin: 10px;
 }
 
