@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+  #before_filter :authorize, :only => [:battle, :battle_update]
 
   def about
     respond_to do |format|
