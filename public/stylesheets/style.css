@@ -183,6 +183,10 @@ width: 30px;
 
 /* ------- MAIN AREA ------- */
 
+.submittable {
+
+}
+
 #content {
 background: #fff;
 }

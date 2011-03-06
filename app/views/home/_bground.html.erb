@@ -16,5 +16,8 @@ VS.
   <p class="name"><%= @right_user.name %></p>
 </div>
 <div style="clear:both;"></div>
- 
-
+<%= form_tag '/somethingwrong', :remote => true, :class => 'submittable' do %>
+  <%= check_box_tag 'gender', 'male' %> male
+  <%= check_box_tag 'gender', 'female' %> female
+  <%= select_tag 'networks', options_from_collection_for_select(current_user.groups, "id", "name") %>
+<% end %>

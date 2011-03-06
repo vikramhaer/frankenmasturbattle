@@ -12,15 +12,6 @@ function OptionSelect(gender, network) {
     method: 'get',
     parameter: {gender = gender, network = network});
 }
-
-$("input[name='gender']").change(
-  funcation() {
-    if ($("input[@name='gender']:checked").val() == 'male')
-      //WHAT SHOULD IT DO?!
-    else
-      //HANDLE THE FEMALE CASE
-});    
-      
       
 var lastKeyPressTime = 0;
 $(document).onkeydown = function(event) {
