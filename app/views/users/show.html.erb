@@ -12,13 +12,13 @@
 				<div class="statbox4">
 					<div class="stattitle">Battles Voted On</div>
 					<div class="statcontent">
-						<span class="bignumber">?</span>
+						<span class="bignumber"><%= @user.rating_count %></span>
 					</div>
 				</div>
 				<div class="statbox4">
 					<div class="stattitle">Battles Won</div>
 					<div class="statcontent">
-						<span class="bignumber"><%= @user.win %></span>/<%= @user.win + @user.loss %>
+						<span class="bignumber"><%= @user.win %></span>/<%= @user.loss %>
 					</div>
 				</div>
 				<div class="statbox4">
