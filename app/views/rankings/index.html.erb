@@ -4,11 +4,11 @@
         <% for user in @global_males %>
         <%= user_tile(user) %>
         <% end %>
-        <div class="friend-box"><h3> See More Hot Global Males </h3></div>
+        <%= see_more_box("See More Hot Global Males", rankings_global_path) %>
         <% for user in @global_females %>
 				<%= user_tile(user) %>
         <% end %>
-        <div class="friend-box"><h3> See More Hot Global Females </h3></div>
+        <%= see_more_box("See More Hot Global Females", rankings_global_path) %>
         <div style="clear:both;"></div>
 	</div>
 
@@ -17,11 +17,11 @@
         <% for user in @friend_males %>
 				<%= user_tile(user) %>
         <% end %>
-        <div class="friend-box"><h3> See More Hottest Male Friends </h3></div>
+        <%= see_more_box("See More Hot Male Friends", rankings_friends_path) %>
         <% for user in @friend_females %>
 				<%= user_tile(user) %>
         <% end %>
-        <div class="friend-box"><h3> See More HotFemale Friends </h3></div>
+        <%= see_more_box("See More Hot Female Friends", rankings_friends_path) %>
         <div style="clear:both;"></div>
 	</div>
   
