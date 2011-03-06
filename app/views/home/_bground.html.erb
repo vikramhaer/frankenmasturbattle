@@ -1,3 +1,4 @@
+<%= javascript_include_tag "battle" %>
 <div class="notice">Use your arrow keys or click on the image to vote on who's hotter! </div>
 <div id="left" class="battlesquare hoverable">
   <div class="battlepic">
@@ -16,8 +17,8 @@ VS.
   <p class="name"><%= @right_user.name %></p>
 </div>
 <div style="clear:both;"></div>
-<%= form_tag '/somethingwrong', :remote => true, :class => 'submittable' do %>
-  <%= check_box_tag 'gender', 'male' %> male
-  <%= check_box_tag 'gender', 'female' %> female
-  <%= select_tag 'networks', options_from_collection_for_select(current_user.groups, "id", "name") %>
+<%= form_tag '/battle_update', :remote => true, :id => "battle_options", :method=> "get" do %>
+  <%= check_box_tag 'gender', 'male', @options["gender"] == 'male' %> male
+  <%= check_box_tag 'gender', 'female', @options["gender"] != 'male' %> female
+  <%= select_tag 'network', options_from_collection_for_select(current_user.groups, "id", "name", @options["network"]) %>
 <% end %>

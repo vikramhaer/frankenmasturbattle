@@ -25,6 +25,7 @@ class HomeController < ApplicationController
   end
 
   def battle
+    @options = {"gender" => current_user.gender, "network" => current_user.groups.first.id.to_s } # fix this in the morning
     users = current_user.random_match()
     @left_user = users[0]
     @right_user = users[1]
@@ -36,11 +37,15 @@ class HomeController < ApplicationController
   end
   
   def battle_update
+    @options = {"gender" => current_user.gender, "network" => current_user.groups.first.id.to_s } #fix this in the morning
     if params[:choice] == "left" || params["choice"] == "right"
       current_user.increment_rating_count
       uids = session[:battle_uids]
       session[:last_battle] = User.update_scores_by_uid(uids, params[:choice])
     end
+    #if params["gender"] || params["network"]
+    #  @options = {"gender" => params["gender"], "network" => params["network"]}
+    #end
     if @dscore == -1 then raise session[:battle_uids].to_yaml end
     @left_user, @right_user = current_user.random_match()
     session[:battle_uids] = [@left_user.uid, @right_user.uid]

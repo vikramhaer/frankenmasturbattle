@@ -10,7 +10,8 @@ function Choose(item) {
 function OptionSelect(gender, network) {
   new Ajax.Request('/battle_update', {
     method: 'get',
-    parameter: {gender = gender, network = network});
+    parameter: {gender: gender, network: network}
+  });
 }
       
 var lastKeyPressTime = 0;
@@ -27,3 +28,18 @@ $(document).onkeydown = function(event) {
     lastKeyPressTime = thisKeyPressTime;
     }      
 };
+
+document.observe("dom:loaded", function() {
+  $('battle_options').observe('change', function(event) {
+    $("battle_options").request({
+      method: 'get',
+      parameter: {option_select: true}
+      });
+    });
+});
+//new Form.Observer("battle_options", 0.2, function(form, value) {
+//  $("battle_options").request({
+//    method: 'get',
+//    onComplete: function(){ alert('Form data saved!') }
+//  });
+//});
