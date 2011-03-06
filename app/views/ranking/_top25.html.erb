@@ -1,0 +1,51 @@
+Hottest males
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Uid</th>
+    <th>Gender</th>
+    <th>Win</th>
+    <th>Loss</th>
+    <th>Score</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @top_males.each do |user| %>
+  <tr>
+    <td><%= user.name %></td>
+    <td><%= user.uid %></td>
+    <td><%= user.gender %></td>
+    <td><%= user.win %></td>
+    <td><%= user.loss %></td>
+    <td><%= user.score %></td>
+  </tr>
+<% end %>
+</table>
+
+Hottest Females
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Uid</th>
+    <th>Gender</th>
+    <th>Win</th>
+    <th>Loss</th>
+    <th>Score</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @top_females.each do |user| %>
+  <tr>
+    <td><%= user.name %></td>
+    <td><%= user.uid %></td>
+    <td><%= user.gender %></td>
+    <td><%= user.win %></td>
+    <td><%= user.loss %></td>
+    <td><%= user.score %></td>
+  </tr>
+<% end %>
+</table>

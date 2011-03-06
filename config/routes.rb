@@ -1,8 +1,16 @@
 Masterater::Application.routes.draw do
+  get "ranking/global"
+
+  get "ranking/friends"
+
+  match "ranking" => "ranking#index"
+
+  match 'ranking/group/:id' => "ranking#group"
+
   resources :groups
 
   get "user/index"
-
+  
   get "user/create"
 
   get "user/destroy"

@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :groups
   scope :male, where("gender = ?", "male")
   scope :female, where("gender = ?", "female")
+  scope :top25, order("score desc").limit(25)
+  scope :top5, order("score desc").limit(5)
 
   def increment_login_count
     lg = self.login_count + 1
