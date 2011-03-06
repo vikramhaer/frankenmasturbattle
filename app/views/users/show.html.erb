@@ -57,11 +57,11 @@
   <div class="statbox1">
 				<div class="stattitle">Hottest Friends </div>
         <% for friend in @user_friends %>
-				<div class="friend-box">
-				<%= image_tag("http://graph.facebook.com/#{friend.uid}/picture", :class=>"battle") %>
-				<p class="boldit lastround"><%=h friend.name %></p>
-				<p class="boldit score"><%=h Integer(friend.score.round) %></p>
-				</div>
+            <div class="friend-box" onclick="location.href='<%=h "/users/#{friend.id}" %>';">
+            <%= image_tag("http://graph.facebook.com/#{friend.uid}/picture", :class=>"battle") %>
+            <p class="boldit lastround"><%=h friend.name %></p>
+            <p class="boldit score"><%=h Integer(friend.score.round) %></p>
+            </div>
         <% end %>
 					<div style="clear:both;"></div>
 	</div>
