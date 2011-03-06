@@ -32,11 +32,27 @@ url("fonts/Museo700-Regular.woff") format("woff"),
 url("fonts/Museo700-Regular.svg#Museo 700") format("svg");
 }
 
+h1 {
+margin: 20px 0;
+}
+
+p {
+margin: 20px 0
+}
+
 h2 {
 font-family: 'Museo 700';
 font-size: 25px;
 margin: 4px;
 text-shadow: 0px 1px 0px white;
+}
+
+ul {
+list-style: none
+}
+
+ul li {
+padding-left: 10px;
 }
 
 #wrapper {
@@ -142,6 +158,7 @@ height: 50px;
 }
 
 #header h1 {
+margin: 1px 0 0 0;
 font-size: 40px;
 font-family: 'Lobster', Helvetica, Arial, san-serif; 
 text-shadow: 0px 1px 0px white;
@@ -211,7 +228,7 @@ margin: 10px;
 #battleground {
 background: #f0f0f0 url(gray.png) repeat;
 width: 600px;
-height: 300px;
+height: 330px;
 margin: 10px auto 50px auto; 
 padding: 10px;
 -webkit-box-shadow: 0 1px 2px #999;
