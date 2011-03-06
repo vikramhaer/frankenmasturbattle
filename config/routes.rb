@@ -1,11 +1,13 @@
 Masterater::Application.routes.draw do
-  get "ranking/global"
+  get "rankings/global"
 
-  get "ranking/friends"
+  get "rankings/friends"
 
-  match "ranking" => "ranking#index"
+  get "rankings/groups"
 
-  match 'ranking/group/:id' => "ranking#group"
+  match "rankings" => "rankings#index"
+
+  match 'rankings/groups/:id' => 'groups#show'
 
   resources :groups
 

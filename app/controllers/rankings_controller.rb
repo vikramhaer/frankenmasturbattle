@@ -1,4 +1,4 @@
-class RankingController < ApplicationController
+class RankingsController < ApplicationController
   def global
     @top_females = User.female.top25
     @top_males = User.male.top25
@@ -15,7 +15,7 @@ class RankingController < ApplicationController
     end
   end
 
-  def group
+  def groups
     group_id = params[:id]
     @group = Group.find_by_id(params[:id])
     if !@group then 
