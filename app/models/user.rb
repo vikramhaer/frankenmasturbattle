@@ -84,14 +84,18 @@ class User < ActiveRecord::Base
       size = network.users.where(:gender => gender).size
       results = network.users.where(:gender => gender).offset(rand(size)).order("RANDOM()").limit(2) [0..1]
     end
-    return results
+    if size < 10 then 
+      return [nil, nil]
+    else
+      return results
+    end
   end
 
 
 
 
   def self.update_scores_by_uid(uids, choice) #ELO Rating system.
-    return [nil,nil] if uids == nil
+    return [nil,nil] if uids == [nil,nil]
     def add_win(dscore)
       self.update_attributes({:score => self.score + dscore, :win => self.win + 1})
     end

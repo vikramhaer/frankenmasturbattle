@@ -57,7 +57,7 @@
 
 	<div id="wrapper">
   	<div id="top-ad">
-      <%= render "layouts/top-ad" %>
+      <%= render "layouts/top-ad" if !@no_ad %>
 		</div>
 <%= yield %>
   </div>
@@ -66,7 +66,7 @@
  <%= yield %>
 <% end %>
 <div id="top-ad">
-  <%= render "layouts/bottom-ad" %>
+  <%= render "layouts/bottom-ad"  if !@no_ad %>
 </div>
   <div id="footer">
   <ul>

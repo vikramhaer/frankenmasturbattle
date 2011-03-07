@@ -27,4 +27,13 @@ module HomeHelper
     "<option value=\"0\">Friends Only</option>".html_safe + options_from_collection_for_select(networks, "id", "name", id)
   end
 
+  def bigtile(user, side)
+    if user != nil
+      content_tag(:div, link_to(large_pic(user, {:class => "fixedheight"}), '#', :remote => true, :id => "#{side}-link"), :class => "battlepic") + 
+      content_tag(:p, user.name, :class => "name")
+    else
+      "<br><br><br><br>Not enough people in this category. Please pick another one.".html_safe
+    end
+  end
 end
+

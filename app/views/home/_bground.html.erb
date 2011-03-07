@@ -1,22 +1,12 @@
-<% if @enough_people %>
-  <div class="notice">Use your arrow keys or click on the image to vote on who's hotter! </div>
-  <div id="left" class="battlesquare hoverable">
-    <div class="battlepic">
-    <%= link_to large_pic(@left_user, {:class=>"fixedheight"}), {:controller=>"home", :action => "battle_update", :choice => 'left'}, :remote => true, :id=>"left-link" %>
-    </div>
-    <p class="name"><%= @left_user.name %> </p>
-    
-    </div>
-  <div id="mid">
-  VS.
-  </div>
-  <div id="right" class="battlesquare hoverable">
-    <div class="battlepic">
-    <%= link_to large_pic(@right_user, {:class=>"fixedheight"}), {:controller=>"home", :action=>"battle_update", :choice => 'right'}, :remote=>true, :id=>"right-link" %>
-    </div>
-    <p class="name"><%= @right_user.name %></p>
-  </div>
-  <div style="clear:both;"></div>
-<% else %>
-  Sorry, there aren't enough people in this category to properly match. Please choose another one.
-<% end %>
+<div class="notice">Use your arrow keys or click on the image to vote on who's hotter! </div>
+<div id="left" class="battlesquare hoverable">
+  <%= bigtile(@left_user, "left") %>
+</div>
+<div id="mid">
+VS.
+</div>
+<div id="right" class="battlesquare hoverable">
+  <%= bigtile(@right_user, "right") %>
+</div>
+<div style="clear:both;"></div>
+

@@ -2,12 +2,14 @@ class HomeController < ApplicationController
   skip_before_filter :authenticate
 
   def about
+    @no_ad = 1
     respond_to do |format|
       format.html
     end
   end
 
   def privacy
+    @no_ad = 1
     respond_to do |format|
       format.html
     end
@@ -34,6 +36,7 @@ class HomeController < ApplicationController
       session[:battle][:uids] = [@left_user.uid, @right_user.uid]
       @enough_people = true
     else
+      session[:battle][:uids] = [nil, nil]
       @enough_people = false
     end
     respond_to do |format|
@@ -47,8 +50,7 @@ class HomeController < ApplicationController
       session[:battle][:options] = @options
     elsif params[:choice] == "left" || params["choice"] == "right"
       current_user.increment_rating_count
-      uids = session[:battle][:uids]
-      session[:battle][:last] = User.update_scores_by_uid(uids, params[:choice])
+      session[:battle][:last] = User.update_scores_by_uid(session[:battle][:uids], params[:choice])
     end
     
     #  @options = {"gender" => params["gender"], "network" => params["network"]}
@@ -59,6 +61,7 @@ class HomeController < ApplicationController
       session[:battle][:uids] = [@left_user.uid, @right_user.uid]
       @enough_people = true
     else
+      session[:battle][:uids] = [nil, nil]
       @enough_people = false
     end
 
