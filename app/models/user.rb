@@ -72,44 +72,49 @@ class User < ActiveRecord::Base
     return self
   end
 
-  #def random_match(options)
-  #  gender = options["gender"] || "female"
-  #  networkid = (options["network"] || "0").to_i
-
-  #  random_batch(options)
-
-  #  if networkid == 0 #only friends selected
-  #    size = self.friends.where(:gender => gender).size 
-  #    results = self.friends.where(:gender => gender).offset(rand(size)).order("RANDOM()").limit(2) [0..1]
-  #  else
-  #    network = self.groups.find_by_id(networkid)
-  #    size = network.users.where(:gender => gender).size
-  #    results = network.users.where(:gender => gender).where("uid != ?", self.uid).offset(rand(size)).order("RANDOM()").limit(2) [0..1]
-  #  end
-  #  if size < 0 or results[0] == nil or results[1] == nil #it's all or nil,nil
-  #    return [nil, nil]
-  #  else
-  #    return results
-  #  end
-  #end
-
-  def random_batch(options) #just like random match but instead outputs an even batch of users of max 30, min 10
+  def random_match(options)
     gender = options["gender"] || "female"
     networkid = (options["network"] || "0").to_i
 
     if networkid == 0 #only friends selected
-      results = self.friends.where(:gender => gender).order("loss + win ASC").limit(30)
+      size = self.friends.where(:gender => gender).size 
+      pool = self.friends.where(:gender => gender)
     else
       network = self.groups.find_by_id(networkid)
-      results = network.users.where(:gender => gender).where("uid != ?", self.uid).order("loss + win ASC").limit(30)
+      size = network.users.where(:gender => gender).size
+      pool = network.users.where(:gender => gender).where("uid != ?", self.uid)
     end
-    if results.size < 10 or results[0] == nil or results[1] == nil #it's all or nil,nil
+
+    if size < 10 then 
       return [nil, nil]
     else
-      results_stripped = results.collect { |user| {"name" => user.name, "uid" => user.uid} }
-      return results_stripped.shuffle[0..results.size/2*2]
+      results = []
+      cap = ([(size-1)/2*2, 30].min) -1
+      (0..size-1).sort_by{rand}[0..cap].each do |offset|
+        results << pool.offset(offset).limit(1)
+      end
+      return results.collect{ |user| {"name" => user[0].name, "uid" => user[0].uid} }
     end
   end
+
+  #def random_batch(options) #just like random match but instead outputs an even batch of users of max 30, min 10
+  #  gender = options["gender"] || "female"
+  #  networkid = (options["network"] || "0").to_i
+  #
+  #  if networkid == 0 #only friends selected
+  #    results = self.friends.where(:gender => gender).order(mode).limit(30)
+  #  else
+  #   network = self.groups.find_by_id(networkid)
+  #
+  #    results = network.users.where(:gender => gender).where("uid != ?", self.uid).order(mode).limit(30)
+  #  end
+  #  if results.size < 10 or results[0] == nil or results[1] == nil #it's all or nil,nil
+  #    return [nil, nil]
+  #  else
+  #    results_stripped = results.collect { |user| {"name" => user.name, "uid" => user.uid} }
+  #    return results_stripped.shuffle[0..results.size/2*2]
+  #  end
+  #end
     
 
 
