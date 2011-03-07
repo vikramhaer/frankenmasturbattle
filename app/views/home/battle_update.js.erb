@@ -1,4 +1,6 @@
 $("battleground-history").update("<%= escape_javascript(render(:partial => "bground_history")) %>"); 
 $("left").update("<%= escape_javascript(bigtile(@left_user, "left")) %>");
 $("right").update("<%= escape_javascript(bigtile(@right_user, "right")) %>");
-
+<% if @ad_refresh %>
+  location.reload(true);
+<% end %>

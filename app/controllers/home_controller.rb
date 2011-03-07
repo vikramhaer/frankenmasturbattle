@@ -30,10 +30,10 @@ class HomeController < ApplicationController
 
   def battle
     session[:battle] = {} if !session[:battle] #initialize session[:battle] if not there
-    session[:battle][:last] = nil
+    #session[:battle][:last]
     session[:battle][:options] ||= {"gender" => current_user.opposite_gender, "network" => "0" } # 0 is default network for show only friends
     @options = session[:battle][:options]
-    session[:battle][:uids] = current_user.random_match(session[:battle][:options])
+    session[:battle][:uids] ||= current_user.random_match(session[:battle][:options])
     @right_user = session[:battle][:uids][-1]
     @left_user = session[:battle][:uids][-2]
     @enough_people = @left_user && @right_user
@@ -53,13 +53,15 @@ class HomeController < ApplicationController
       current_user.increment_rating_count
       uids = session[:battle][:uids].pop(2).collect{ |stripped_user| stripped_user["uid"] }
       session[:battle][:last] = User.update_scores_by_uid(uids, params[:choice])
-      session[:battle][:uids] = current_user.random_match(session[:battle][:options]) if session[:battle][:uids].empty? #refill the batch
+      if session[:battle][:uids].empty? #refill the batch
+        session[:battle][:uids] = current_user.random_match(session[:battle][:options]) 
+        @ad_refresh = true
+      end
     end
-    
+    @ad_refresh ||= false
     @right_user = session[:battle][:uids][-1]
     @left_user = session[:battle][:uids][-2]
     @enough_people = @left_user && @right_user
-    
 
     respond_to do |format|
       format.js { render :layout=>false }
