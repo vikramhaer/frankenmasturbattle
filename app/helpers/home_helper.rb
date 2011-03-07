@@ -8,23 +8,23 @@ module HomeHelper
   end
 
   def left_user
-    session[:battle_uids][0]
+    session[:battle][:uids][0]
   end
 
   def right_user
-    session[:battle_uids][1]
+    session[:battle][:uids][1]
   end
 
   def old_left_user
-    session[:last_battle][0]
+    session[:battle][:last][0]
   end
 
   def old_right_user
-    session[:last_battle][1]
+    session[:battle][:last][1]
   end
 
-  def round(score)
-    score.round.to_s
+  def network_options_with_friends(networks, id)
+    "<option value=\"0\">Friends Only</option>".html_safe + options_from_collection_for_select(networks, "id", "name", id)
   end
 
 end

@@ -1,25 +1,29 @@
-  <% if current_user %>
-	
-			<div id="left-column">
-				<div class="ad-col">
-          <%= render "left-ad" %>
-				</div>
-			</div>
-			<div id="main">
-				<div id="battleground">
-          <%= render "bground" %>
+<%= javascript_include_tag "battle" %>
+<div id="left-column">
+	<div class="ad-col">
+    <%= render "left-ad" %>
+	</div>
+</div>
+<div id="main">
 
-        </div>
-				<div id="battleground-history" class="old">
-					<%= render "bground_history" %>
-				</div>
-			</div>
-			<div id="right-column">
-				<div class="ad-col">
-          <%= render "right-ad" %>
-				</div>
-			</div>
-			<div style="clear:both;"></div>
-  <% else %>
-      <%= render "splash" %>
+  <%= form_tag '/battle_update', :remote => true, :id => "battle_options", :method=> "get" do %>
+    <%= radio_button_tag 'gender', 'male', @options["gender"] == "male" %> male
+    <%= radio_button_tag 'gender', 'female', @options["gender"] == "female" %> female
+    <%= select_tag 'network', network_options_with_friends(current_user.groups, @options["network"]) %>
   <% end %>
+
+	<div id="battleground">
+    <%= render "bground" %>
+  </div>
+
+	<div id="battleground-history" class="old">
+		<%= render "bground_history" %>
+	</div>
+
+</div>
+<div id="right-column">
+	<div class="ad-col">
+    <%= render "right-ad" %>
+	</div>
+</div>
+<div style="clear:both;"></div>

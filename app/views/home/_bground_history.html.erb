@@ -1,13 +1,11 @@
-<% if session[:last_battle] %>
-
-<div id="left-old">
-  <%= user_tile(old_left_user) %>
-</div>
-  <div id="mid-old">Last Battle</div>
-<div id="right-old">
-  <%= user_tile(old_right_user) %>
-</div>
-
+<% if session[:battle][:last] %>
+  <div id="left-old">
+    <%= user_tile(old_left_user) %>
+  </div>
+    <div id="mid-old">Last Battle</div>
+  <div id="right-old">
+    <%= user_tile(old_right_user) %>
+  </div>
 <% end %>
 
 <div style="clear:both;"></div>

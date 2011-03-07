@@ -1,24 +1,22 @@
-<%= javascript_include_tag "battle" %>
-<div class="notice">Use your arrow keys or click on the image to vote on who's hotter! </div>
-<div id="left" class="battlesquare hoverable">
-  <div class="battlepic">
-  <%= link_to large_pic(@left_user, {:class=>"fixedheight"}), {:controller=>"home", :action => "battle_update", :choice => 'left'}, :remote => true, :id=>"left-link" %>
+<% if @enough_people %>
+  <div class="notice">Use your arrow keys or click on the image to vote on who's hotter! </div>
+  <div id="left" class="battlesquare hoverable">
+    <div class="battlepic">
+    <%= link_to large_pic(@left_user, {:class=>"fixedheight"}), {:controller=>"home", :action => "battle_update", :choice => 'left'}, :remote => true, :id=>"left-link" %>
+    </div>
+    <p class="name"><%= @left_user.name %> </p>
+    
+    </div>
+  <div id="mid">
+  VS.
   </div>
-  <p class="name"><%= @left_user.name %> </p>
-  
+  <div id="right" class="battlesquare hoverable">
+    <div class="battlepic">
+    <%= link_to large_pic(@right_user, {:class=>"fixedheight"}), {:controller=>"home", :action=>"battle_update", :choice => 'right'}, :remote=>true, :id=>"right-link" %>
+    </div>
+    <p class="name"><%= @right_user.name %></p>
   </div>
-<div id="mid">
-VS.
-</div>
-<div id="right" class="battlesquare hoverable">
-  <div class="battlepic">
-  <%= link_to large_pic(@right_user, {:class=>"fixedheight"}), {:controller=>"home", :action=>"battle_update", :choice => 'right'}, :remote=>true, :id=>"right-link" %>
-  </div>
-  <p class="name"><%= @right_user.name %></p>
-</div>
-<div style="clear:both;"></div>
-<%= form_tag '/battle_update', :remote => true, :id => "battle_options", :method=> "get" do %>
-  <%= check_box_tag 'gender', 'male', @options["gender"] == 'male' %> male
-  <%= check_box_tag 'gender', 'female', @options["gender"] != 'male' %> female
-  <%= select_tag 'network', options_from_collection_for_select(current_user.groups, "id", "name", @options["network"]) %>
+  <div style="clear:both;"></div>
+<% else %>
+  Sorry, there aren't enough people in this category to properly match. Please choose another one.
 <% end %>

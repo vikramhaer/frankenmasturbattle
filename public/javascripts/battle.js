@@ -33,13 +33,8 @@ document.observe("dom:loaded", function() {
   $('battle_options').observe('change', function(event) {
     $("battle_options").request({
       method: 'get',
-      parameter: {option_select: true}
+      parameters: {option_select: true}
       });
     });
 });
-//new Form.Observer("battle_options", 0.2, function(form, value) {
-//  $("battle_options").request({
-//    method: 'get',
-//    onComplete: function(){ alert('Form data saved!') }
-//  });
-//});
+

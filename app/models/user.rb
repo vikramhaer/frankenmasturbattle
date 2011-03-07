@@ -72,19 +72,19 @@ class User < ActiveRecord::Base
     return self
   end
 
-  def random_match()
+  def random_match(options)
+    gender = options["gender"] || "female"
+    networkid = (options["network"] || "0").to_i
 
-    gender = "female"
-    #specify opposite gender
-    group = nil    
-
-    if group
-      group.users.find(:all, :conditions => ["gender = ? AND NOT id = ?", gender, self.id], :limit => 2,  :order => "RANDOM()")
-    else
-      # OLD RANDOM      self.friends.find(:all, :conditions => ["gender = ?", gender], :limit => 2, :order => "RANDOM()")
+    if networkid == 0 #only friends selected
       size = self.friends.where(:gender => gender).size 
-      self.friends.where(:gender => gender).offset(rand(size)).order("RANDOM()").limit(2) [0..1]
+      results = self.friends.where(:gender => gender).offset(rand(size)).order("RANDOM()").limit(2) [0..1]
+    else
+      network = self.groups.find_by_id(networkid)
+      size = network.users.where(:gender => gender).size
+      results = network.users.where(:gender => gender).offset(rand(size)).order("RANDOM()").limit(2) [0..1]
     end
+    return results
   end
 
 
@@ -173,5 +173,21 @@ class User < ActiveRecord::Base
   #pretty formatting stuff for the views
   def win_loss
     "Wins: #{self.win} Losses: #{self.loss}"
+  end
+
+  def is_female?
+    self.gender == "female"
+  end
+
+  def is_male?          #assume user is male if not specified (view girls by default)
+    !self.is_female?
+  end
+
+  def opposite_gender
+    if self.is_male?
+      "female"
+    else
+      "male"
+    end
   end
 end
