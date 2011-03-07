@@ -1,6 +1,6 @@
 module HomeHelper
   def large_pic(user, params = nil)
-    image_tag("http://graph.facebook.com/#{user.uid}/picture?type=large", params)
+    image_tag("http://graph.facebook.com/#{user["uid"]}/picture?type=large", params)
   end
 
   def reg_pic(user, params = nil)
@@ -29,8 +29,8 @@ module HomeHelper
 
   def bigtile(user, side)
     if user != nil
-      content_tag(:div, link_to(large_pic(user, {:class => "fixedheight"}), '#', :remote => true, :id => "#{side}-link"), :class => "battlepic") + 
-      content_tag(:p, user.name, :class => "name")
+      content_tag(:div, large_pic(user, {:class => "fixedheight"}), :class => "battlepic") + 
+      content_tag(:p, user["name"], :class => "name")
     else
       "<br><br><br><br>Not enough people in this category. Please pick another one.".html_safe
     end

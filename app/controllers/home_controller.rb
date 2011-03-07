@@ -19,6 +19,8 @@ class HomeController < ApplicationController
     if current_user then 
       redirect_to battle_path #if logged in just go to battle
       return
+    else
+      @no_ad = 1
     end
 
     respond_to do |format|
@@ -31,14 +33,11 @@ class HomeController < ApplicationController
     session[:battle][:last] = nil
     session[:battle][:options] ||= {"gender" => current_user.opposite_gender, "network" => "0" } # 0 is default network for show only friends
     @options = session[:battle][:options]
-    @left_user, @right_user = current_user.random_match(session[:battle][:options])
-    if @left_user && @right_user
-      session[:battle][:uids] = [@left_user.uid, @right_user.uid]
-      @enough_people = true
-    else
-      session[:battle][:uids] = [nil, nil]
-      @enough_people = false
-    end
+    session[:battle][:uids] = current_user.random_batch(session[:battle][:options])
+    @right_user = session[:battle][:uids][-1]
+    @left_user = session[:battle][:uids][-2]
+    @enough_people = @left_user && @right_user
+
     respond_to do |format|
       format.html
     end
@@ -48,22 +47,19 @@ class HomeController < ApplicationController
     if params["option_select"] then
       @options = {"gender" => params["gender"], "network" => params["network"]}
       session[:battle][:options] = @options
+      session[:battle][:uids] = current_user.random_batch(session[:battle][:options]) #make new batch if option changed
+
     elsif params[:choice] == "left" || params["choice"] == "right"
       current_user.increment_rating_count
-      session[:battle][:last] = User.update_scores_by_uid(session[:battle][:uids], params[:choice])
+      uids = session[:battle][:uids].pop(2).collect{ |stripped_user| stripped_user["uid"] }
+      session[:battle][:last] = User.update_scores_by_uid(uids, params[:choice])
+      session[:battle][:uids] = current_user.random_batch(session[:battle][:options]) if session[:battle][:uids].empty? #refill the batch
     end
     
-    #  @options = {"gender" => params["gender"], "network" => params["network"]}
-    #end
-    if @dscore == -1 then raise session[:battle][:uids].to_yaml end
-    @left_user, @right_user = current_user.random_match(session[:battle][:options])
-    if @left_user && @right_user
-      session[:battle][:uids] = [@left_user.uid, @right_user.uid]
-      @enough_people = true
-    else
-      session[:battle][:uids] = [nil, nil]
-      @enough_people = false
-    end
+    @right_user = session[:battle][:uids][-1]
+    @left_user = session[:battle][:uids][-2]
+    @enough_people = @left_user && @right_user
+    
 
     respond_to do |format|
       format.js { render :layout=>false }

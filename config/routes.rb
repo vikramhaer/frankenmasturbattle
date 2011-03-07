@@ -11,6 +11,7 @@ Masterater::Application.routes.draw do
   get "user/create"
   get "user/destroy"
   get "user/show"
+  match "users/:id/settings" => "users#settings"
   resources :users
 
   match "/about" => "home#about"

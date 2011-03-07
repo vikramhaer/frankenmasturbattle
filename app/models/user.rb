@@ -72,25 +72,45 @@ class User < ActiveRecord::Base
     return self
   end
 
-  def random_match(options)
+  #def random_match(options)
+  #  gender = options["gender"] || "female"
+  #  networkid = (options["network"] || "0").to_i
+
+  #  random_batch(options)
+
+  #  if networkid == 0 #only friends selected
+  #    size = self.friends.where(:gender => gender).size 
+  #    results = self.friends.where(:gender => gender).offset(rand(size)).order("RANDOM()").limit(2) [0..1]
+  #  else
+  #    network = self.groups.find_by_id(networkid)
+  #    size = network.users.where(:gender => gender).size
+  #    results = network.users.where(:gender => gender).where("uid != ?", self.uid).offset(rand(size)).order("RANDOM()").limit(2) [0..1]
+  #  end
+  #  if size < 0 or results[0] == nil or results[1] == nil #it's all or nil,nil
+  #    return [nil, nil]
+  #  else
+  #    return results
+  #  end
+  #end
+
+  def random_batch(options) #just like random match but instead outputs an even batch of users of max 30, min 10
     gender = options["gender"] || "female"
     networkid = (options["network"] || "0").to_i
 
     if networkid == 0 #only friends selected
-      size = self.friends.where(:gender => gender).size 
-      results = self.friends.where(:gender => gender).offset(rand(size)).order("RANDOM()").limit(2) [0..1]
+      results = self.friends.where(:gender => gender).order("loss + win ASC").limit(30)
     else
       network = self.groups.find_by_id(networkid)
-      size = network.users.where(:gender => gender).size
-      results = network.users.where(:gender => gender).offset(rand(size)).order("RANDOM()").limit(2) [0..1]
+      results = network.users.where(:gender => gender).where("uid != ?", self.uid).order("loss + win ASC").limit(30)
     end
-    if size < 10 then 
+    if results.size < 10 or results[0] == nil or results[1] == nil #it's all or nil,nil
       return [nil, nil]
     else
-      return results
+      results_stripped = results.collect { |user| {"name" => user.name, "uid" => user.uid} }
+      return results_stripped.shuffle[0..results.size/2*2]
     end
   end
-
+    
 
 
 
