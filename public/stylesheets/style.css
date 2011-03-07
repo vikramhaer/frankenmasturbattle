@@ -216,6 +216,7 @@ width: 150px;
 .ad-col{
 width: 120px;
 margin: 10px auto;
+border: 1px solid #999;
 }
 
 #main {
@@ -277,6 +278,7 @@ vertical-align: middle;
 width: 728px;
 height: 90px;
 margin: 20px auto;
+border: 1px solid #999;
 }
 
 .notice {
