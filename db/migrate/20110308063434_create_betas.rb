@@ -13,4 +13,3 @@ class CreateBetas < ActiveRecord::Migration
     drop_table :betas
   end
 end
-end
