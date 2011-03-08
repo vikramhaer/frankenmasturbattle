@@ -57,14 +57,18 @@
     <div id="content">
 
 	<div id="wrapper">
-      <iframe id="top-ad" width="728" height="90" src="/ads/top-ad.html" frameborder="0" scrolling="no"></iframe>
+  <div id="top-ad" class="banner-ad">
+      <iframe width="750" height="98" src="/ads/top-ad.html" frameborder="0" scrolling="no" style="margin:0 auto; border:none;"></iframe>
+  </div>
 <%= yield %>
   </div>
   </div>
  <% else %>
  <%= yield %>
 <% end %>
-  <iframe id="bottom-ad" width="728" height="90" src="/ads/bottom-ad.html" frameborder="0" scrolling="no"></iframe>
+  <div id="bottom-ad" class="banner-ad">
+  <iframe id="bottom-ad" width="750" height="98" src="/ads/bottom-ad.html" frameborder="0" scrolling="no"></iframe>
+  </div>
   <div id="footer">
   <ul>
     <li><%= link_to("About", :controller=> "home", :action=> "about") %></li>

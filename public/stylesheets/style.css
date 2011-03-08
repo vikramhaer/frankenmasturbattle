@@ -274,10 +274,10 @@ vertical-align: middle;
 }
 
 
-#top-ad {
-width: 728px;
-height: 90px;
-margin: 20px auto;
+.banner-ad {
+width: 760px;
+height: 108px;
+margin: 15px auto;
 border: 1px solid #999;
 }
 
@@ -294,6 +294,13 @@ border-radius: 5px;
 
 
 /* ------- END OF MAIN RANKING AREA ------- */
+
+/* ------- RANKING PAGES -------- */
+
+.hotlist {
+width: 400px;
+padding: 10px;
+}
 
 /* ------- FOOTER STUFF -------- */
 
@@ -345,7 +352,7 @@ width: 200px;
 margin: 10px 5px 10px 10px;
 }
 
-.statbox2 {
+.sbox2 {
 float: left;
 width: 400px;
 padding: 10px;

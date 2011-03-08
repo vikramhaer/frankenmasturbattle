@@ -1,15 +1,11 @@
+<div class="hotlist left">
 Hottest males
 <table>
   <tr>
     <th>Name</th>
-    <th>Uid</th>
-    <th>Gender</th>
+    <th>Score</th>
     <th>Win</th>
     <th>Loss</th>
-    <th>Score</th>
-    <th></th>
-    <th></th>
-    <th></th>
   </tr>
 
 <% @top_males.each do |user| %>
@@ -19,23 +15,20 @@ Hottest males
     <td><%= user.gender %></td>
     <td><%= user.win %></td>
     <td><%= user.loss %></td>
-    <td><%= user.score %></td>
+    <td><%= user.score.to_i %></td>
   </tr>
 <% end %>
 </table>
+</div>
 
+<div class="hotlist right">
 Hottest Females
 <table>
   <tr>
     <th>Name</th>
-    <th>Uid</th>
-    <th>Gender</th>
+    <th>Score</th>
     <th>Win</th>
     <th>Loss</th>
-    <th>Score</th>
-    <th></th>
-    <th></th>
-    <th></th>
   </tr>
 
 <% @top_females.each do |user| %>
@@ -45,7 +38,9 @@ Hottest Females
     <td><%= user.gender %></td>
     <td><%= user.win %></td>
     <td><%= user.loss %></td>
-    <td><%= user.score %></td>
+    <td><%= user.score.to_i %></td>
   </tr>
 <% end %>
 </table>
+</div>
+<div style="clear:both;"></div>
