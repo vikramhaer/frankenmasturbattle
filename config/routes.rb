@@ -1,4 +1,7 @@
 Masterater::Application.routes.draw do
+  get "betas/confirmation"
+  resources :betas
+
   get "rankings/global"
   get "rankings/friends"
   get "rankings/groups"

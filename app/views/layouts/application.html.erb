@@ -66,9 +66,11 @@
  <% else %>
  <%= yield %>
 <% end %>
+<% if current_user %>
   <div id="bottom-ad" class="banner-ad">
   <iframe id="bottom-ad" width="750" height="98" src="/ads/bottom-ad.html" frameborder="0" scrolling="no"></iframe>
   </div>
+<% end %>
   <div id="footer">
   <ul>
     <li><%= link_to("About", :controller=> "home", :action=> "about") %></li>

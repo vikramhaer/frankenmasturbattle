@@ -10,7 +10,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110301043719) do
+ActiveRecord::Schema.define(:version => 20110308061047) do
+
+  create_table "betas", :force => true do |t|
+    t.string   "email"
+    t.string   "uid"
+    t.boolean  "access",     :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "friendships", :force => true do |t|
     t.integer  "user_id"
@@ -43,6 +51,7 @@ ActiveRecord::Schema.define(:version => 20110301043719) do
     t.decimal  "score",        :default => 1000.0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "email"
   end
 
 end

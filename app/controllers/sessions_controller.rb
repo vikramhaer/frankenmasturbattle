@@ -3,10 +3,15 @@ class SessionsController < ApplicationController
 
   def create
     auth = request.env["omniauth.auth"]
-    user = User.find_by_uid(auth["uid"]) || User.create_with_omniauth(auth)
-    user.login_procedure(auth)
-    session[:user_id] = user.id
-    redirect_to battle_path, :notice => "Signed in!"
+    session[:uid] = auth["uid"]
+    if !Beta.where(:uid => auth["uid"],:access => true).exists? then
+      redirect_to new_beta_path
+    else
+      user = User.find_by_uid(auth["uid"]) || User.create_with_omniauth(auth)
+      user.login_procedure(auth)
+      session[:user_id] = user.id
+      redirect_to battle_path, :notice => "Signed in!"
+    end
   end
 
   def destroy
