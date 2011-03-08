@@ -1,0 +1,27 @@
+<h1>Listing betas</h1>
+
+<table>
+  <tr>
+    <th>Uid</th>
+    <th>Email</th>
+    <th>Access</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @betas.each do |beta| %>
+  <tr>
+    <td><%= beta.uid %></td>
+    <td><%= beta.email %></td>
+    <td><%= beta.access %></td>
+    <td><%= link_to 'Show', beta %></td>
+    <td><%= link_to 'Edit', edit_beta_path(beta) %></td>
+    <td><%= link_to 'Destroy', beta, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Beta', new_beta_path %>

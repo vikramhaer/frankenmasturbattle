@@ -1,0 +1,24 @@
+<h1>Beta Signup</h1>
+
+getFrankd is currently undergoing closed beta testing. Please submit your email address so we can let you know when to join! </br>
+<%= form_for(@beta) do |f| %>
+  <% if @beta.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@beta.errors.count, "error") %> prohibited this beta from being saved:</h2>
+
+      <ul>
+      <% @beta.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.text_field :email %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Request invite' %>
+  </div>
+<% end %>
+

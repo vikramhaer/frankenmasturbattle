@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Uid:</b>
+  <%= @beta.uid %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @beta.email %>
+</p>
+
+<p>
+  <b>Access:</b>
+  <%= @beta.access %>
+</p>
+
+
+<%= link_to 'Edit', edit_beta_path(@beta) %> |
+<%= link_to 'Back', betas_path %>
