@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 <head>
   <title>getFrankd</title>
@@ -56,18 +57,14 @@
     <div id="content">
 
 	<div id="wrapper">
-  	<div id="top-ad">
-      <%= render "layouts/top-ad" if !@no_ad %>
-		</div>
+      <iframe id="top-ad" width="728" height="90" src="/ads/top-ad.html" frameborder="0" scrolling="no"></iframe>
 <%= yield %>
   </div>
   </div>
  <% else %>
  <%= yield %>
 <% end %>
-<div id="top-ad">
-  <%= render "layouts/bottom-ad"  if !@no_ad %>
-</div>
+  <iframe id="bottom-ad" width="728" height="90" src="/ads/bottom-ad.html" frameborder="0" scrolling="no"></iframe>
   <div id="footer">
   <ul>
     <li><%= link_to("About", :controller=> "home", :action=> "about") %></li>
