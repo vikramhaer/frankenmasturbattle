@@ -24,7 +24,7 @@ module HomeHelper
   end
 
   def network_options_with_friends(networks, id)
-    "<option value=\"0\">Friends Only</option>".html_safe + options_from_collection_for_select(networks, "id", "name", id)
+    "<option value=\"0\">All Friends</option>".html_safe + options_from_collection_for_select(networks, "id", "name", id)
   end
 
   def bigtile(user, side)

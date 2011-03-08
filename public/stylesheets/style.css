@@ -69,8 +69,21 @@ float:left;
 float:right;
 }
 
-.clear {
-clear:both;
+.center-text {
+text-align: center;
+}
+
+.clearit {
+clear:all;
+}
+
+.content-box {
+background: #f5f5f5;
+-webkit-box-shadow: 0 1px 2px #999;
+-moz-box-shadow: 0 1px 2px #999;
+-webkit-border-radius: 8px;
+-moz-border-radius: 8px;
+border-radius: 8px;
 }
 
 /* ------- HOME PAGE STUFF ------- */
@@ -227,7 +240,7 @@ margin: 10px;
 }
 
 #battleground {
-background: #f0f0f0 url(gray.png) repeat;
+background: #f5f5f5;
 width: 600px;
 height: 330px;
 margin: 10px auto 50px auto; 
@@ -238,12 +251,11 @@ padding: 10px;
 -moz-border-radius: 8px;
 border-radius: 8px;
 text-align: center;
-background: #eee repeat;
 }
 
 #battleground-history{
-background: #f0f0f0 url(gray.png) repeat;
 width: 590px;
+background: #f5f5f5;
 margin: 10px auto 20px auto; 
 padding: 10px;
 -webkit-box-shadow: 0 1px 2px #999;
@@ -252,7 +264,6 @@ padding: 10px;
 -moz-border-radius: 8px;
 border-radius: 8px;
 text-align: center;
-background: #eee repeat;
 }
 
 #right-column {
@@ -285,7 +296,7 @@ border: 1px solid #999;
 width: 500px;
 margin: 5px auto;
 border: 1px solid #999;
-background: #ccc;
+background: #eee;
 padding: 5px;
 -webkit-border-radius: 5px;
 -moz-border-radius: 5px;
@@ -298,9 +309,36 @@ border-radius: 5px;
 /* ------- RANKING PAGES -------- */
 
 .hotlist {
-width: 400px;
+width: 440px;
 padding: 10px;
 }
+
+.hotlist table {
+margin-top: 20px;
+border-collapse: collapse;
+border-spacing: 0;
+text-align: center;
+vertical-align: center;
+}
+
+.rankings tr {
+border-bottom: 1px solid #ccc;
+}
+
+.rankings td {
+height: 60px;
+margin: 10px;
+padding: 5px;
+}
+
+.namecell {
+width: 175px;
+}
+
+.numcell {
+width: 50px;
+}
+
 
 /* ------- FOOTER STUFF -------- */
 
@@ -343,6 +381,8 @@ color: #666;
 .profimg {
 margin: 10px;
 }
+
+/* ------ END FOOTER STUFF ------ */
 
 /* STATS */
 
@@ -496,7 +536,11 @@ border-radius: 4px;
 list-style: none;
 }
 
-
+#filters {
+width: 500px;
+text-align: center;
+margin: 10px auto;
+}
 
 .lastround {
 font-size: 12px;
@@ -523,17 +567,18 @@ height: 210px;
 
 .battlesquare {
 background: white;
+border: 1px solid #ccc;
 height: 250px;
--webkit-border-radius:10px;
--moz-border-radius:10px; 
-border-radius:10px;
+-webkit-border-radius:5px;
+-moz-border-radius:5px; 
+border-radius:5px;
 }
 
 #left {
 
 float: left;
 width: 250px;
-margin: 10px;
+margin: 9px;
 }
 
 #left-old {
@@ -569,7 +614,7 @@ font-family: "museo 700"
 #right {
 float: right;
 width: 250px;
-margin: 10px;
+margin: 9px;
 }
 
 .battle {
@@ -611,10 +656,8 @@ color: #fff;
 }
 
 .score {
-position: relative;
 font-size: 25px;
-padding-bottom: 5px;
-text-align: center;
+margin-bottom: 5px;
 }
 
 /* Drop Shadows */
