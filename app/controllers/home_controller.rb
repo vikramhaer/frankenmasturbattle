@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  skip_before_filter :authenticate
+  skip_before_filter :authenticate, :except => "battle"
 
   def about
     @no_ad = 1
