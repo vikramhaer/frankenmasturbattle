@@ -16,20 +16,12 @@ text-decoration: none;
 
 @font-face {
 font-family: "Museo 300";
-src: url("fonts/Museo300-Regular.eot");
-src: local("Museo 300"), local("Museo 300"),
-url("fonts/Museo300-Regular.otf") format("opentype"),
-url("fonts/Museo300-Regular.woff") format("woff"),
-url("fonts/Museo300-Regular.svg#Museo 300") format("svg");
+src: url("fonts/Museo300-Regular.otf") format("opentype");
 }
 
 @font-face {
 font-family: "Museo 700";
-src: url("fonts/Museo700-Regular.eot");
-src: local("Museo 700"), local("Museo 700"),
-url("fonts/Museo700-Regular.otf") format("opentype"),
-url("fonts/Museo700-Regular.woff") format("woff"),
-url("fonts/Museo700-Regular.svg#Museo 700") format("svg");
+src: url("fonts/Museo700-Regular.otf") format("opentype");
 }
 
 h1 {
