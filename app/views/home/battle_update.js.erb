@@ -4,4 +4,5 @@ $("right").update("<%= escape_javascript(bigtile(@right_user, "right")) %>");
 <% if @ad_refresh %>
   $('top-ad').src = $('top-ad').src;
   $('bottom-ad').src = $('bottom-ad').src;
+  preload( <%= session[:battle][:uids].collect{|hash| hash["uid"]} * "," %> );
 <% end %>

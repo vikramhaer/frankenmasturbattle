@@ -37,3 +37,13 @@ document.observe("dom:loaded", function() {
     });
 });
 
+var big_images = new Array()
+var small_images = new Array()
+function preload() {
+  for(i = preload.arguments.length -1; i >= 0 ; i--) {
+    big_images[i] = new Image();
+    big_images[i].src = "http://graph.facebook.com/" + preload.arguments[i] + "/picture?type=large";
+    small_images[i] = new Image();
+    small_images[i].src = "http://graph.facebook.com/" + preload.arguments[i] + "/picture";
+  }
+}
