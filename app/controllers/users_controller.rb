@@ -26,8 +26,12 @@ class UsersController < ApplicationController
 
   def all_friends
     @user = User.find(params[:id])
-    @friends = @user.friends
+    @friends = @user.friends.order("gender asc, win + loss asc")
     @inverse_friends = @user.inverse_friends
+    @male_total = @user.friends.male.size
+    @male_unrated = @user.friends.male.unrated.size
+    @female_total = @user.friends.female.size
+    @female_unrated= @user.friends.female.unrated.size
     respond_to do |format|
       format.html
     end

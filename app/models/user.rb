@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   scope :female, where("gender = ?", "female")
   scope :top25, order("score desc").limit(25)
   scope :top5, order("score desc").limit(5)
+  scope :unrated, where("win = ? AND loss = ?", 0, 0)
 
   def increment_login_count
     lg = self.login_count + 1
