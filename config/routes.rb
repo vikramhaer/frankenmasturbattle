@@ -10,6 +10,7 @@ Masterater::Application.routes.draw do
 
   resources :groups
 
+  match "users/:id/all_friends" => "users#all_friends"
   get "user/index"  
   get "user/create"
   get "user/destroy"

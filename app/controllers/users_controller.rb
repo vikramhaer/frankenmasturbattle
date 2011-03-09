@@ -24,6 +24,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def all_friends
+    @user = User.find(params[:id])
+    @friends = @user.friends
+    @inverse_friends = @user.inverse_friends
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def settings
     @user = User.find(params[:id])
     respond_to do |format|

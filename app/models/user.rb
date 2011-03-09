@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
       if self.score < 1000 then self.update_attributes(:score => 1000) end
       self.add_friends(auth)
     end
-    self.update_email(auth)
+    self.update_info(auth)
     self.update_groups(auth)
     self.increment_login_count
   end
@@ -78,7 +78,7 @@ class User < ActiveRecord::Base
     networkid = (options["network"] || "0").to_i
 
     if networkid == 0 #only friends selected
-      size = self.friends.where(:gender => gender).size 
+      size = self.friends.where(:gender => gender).size
       pool = self.friends.where(:gender => gender)
     else
       network = self.groups.find_by_id(networkid)
@@ -130,9 +130,13 @@ class User < ActiveRecord::Base
     return [user0, user1, dscore]
   end
 
-  def update_email(auth)
+  def update_info(auth)
+    new_name = auth["user_info"]["name"]
+    new_gender = auth["extra"]["user_hash"]["gender"]
     new_email = auth['extra']['user_hash']['email']
     self.update_attributes({:email => new_email}) if self.email != new_email
+    self.update_attributes({:gender => new_gender}) if self.gender != new_gender
+    self.update_attributes({:name => new_name}) if self.name != new_name
   end
 
   def update_groups(auth)
