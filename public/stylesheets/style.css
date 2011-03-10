@@ -232,10 +232,10 @@ margin: 10px;
 }
 
 #battleground {
-background: #f5f5f5;
+background: #eee;
 width: 600px;
 height: 330px;
-margin: 10px auto 50px auto; 
+margin: 10px auto 25px auto; 
 padding: 10px;
 -webkit-box-shadow: 0 1px 2px #999;
 -moz-box-shadow: 0 1px 2px #999;
@@ -247,7 +247,8 @@ text-align: center;
 
 #battleground-history{
 width: 590px;
-background: #f5f5f5;
+height: 170px;
+background: #eee;
 margin: 10px auto 20px auto; 
 padding: 10px;
 -webkit-box-shadow: 0 1px 2px #999;
@@ -380,19 +381,18 @@ margin: 10px;
 
 .statbox4 {
 float: left;
-width: 200px;
-margin: 10px 5px 10px 10px;
+width: 215px;
+margin: 10px 5px;
 }
 
-.sbox2 {
+.statbox2 {
 float: left;
-width: 400px;
-padding: 10px;
+width: 440px;
+margin: 10px 5px;
 }
 
 .statbox1 {
-padding: 10px 10px;
-margin: 10px 0;
+margin: 10px 5px;
 }
 
 .statlists {
@@ -472,7 +472,7 @@ color: #777;
 }
 
 .bignumber{
-font-size: 90px;
+font-size: 75px;
 }
 
 .friend-box {
@@ -582,7 +582,7 @@ margin: 10px;
 #mid-old{
 float: left;
 width: 250px;
-margin: 50px auto;
+margin: 70px auto 0 auto;
 text-align: center;
 font-size: 25px;
 font-family: "museo 700"
@@ -600,7 +600,30 @@ width: 60px;
 margin: 75px auto;
 text-align: center;
 font-size: 25px;
-font-family: "museo 700"
+font-family: "museo 700";
+}
+
+.vs {
+margin: 5px auto;
+}
+
+#skip {
+width: 40px;
+margin: 90px auto 0 auto;
+font-size: 15px;
+font-family: "museo 300";
+padding: 5px 7px;
+color: #888;
+cursor: pointer;
+border: 1px solid #999;
+-moz-border-radius: 2px;
+-webkit-border-radius: 2px;
+border-radius: 2px;
+}
+
+#skip:hover{
+color: #000;
+border: 1px solid #888;
 }
 
 #right {
