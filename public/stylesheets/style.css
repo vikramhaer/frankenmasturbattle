@@ -510,6 +510,10 @@ font-size: 15px;
 margin: 0 auto;
 }
 
+.winner {
+background: #D4FFD4;
+}
+
 .green {
 color: green;
 }
