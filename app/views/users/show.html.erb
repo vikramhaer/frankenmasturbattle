@@ -6,7 +6,7 @@
   <%= image_tag("http://graph.facebook.com/#{@user.uid}/picture", :class=>"left profimg") %>
 
 <p class="username left">
-  <%= link_to @user.name, "http://www.facebook.com/profile.php?id=#{@user.uid}" %>
+  <%= link_to(@user.name, "http://www.facebook.com/profile.php?id=#{@user.uid}", :target=>"_blank") %>
 </p>
 <div style="clear:both;"></div>
 				<div class="statbox4">
