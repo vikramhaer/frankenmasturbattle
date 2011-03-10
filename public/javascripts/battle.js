@@ -35,6 +35,10 @@ document.observe("dom:loaded", function() {
   $('right').observe("click", function(event) {
     Choose("right");
     });
+
+  $('skip').observe("click", function(event) {
+    Choose("skip");
+    });
 });
 
 var big_images = new Array()
