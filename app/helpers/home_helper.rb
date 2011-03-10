@@ -1,4 +1,19 @@
 module HomeHelper
+  def history_tile(user)
+    link_to(
+      content_tag(:div, 
+        image_tag("http://graph.facebook.com/#{user.uid}/picture", :class=>"battle") + 
+        content_tag(:p, user.name.split(" ")[0], :class => "lastround") +
+        content_tag(:p, user.score.to_i, :class => "boldit score") +
+        content_tag(:p, 
+          content_tag(:span, user.win.to_s, :class => "boldit green") +
+          content_tag(:span, "   :   ") + 
+          content_tag(:span, user.loss.to_s, :class => "boldit red"),
+          :class => "winloss"), 
+        :class => "friend-box"), 
+      user, :class => "no-style")
+  end
+  
   def large_pic(user, params = nil)
     image_tag("http://graph.facebook.com/#{user["uid"]}/picture?type=large", params)
   end

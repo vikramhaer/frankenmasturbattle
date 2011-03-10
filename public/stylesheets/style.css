@@ -497,8 +497,26 @@ color: #fff;
 .score {
 font-size: 25px;
 text-align: center;
+margin: 0 0 -5px 0;
 }
 
+.delta {
+font-size: 10px;
+margin: 0 0 -5px 0;
+}
+
+.winloss {
+font-size: 15px;
+margin: 0 auto;
+}
+
+.green {
+color: green;
+}
+
+.red {
+color: red;
+}
 
 /* END STATS */
 
