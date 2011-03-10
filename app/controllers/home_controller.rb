@@ -49,10 +49,10 @@ class HomeController < ApplicationController
       session[:battle][:options] = @options
       session[:battle][:uids] = current_user.random_match(session[:battle][:options]) #make new batch if option changed
 
-    elsif params[:choice] == "left" || params["choice"] == "right"
-      current_user.increment_rating_count
+    elsif params[:choice] == "left" || params["choice"] == "right" || params["choice"] == "skip"
+      current_user.increment_rating_count if params[:choice] != "skip"
       uids = session[:battle][:uids].pop(2).collect{ |stripped_user| stripped_user["uid"] }
-      session[:battle][:last] = User.update_scores_by_uid(uids, params[:choice])
+      session[:battle][:last] = User.update_scores_by_uid(uids, params[:choice]) if params[:choice] != "skip"
       if session[:battle][:uids].empty? #refill the batch
         session[:battle][:uids] = current_user.random_match(session[:battle][:options]) 
         @ad_refresh = true
