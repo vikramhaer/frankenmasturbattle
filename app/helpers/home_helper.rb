@@ -1,5 +1,5 @@
 module HomeHelper
-  def history_tile(user)
+  def history_tile(user, outcome)
     link_to(
       content_tag(:div, 
         image_tag("http://graph.facebook.com/#{user.uid}/picture", :class=>"battle") + 
@@ -10,7 +10,7 @@ module HomeHelper
           content_tag(:span, "   :   ") + 
           content_tag(:span, user.loss.to_s, :class => "boldit red"),
           :class => "winloss"), 
-        :class => "friend-box"), 
+        :class => outcome), 
       user, :class => "no-style")
   end
   

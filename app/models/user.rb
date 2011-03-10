@@ -190,7 +190,7 @@ class User < ActiveRecord::Base
     else
       return -1
     end
-    return [user0, user1, dscore]
+    return [user0, user1, choice]
   end
 
   #pretty formatting stuff for the views

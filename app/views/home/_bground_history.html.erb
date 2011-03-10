@@ -1,10 +1,9 @@
 <% if session[:battle][:last] %>
   <div id="left-old">
-    <%= history_tile(old_left_user) %>
-  </div>
+    <%= if session[:battle][:last][2] == "left" then history_tile(old_left_user, "friend-box winner") else history_tile(old_left_user, "friend-box loser") end %>  </div>
     <div id="mid-old">Last Battle</div>
   <div id="right-old">
-    <%= history_tile(old_right_user) %>
+    <%= if session[:battle][:last][2] == "right" then history_tile(old_right_user, "friend-box winner") else history_tile(old_right_user, "friend-box loser") end %>
   </div>
 <% end %>
 
