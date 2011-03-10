@@ -1,10 +1,11 @@
 class User < ActiveRecord::Base
-  has_many :friendships
+  has_many :friendships, :dependent => :destroy
   has_many :friends, :through => :friendships
-  has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
+  has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id", :dependent => :destroy
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user
-  has_many :memberships
+  has_many :memberships, :dependent => :destroy
   has_many :groups, :through => :memberships
+
   scope :male, where("gender = ?", "male")
   scope :female, where("gender = ?", "female")
   scope :top25, order("score desc").limit(25)
@@ -123,6 +124,15 @@ class User < ActiveRecord::Base
         edu_group = Group.find_by_name( name_formatted ) || Group.create!(:name => name_formatted, :gid => "0", :type => 'edu')
         self.groups << edu_group if !self.groups.exists?(edu_group)
       end
+    end
+  end
+
+  def force_group_update(token)
+    fbquery = "SELECT uid, name, sex, current_location, education_history FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 =#{self.uid})"
+    fbq_friends = FbGraph::Query.new(fbquery).fetch(token) #this might take a while...
+    fbq_friends.each do |fbq_friend|         #THIS IS SLOWWWWWW
+      user = User.where(:uid => fbq_friend["uid"].to_s).first
+      user.update_groups_with_fq(fbq_friend)
     end
   end
 

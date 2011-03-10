@@ -26,6 +26,10 @@ class UsersController < ApplicationController
 
   def all_friends
     @user = User.find(params[:id])
+    if params[:cmd] == "update_friends" then
+      current_user.force_group_update(session[:access_token])
+    end
+
     @friends = @user.friends.order("gender asc, win + loss asc")
     @inverse_friends = @user.inverse_friends
     @male_total = @user.friends.male.size
