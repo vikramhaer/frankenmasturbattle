@@ -6,7 +6,7 @@ module ApplicationHelper
         content_tag(:p, user.name.split(" ")[0], :class => "lastround") +
         content_tag(:p, user.score.to_i, :class => "boldit score"), 
         :class => "friend-box"), 
-      user, :class => "no-style")
+      user, :class => "no-style",:target=>"_blank")
   end
 
 end
