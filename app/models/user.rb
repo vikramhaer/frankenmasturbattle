@@ -67,14 +67,16 @@ class User < ActiveRecord::Base
     
     location = hash['location']
     if location
-      loc_group = Group.find_by_gid(location['id'].to_s) || self.groups.create(:name => location['name'], :gid => location['id'].to_s, :type => 'loc') 
+      name_formatted = location['name'].each { |word| word.capitalize! }
+      loc_group = Group.find_by_name(name_formatted) || self.groups.create(:name => name_formatted, :gid => location['id'].to_s, :type => 'loc') 
       self.groups << loc_group if !self.groups.exists?(loc_group)
     end
 
     if hash['education']
       hash['education'].each do |edu|
         school = edu['school']
-        edu_group = Group.find_by_gid(school['id'].to_s) || Group.create(:name => school['name'], :gid => school['id'].to_s, :type => 'edu')
+        name_formatted = school['name'].each { |word| word.capitalize! }
+        edu_group = Group.find_by_name(name_formatted) || Group.create(:name => name_formatted, :gid => school['id'].to_s, :type => 'edu')
         self.groups << edu_group if !self.groups.exists?(edu_group)
       end
     end
