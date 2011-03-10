@@ -142,11 +142,11 @@ class User < ActiveRecord::Base
 
     if networkid == 0 #only friends selected
       size = self.friends.where(:gender => gender).size
-      pool = self.friends.where(:gender => gender)
+      pool = self.friends.where(:gender => gender).order("id asc")
     else
       network = self.groups.find_by_id(networkid)
       size = network.users.where(:gender => gender).size
-      pool = network.users.where(:gender => gender).where("uid != ?", self.uid)
+      pool = network.users.where(:gender => gender).where("uid != ?", self.uid).order("id asc")
     end
 
     if size < 10 then 
