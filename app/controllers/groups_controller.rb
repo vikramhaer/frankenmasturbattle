@@ -2,7 +2,7 @@ class GroupsController < ApplicationController
   # GET /groups
   # GET /groups.xml
   def index
-    @groups = Group.all
+    @groups = Group.all.sort{ |b,a| a.users.size <=> b.users.size}
 
     respond_to do |format|
       format.html # index.html.erb

@@ -1,9 +1,11 @@
 class User < ActiveRecord::Base
-  has_many :friendships
+  has_many :friendships, :dependent => :destroy
   has_many :friends, :through => :friendships
-  has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
+  has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id", :dependent => :destroy
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user
-  has_and_belongs_to_many :groups
+  has_many :memberships, :dependent => :destroy
+  has_many :groups, :through => :memberships
+
   scope :male, where("gender = ?", "male")
   scope :female, where("gender = ?", "female")
   scope :top25, order("score desc").limit(25)
@@ -48,16 +50,46 @@ class User < ActiveRecord::Base
     self.update_friends(auth)
   end
 
+
+  def update_info(auth)
+    new_name = auth["user_info"]["name"]
+    new_gender = auth["extra"]["user_hash"]["gender"]
+    new_email = auth['extra']['user_hash']['email']
+    self.update_attributes({:email => new_email}) if self.email != new_email
+    self.update_attributes({:gender => new_gender}) if self.gender != new_gender
+    self.update_attributes({:name => new_name}) if self.name != new_name
+  end
+
+  def update_groups(auth)
+    #fq = FbGraph::Query.new("SELECT work_history,education_history,current_location FROM user where uid=#{auth["uid"]}").fetch(auth["credentials"]["token"])
+    hash = auth['extra']['user_hash']
+    all_groups = self.groups
+    
+    location = hash['location']
+    if location
+      loc_group = Group.find_by_gid(location['id'].to_s) || self.groups.create(:name => location['name'], :gid => location['id'].to_s, :type => 'loc') 
+      self.groups << loc_group if !self.groups.exists?(loc_group)
+    end
+
+    if hash['education']
+      hash['education'].each do |edu|
+        school = edu['school']
+        edu_group = Group.find_by_gid(school['id'].to_s) || Group.create(:name => school['name'], :gid => school['id'].to_s, :type => 'edu')
+        self.groups << edu_group if !self.groups.exists?(edu_group)
+      end
+    end
+  end
+
   def update_friends(auth)
-    fbquery = "SELECT uid, name, sex, current_location FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 =#{auth["uid"]})"
+    fbquery = "SELECT uid, name, sex, current_location, education_history FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 =#{auth["uid"]})"
     fbq_friends = FbGraph::Query.new(fbquery).fetch(auth["credentials"]["token"]) #this might take a while...
-    fbq_friends_uids = fbq_friends.collect { |fbq_friend| fbq_friend["uid"].to_s }
     begin_time = Time.now
-    users_from_fbq = User.where(:uid => fbq_friends_uids )
+    users_from_fbq = User.where(:uid => fbq_friends.collect { |fbq_friend| fbq_friend["uid"].to_s } )
     hashed_users_from_fbq = Hash[ users_from_fbq.collect { |user| [user.uid, user] } ]
 
     friends_not_added = users_from_fbq - self.friends
     friends_not_created = fbq_friends.reject{ |fbq_friend| hashed_users_from_fbq.include?(fbq_friend["uid"].to_s) }  
+    
     if !friends_not_added.empty? or !friends_not_created.empty?
       Crewait.start_waiting
       friends_not_added.each do |friend|
@@ -70,37 +102,38 @@ class User < ActiveRecord::Base
       end    
       Crewait.go!
     end
+
     #insert group insertion code here
+    friends_not_created.each do |fbq_friend|         #THIS IS SLOWWWWWW
+      user = User.where(:uid => fbq_friend["uid"].to_s).first
+      user.update_groups_with_fq(fbq_friend)
+    end
+    #raise "update_friends took #{(Time.now - begin_time)*1000} ms"
   end
 
-  def add_friends(auth)
-    fbquery = "SELECT uid, name, sex, current_location FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 =#{auth["uid"]})"
-    fb_friends = FbGraph::Query.new(fbquery).fetch(auth["credentials"]["token"]) #this might take a while...
-    begin_time = Time.now
-    friends_who_friended_you = self.all_friends.collect { |friend| friend.uid }
-    friends_in_the_database = User.where(:uid => fb_friends.collect{ |fq| fq["uid"].to_s }) #User objects who have uids matching one in the fbquery
-    uids_of_friends_in_the_database = friends_in_the_database.collect { |friend| friend.uid }
-
-    friends_not_in_the_database = fb_friends.reject{ |fq| uids_of_friends_in_the_database.index(fq["uid"].to_s) } #fq objects which aren't in the db
-
-    friends_who_have_not_friended_you = friends_in_the_database.reject{ |friend| friends_who_friended_you.index(friend.uid) } #User objects in the db who don't have you as a friend
-    new_friend_ids = []
-    raise "create with omniauth and add friends took #{(Time.now - begin_time)*1000}ms"
-    Crewait.start_waiting
-    friends_not_in_the_database.each do |fq|
-      friend = User.crewait(:uid => fq["uid"].to_s, :name => fq["name"], :gender => fq["sex"])
-      new_friend_ids << [friend.id, fq]
-      Friendship.crewait(:user_id => self.id, :friend_id => friend.id)
+  def update_groups_with_fq(fq) #Only has location atm, need to add education!
+    if fq['current_location']
+      loc = fq['current_location']
+      loc_group = Group.find_by_gid(loc['id'].to_s) || Group.create!(:name => loc['name'], :gid => loc['id'].to_s, :type => 'loc')
+      self.groups << loc_group if !self.groups.exists?(loc_group)
     end
-    friends_in_the_database.each do |friend|
-      Friendship.crewait(:user_id => self.id, :friend_id => friend.id)
+    #raise fq.to_yaml if fq["uid"] == "1091640001"
+    if fq['education_history']
+      fq['education_history'].each do |edu|
+        name_formatted = edu['name'].each { |word| word.capitalize! }
+        edu_group = Group.find_by_name( name_formatted ) || Group.create!(:name => name_formatted, :gid => "0", :type => 'edu')
+        self.groups << edu_group if !self.groups.exists?(edu_group)
+      end
     end
-    Crewait.go!
+  end
 
-    #new_friend_ids.collect{ |arr| [User.find_by_id(arr[0].to_i), arr[1]] }.each do |arr|
-    #  arr[0].update_groups_with_fq(arr[1]) if arr[0]
-    #end
-    return self
+  def force_group_update(token)
+    fbquery = "SELECT uid, name, sex, current_location, education_history FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 =#{self.uid})"
+    fbq_friends = FbGraph::Query.new(fbquery).fetch(token) #this might take a while...
+    fbq_friends.each do |fbq_friend|         #THIS IS SLOWWWWWW
+      user = User.where(:uid => fbq_friend["uid"].to_s).first
+      user.update_groups_with_fq(fbq_friend)
+    end
   end
 
   def random_match(options)
@@ -156,63 +189,6 @@ class User < ActiveRecord::Base
       return -1
     end
     return [user0, user1, dscore]
-  end
-
-  def update_info(auth)
-    new_name = auth["user_info"]["name"]
-    new_gender = auth["extra"]["user_hash"]["gender"]
-    new_email = auth['extra']['user_hash']['email']
-    self.update_attributes({:email => new_email}) if self.email != new_email
-    self.update_attributes({:gender => new_gender}) if self.gender != new_gender
-    self.update_attributes({:name => new_name}) if self.name != new_name
-  end
-
-  def update_groups(auth)
-    #fq = FbGraph::Query.new("SELECT work_history,education_history,current_location FROM user where uid=#{auth["uid"]}").fetch(auth["credentials"]["token"])
-    hash = auth['extra']['user_hash']
-    all_groups = self.groups
-
-    if hash['location']
-      loc_group = Group.find_by_gid(hash['location']['id'].to_s)
-      if loc_group
-        self.groups << loc_group if !self.groups.exists?(loc_group)
-      else
-        self.groups.create(:name => hash['location']['name'], :gid => hash['location']['id'].to_s, :type => 'loc') 
-      end
-    end
-
-    if hash['work']
-      hash['work'].each do |job|
-        job_group = Group.find_by_gid(job['employer']['id'].to_s)
-        if job_group
-          self.groups << job_group if !self.groups.exists?(job_group)
-        else
-          self.groups.create(:name => job['employer']['name'], :gid => job['employer']['id'].to_s, :type => 'job')
-        end
-      end
-    end
-    
-    if hash['education']
-      hash['education'].each do |edu|
-        edu_group = Group.find_by_gid(edu['school']['id'].to_s)
-        if edu_group
-          self.groups << edu_group if !self.groups.exists?(edu_group)
-        else
-          self.groups.create(:name => edu['school']['name'], :gid => edu['school']['id'].to_s, :type => 'edu')   
-        end
-      end
-    end
-  end
-
-  def update_groups_with_fq(fq) #Using Crewait!!! 
-    if fq['current_location']
-      loc_group = Group.find_by_gid(fq['current_location']['id'].to_s)
-      if loc_group
-        self.groups << loc_group if !self.groups.exists?(loc_group)
-      else
-        self.groups.create(:name => fq['current_location']['name'], :gid => fq['current_location']['id'].to_s, :type => 'loc')
-      end
-    end
   end
 
   #pretty formatting stuff for the views
