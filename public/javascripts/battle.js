@@ -35,8 +35,6 @@ document.observe("dom:loaded", function() {
   $('right').observe("click", function(event) {
     Choose("right");
     });
-  $('top-ad-frame').src = "ads/top-ad.html";
-  $('bottom-ad-frame').src = "ads/bottom-ad.html";
 });
 
 var big_images = new Array()

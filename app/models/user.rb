@@ -41,36 +41,65 @@ class User < ActiveRecord::Base
   def login_procedure(auth)
     if self.login_count == 0
       if self.score < 1000 then self.update_attributes(:score => 1000) end
-      self.add_friends(auth)
     end
+    self.increment_login_count
     self.update_info(auth)
     self.update_groups(auth)
-    self.increment_login_count
+    self.update_friends(auth)
+  end
+
+  def update_friends(auth)
+    fbquery = "SELECT uid, name, sex, current_location FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 =#{auth["uid"]})"
+    fbq_friends = FbGraph::Query.new(fbquery).fetch(auth["credentials"]["token"]) #this might take a while...
+    fbq_friends_uids = fbq_friends.collect { |fbq_friend| fbq_friend["uid"].to_s }
+    begin_time = Time.now
+    users_from_fbq = User.where(:uid => fbq_friends_uids )
+    hashed_users_from_fbq = Hash[ users_from_fbq.collect { |user| [user.uid, user] } ]
+
+    friends_not_added = users_from_fbq - self.friends
+    friends_not_created = fbq_friends.reject{ |fbq_friend| hashed_users_from_fbq.include?(fbq_friend["uid"].to_s) }  
+    if !friends_not_added.empty? or !friends_not_created.empty?
+      Crewait.start_waiting
+      friends_not_added.each do |friend|
+        Friendship.crewait(:user_id => self.id, :friend_id => friend.id)
+      end
+
+      friends_not_created.each do |fbq_friend|
+        friend = User.crewait(:uid => fbq_friend["uid"].to_s, :name => fbq_friend["name"], :gender => fbq_friend["sex"])
+        Friendship.crewait(:user_id => self.id, :friend_id => friend.id)
+      end    
+      Crewait.go!
+    end
+    #insert group insertion code here
   end
 
   def add_friends(auth)
-    friends_who_friended_you = self.all_friends.collect { |friend| friend.uid }
     fbquery = "SELECT uid, name, sex, current_location FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 =#{auth["uid"]})"
     fb_friends = FbGraph::Query.new(fbquery).fetch(auth["credentials"]["token"]) #this might take a while...
-
+    begin_time = Time.now
+    friends_who_friended_you = self.all_friends.collect { |friend| friend.uid }
     friends_in_the_database = User.where(:uid => fb_friends.collect{ |fq| fq["uid"].to_s }) #User objects who have uids matching one in the fbquery
     uids_of_friends_in_the_database = friends_in_the_database.collect { |friend| friend.uid }
 
     friends_not_in_the_database = fb_friends.reject{ |fq| uids_of_friends_in_the_database.index(fq["uid"].to_s) } #fq objects which aren't in the db
 
     friends_who_have_not_friended_you = friends_in_the_database.reject{ |friend| friends_who_friended_you.index(friend.uid) } #User objects in the db who don't have you as a friend
-
+    new_friend_ids = []
+    raise "create with omniauth and add friends took #{(Time.now - begin_time)*1000}ms"
     Crewait.start_waiting
     friends_not_in_the_database.each do |fq|
       friend = User.crewait(:uid => fq["uid"].to_s, :name => fq["name"], :gender => fq["sex"])
+      new_friend_ids << [friend.id, fq]
       Friendship.crewait(:user_id => self.id, :friend_id => friend.id)
     end
-    friends_who_have_not_friended_you.each do |friend|
+    friends_in_the_database.each do |friend|
       Friendship.crewait(:user_id => self.id, :friend_id => friend.id)
     end
-
     Crewait.go!
-    #raise "create with omniauth and add friends took #{(Time.now - begin_time)*1000}ms"
+
+    #new_friend_ids.collect{ |arr| [User.find_by_id(arr[0].to_i), arr[1]] }.each do |arr|
+    #  arr[0].update_groups_with_fq(arr[1]) if arr[0]
+    #end
     return self
   end
 
@@ -109,7 +138,6 @@ class User < ActiveRecord::Base
       self.update_attributes({:score => self.score - dscore, :loss => self.loss + 1})
     end
   
-    #perform lookup since score cannot be guaranteed
     user0 = User.find_by_uid(uids[0])
     user1 = User.find_by_uid(uids[1])
     if !user0 or !user1 then return -1 end
@@ -127,7 +155,6 @@ class User < ActiveRecord::Base
     else
       return -1
     end
-
     return [user0, user1, dscore]
   end
 
@@ -177,7 +204,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def update_groups_with_fql(fq) #moving to not use fql because it doesn't give ids so gonna be deprecated.
+  def update_groups_with_fq(fq) #Using Crewait!!! 
     if fq['current_location']
       loc_group = Group.find_by_gid(fq['current_location']['id'].to_s)
       if loc_group

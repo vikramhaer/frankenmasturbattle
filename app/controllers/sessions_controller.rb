@@ -4,10 +4,10 @@ class SessionsController < ApplicationController
   def create
     auth = request.env["omniauth.auth"]
     session[:uid] = auth["uid"]
-    if !Beta.where(:uid => auth["uid"],:access => true).exists?
-      redirect_to new_beta_path
-      return
-    end
+    #if !Beta.where(:uid => auth["uid"],:access => true).exists?
+    #  redirect_to new_beta_path
+    #  return
+    #end
     user = User.find_by_uid(auth["uid"]) || User.create_with_omniauth(auth)
     user.login_procedure(auth)
     session[:user_id] = user.id
