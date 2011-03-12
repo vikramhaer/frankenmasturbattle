@@ -48,6 +48,7 @@ class User < ActiveRecord::Base
     if self.login_count == 0
       if self.score < 1000 then self.update_attributes(:score => 1000) end
     end
+    if !self.settings then self.update_attributes(:settings => 63648) end # change settings to 1111 1000 1010 0000
     self.increment_login_count
     self.update_info(auth)
     self.update_groups(auth)
