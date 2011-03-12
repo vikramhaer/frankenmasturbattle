@@ -22,6 +22,10 @@ class User < ActiveRecord::Base
     self.update_attributes(:rating_count => rt.to_i)
   end
 
+  def settings_to_array
+    self.settings.to_s(2).split("").collect{|str| str.to_i}
+  end
+
   def all_friends
     self.friends | self.inverse_friends  
   end
