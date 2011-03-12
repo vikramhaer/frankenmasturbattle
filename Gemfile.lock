@@ -29,6 +29,8 @@ GEM
       activesupport (= 3.0.4)
     activesupport (3.0.4)
     addressable (2.2.4)
+    admin_data (1.1.10)
+      will_paginate (>= 3.0.pre2)
     arel (2.0.9)
     builder (2.1.2)
     crewait (0.1.7)
@@ -127,12 +129,14 @@ GEM
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.24)
+    will_paginate (3.0.pre2)
 
 PLATFORMS
   ruby
   x86-mingw32
 
 DEPENDENCIES
+  admin_data
   crewait
   fb_graph
   omniauth

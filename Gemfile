@@ -6,6 +6,7 @@ gem 'sqlite3'
 gem 'fb_graph'
 gem 'crewait'
 gem 'pg'
+gem 'admin_data'
 
 # Use unicorn as the web server
 # gem 'unicorn'

@@ -1,6 +1,18 @@
-<h1>Settings for user</h1>
+<h1>Settings for <%= @user.name %></h1>
 
-Gonna put some settings in here...
-
+Gonna put some settings in here...<br>
+<%= form_tag '/settings' %>
+    Friends can see... statistics: <%= check_box_tag "friend", "statistics" %>
+    | networks: <%= check_box_tag "friend", "networks" %>
+    | hot list: <%= check_box_tag "friend", "hottest" %>
+    | facebook link: <%= check_box_tag "friend", "fb" %><br>
+    Networks can see statistics: <%= check_box_tag "network", "statistics" %>
+    | networks: <%= check_box_tag "network", "networks" %>
+    | hot list: <%= check_box_tag "network", "hottest" %>
+    | facebook link: <%= check_box_tag "network", "fb" %><br><br>
+    Profile visible on global rankings: <%= check_box_tag "global", "rankings" %><br>
+    Send email when friend joins: <%= check_box_tag "email", "friend_joins" %><br>
+    Send updates(newsletter): <%= check_box_tag "email", "newsletter" %><br><br>
+    <%= submit_tag "Save Settings" %><br>
 <%= link_to 'Show', @user %> |
 <%= link_to 'Back', users_path %>

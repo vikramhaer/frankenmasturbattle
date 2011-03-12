@@ -42,7 +42,9 @@ class UsersController < ApplicationController
   end
 
   def settings
-    @user = User.find(params[:id])
+    raise params.to_yaml
+    @settings = []
+    @user = current_user
     respond_to do |format|
       format.html
     end

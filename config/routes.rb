@@ -10,6 +10,7 @@ Masterater::Application.routes.draw do
 
   resources :groups
 
+  match "/settings" => "users#settings"
   match "users/:id/all_friends" => "users#all_friends"
   match "users/:id/all_friends/:cmd" => "users#all_friends"
   get "user/index"  
