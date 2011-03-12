@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(:version => 20110312092741) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "email"
-    t.integer  "settings",     :default => 63648
+    t.integer  "settings",     :default => 51360
   end
 
 end
