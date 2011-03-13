@@ -44,8 +44,11 @@ class UsersController < ApplicationController
   def settings
     @settings = current_user.settings_to_array
     @other_settings = []
-    @other_settings[0] = @settings[5] & 0b0010
-    @other_settings[1] = @settings[5] & 0b0001
+    @other_settings[0] = @settings[5] & 0b1000
+    @other_settings[1] = @settings[5] & 0b0100
+    @other_settings[2] = @settings[5] & 0b0010
+    @other_settings[3] = @settings[5] & 0b0001
+
     if params["update"]
       @settings[0] = params["statistics"].to_i
       @settings[1] = params["networks"].to_i
@@ -57,9 +60,17 @@ class UsersController < ApplicationController
       @other_settings[0] = params["email_friend_joins"] ? 1 : 0
       @other_settings[1] = params["email_newsletter"] ? 1 : 0
 
-      @settings[5] = @other_settings[0]*2 + @other_settings[1]*1
-      #raise @settings.to_yaml
-      current_user.update_attributes(:settings => (@settings * "").to_i(16) )
+      if params["account_status_message"] == "deactivate" then
+        @other_settings[2] = 1
+      elsif params["account_status_message"] == "reactivate" then
+        @other_settings[2] = 0
+      else
+        flash[:error] = "account status change message not recognized"
+      end
+
+      @settings[5] = (@other_settings * "").to_i(2)
+      @settings_formatted = @settings.collect{ |e| e.to_s(16) }
+      current_user.update_attributes(:settings => (@settings_formatted * "").to_i(16) )
       #current_user.update_attributes(:settings => 4465285 )
     end
     @user = current_user

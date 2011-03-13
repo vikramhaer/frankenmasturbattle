@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   end
 
   def settings_to_array
-    self.settings.to_s(16).split("").collect{|str| str.to_i}
+    self.settings.to_s(16).split("").collect{|str| str.to_i(16)}
   end
 
   def all_friends

@@ -1,19 +1,28 @@
 <h1>Settings for <%= @user.name %></h1>
 
-Gonna put some settings in here...<br>
 <%= form_tag '/settings' %>
-    On the profile page...
+    On the profile page... <br>
     Statistics visible to                 <%= select_tag "statistics",  privacy_options(@settings[0]) %> <br>
     Networks visible to                   <%= select_tag "networks",    privacy_options(@settings[1]) %> <br>
     Hottest Friends visible to            <%= select_tag "hottest",     privacy_options(@settings[2]) %> <br>
     Facebook Link visible to              <%= select_tag "facebook",    privacy_options(@settings[3]) %> <br>
-
+    <br>
     Profile can show up on rankings for   <%= select_tag "rankings",    privacy_options(@settings[4]) %> <br>
-
-    Other Settings...
+    <br>
+    Other Settings... <br>
     Send email when friend joins:         <%= check_box_tag "email_friend_joins", "allowed", @other_settings[0] != 0 %> <br>
     Send updates(newsletter):             <%= check_box_tag "email_newsletter",   "allowed", @other_settings[1] != 0 %> <br>
+    <br>
+    Account Status:
+    <% if @other_settings[2] == 0 %>
+    account is currently ACTIVE. To deactivate account, type "deactivate" in the text box below <br>                   
+
+    <% else %>
+    Account is currently DEACTIVATED. To reactivate account, type "reactivate" in the text box below <br>
+    <% end %>       
+    <%= text_field_tag("account_status_message") %> <br>
                                           <%= hidden_field_tag 'update', true %>
+    <br><br>
     <%= submit_tag "Save Settings" %><br>
 <%= link_to 'Show', @user %> |
 <%= link_to 'Back', users_path %>
