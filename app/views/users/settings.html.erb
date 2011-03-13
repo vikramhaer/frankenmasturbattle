@@ -2,18 +2,18 @@
 
 Gonna put some settings in here...<br>
 <%= form_tag '/settings' %>
-    Friends can see... statistics:          <%= check_box_tag "friend_statistics",  "allowed", @settings[0]==1%>
-    | networks:                             <%= check_box_tag "friend_networks",    "allowed", @settings[1]==1 %>
-    | hot list:                             <%= check_box_tag "friend_hottest",     "allowed", @settings[2]==1 %>
-    | facebook link:                        <%= check_box_tag "friend_fb",          "allowed", @settings[3]==1 %><br>
-    Networks can see statistics:            <%= check_box_tag "network_statistics", "allowed", @settings[4]==1 %>
-    | networks:                             <%= check_box_tag "network_networks",   "allowed", @settings[5]==1 %>
-    | hot list:                             <%= check_box_tag "network_hottest",    "allowed", @settings[6]==1 %>
-    | facebook link:                        <%= check_box_tag "network_fb",         "allowed", @settings[7]==1 %><br><br>
-    Profile visible on global rankings:     <%= check_box_tag "global_rankings",    "allowed", @settings[8]==1 %><br>
-    Send email when friend joins:           <%= check_box_tag "email_friend_joins", "allowed", @settings[9]==1 %><br>
-    Send updates(newsletter):               <%= check_box_tag "email_newsletter",   "allowed", @settings[10]==1 %><br><br>
-                                            <%= hidden_field_tag 'update', true %>
+    On the profile page...
+    Statistics visible to                 <%= select_tag "statistics",  privacy_options(@settings[0]) %> <br>
+    Networks visible to                   <%= select_tag "networks",    privacy_options(@settings[1]) %> <br>
+    Hottest Friends visible to            <%= select_tag "hottest",     privacy_options(@settings[2]) %> <br>
+    Facebook Link visible to              <%= select_tag "facebook",    privacy_options(@settings[3]) %> <br>
+
+    Profile can show up on rankings for   <%= select_tag "rankings",    privacy_options(@settings[4]) %> <br>
+
+    Other Settings...
+    Send email when friend joins:         <%= check_box_tag "email_friend_joins", "allowed", @other_settings[0] != 0 %> <br>
+    Send updates(newsletter):             <%= check_box_tag "email_newsletter",   "allowed", @other_settings[1] != 0 %> <br>
+                                          <%= hidden_field_tag 'update', true %>
     <%= submit_tag "Save Settings" %><br>
 <%= link_to 'Show', @user %> |
 <%= link_to 'Back', users_path %>

@@ -43,21 +43,24 @@ class UsersController < ApplicationController
 
   def settings
     @settings = current_user.settings_to_array
+    @other_settings = []
+    @other_settings[0] = @settings[5] & 0b1000
+    @other_settings[1] = @settings[5] & 0b100
     if params["update"]
       options = @settings
-      options[0] = params["friend_statistics"] ? 1 : 0
-      options[1] = params["friend_networks"] ? 1 : 0
-      options[2] = params["friend_hottest"] ? 1 : 0
-      options[3] = params["friend_fb"] ? 1 : 0
-      options[4] = params["network_statistics"] ? 1 : 0
-      options[5] = params["network_networks"] ? 1 : 0
-      options[6] = params["network_hottest"] ? 1 : 0
-      options[7] = params["network_fb"] ? 1 : 0
-      options[8] = params["global_rankings"] ? 1 : 0
-      options[9] = params["email_friend_joins"] ? 1 : 0
-      options[10] = params["email_newsletter"] ? 1 : 0
-      #options[11] = implement the opt-out stuff here.
-      current_user.update_attributes(:settings => (options * "").to_i(2) )
+      options[0] = params["statistics"] || options[0]
+      options[1] = params["networks"]   || options[1]
+      options[2] = params["hottest"]    || options[2]
+      options[3] = params["facebook"]   || options[3]
+      options[4] = params["rankings"]   || options[4]
+
+      # [0,1,2,3]
+      other_options = options[5].to_s(2).split("").collect{|str| str.to_i}
+      other_options[0] = params["email_friend_joins"] ? 1 : 0
+      other_options[1] = params["email_newsletter"] ? 1 : 0
+
+      options[5] = other_options[0]*8 + other_options[1]*4 + 1
+      current_user.update_attributes(:settings => (options * "").to_i(16) )
     end
     @user = current_user
     respond_to do |format|

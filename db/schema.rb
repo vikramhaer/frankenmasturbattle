@@ -48,8 +48,8 @@ ActiveRecord::Schema.define(:version => 20110312092741) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "name"
-    t.string   "uid"
+    t.string   "name",                              :null => false
+    t.string   "uid",                               :null => false
     t.string   "gender"
     t.integer  "login_count",  :default => 0
     t.integer  "rating_count", :default => 0
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(:version => 20110312092741) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "email"
-    t.integer  "settings",     :default => 63648
+    t.integer  "settings",     :default => 4461185
   end
 
 end
