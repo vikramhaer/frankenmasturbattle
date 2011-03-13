@@ -44,23 +44,23 @@ class UsersController < ApplicationController
   def settings
     @settings = current_user.settings_to_array
     @other_settings = []
-    @other_settings[0] = @settings[5] & 0b1000
-    @other_settings[1] = @settings[5] & 0b100
+    @other_settings[0] = @settings[5] & 0b0010
+    @other_settings[1] = @settings[5] & 0b0001
     if params["update"]
-      options = @settings
-      options[0] = params["statistics"] || options[0]
-      options[1] = params["networks"]   || options[1]
-      options[2] = params["hottest"]    || options[2]
-      options[3] = params["facebook"]   || options[3]
-      options[4] = params["rankings"]   || options[4]
+      @settings[0] = params["statistics"].to_i
+      @settings[1] = params["networks"].to_i
+      @settings[2] = params["hottest"].to_i
+      @settings[3] = params["facebook"].to_i
+      @settings[4] = params["rankings"].to_i
 
       # [0,1,2,3]
-      other_options = options[5].to_s(2).split("").collect{|str| str.to_i}
-      other_options[0] = params["email_friend_joins"] ? 1 : 0
-      other_options[1] = params["email_newsletter"] ? 1 : 0
+      @other_settings[0] = params["email_friend_joins"] ? 1 : 0
+      @other_settings[1] = params["email_newsletter"] ? 1 : 0
 
-      options[5] = other_options[0]*8 + other_options[1]*4 + 1
-      current_user.update_attributes(:settings => (options * "").to_i(16) )
+      @settings[5] = @other_settings[0]*2 + @other_settings[1]*1
+      #raise @settings.to_yaml
+      current_user.update_attributes(:settings => (@settings * "").to_i(16) )
+      #current_user.update_attributes(:settings => 4465285 )
     end
     @user = current_user
     respond_to do |format|
