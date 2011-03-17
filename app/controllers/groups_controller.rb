@@ -1,7 +1,7 @@
 class GroupsController < ApplicationController
   # GET /groups
   # GET /groups.xml
-  #before_filter :is_admin?, :only => ["index"]
+  before_filter :is_admin?, :only => ["index"]
 
   def index
     @groups = Group.all.sort{ |b,a| a.users.size <=> b.users.size}
