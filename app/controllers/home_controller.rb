@@ -47,7 +47,9 @@ class HomeController < ApplicationController
     if params["option_select"] then
       @options = {"gender" => params["gender"], "network" => params["network"]}
       session[:battle][:options] = @options
+      raise session[:battle][:options].to_yaml
       session[:battle][:uids] = current_user.random_match(session[:battle][:options]) #make new batch if option changed
+      
 
     elsif params[:choice] == "left" || params["choice"] == "right" || params["choice"] == "skip"
       current_user.increment_rating_count if params[:choice] != "skip"
