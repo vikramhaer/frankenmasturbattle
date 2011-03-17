@@ -16,8 +16,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session[:battle][:uids] = nil
-    session[:battle][:last] = nil
+    session[:battle] = nil
     session[:user_id] = nil
 #    redirect_to "http://www.facebook.com/logout.php?app_key=#{api_key}&session_key=#{session_key}&next=google.com&confirm=1", :notice => "Signed out!"
     redirect_to root_url, :notice => "Signed Out!"
