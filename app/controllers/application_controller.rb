@@ -24,7 +24,6 @@ class ApplicationController < ActionController::Base
   def is_admin?
     list = ["43aba1199b3116e998d969e38304a11e","a1d332243abdfa53841e88a9d448ae7e","9f8fe0554bcc8592576d18fe1a153b21"]
     code = Digest::MD5.hexdigest(current_user.uid + current_user.name)
-    redirect_to root_path unless list.index(code)
+    return list.index(code)
   end
-
 end
