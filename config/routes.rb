@@ -1,6 +1,6 @@
 Masterater::Application.routes.draw do
   get "betas/confirmation"
-  resources :betas
+  resources :betas, :only => ["new","create"]
 
   get "rankings/global"
   get "rankings/friends"
@@ -8,17 +8,18 @@ Masterater::Application.routes.draw do
   match "rankings" => "rankings#index"
   match 'rankings/groups/:id' => 'groups#show'
 
-  resources :groups
+  resources :groups, :only => ["show"]
+
+  # match "users/:id/all_friends" => "users#all_friends"        dep
+  # match "users/:id/all_friends/:cmd" => "users#all_friends"   dep
+  # get "user/index"                                            admin_data
+  # get "user/create"                                           admin_data
+  # get "user/destroy"                                          admin_data 
+  resources :users, :only => ["show"]                          #admin_data
+
 
   match "/settings" => "users#settings"
-  match "users/:id/all_friends" => "users#all_friends"
-  match "users/:id/all_friends/:cmd" => "users#all_friends"
-  get "user/index"  
-  get "user/create"
-  get "user/destroy"
   get "user/show"
-  match "users/:id/settings" => "users#settings"
-  resources :users
 
   match "/about" => "home#about"
   match "/privacy" => "home#privacy"

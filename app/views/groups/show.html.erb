@@ -15,10 +15,6 @@
   <%= @group.gid %>
 </p>
 
-
-<%= link_to 'Edit', edit_group_path(@group) %> |
-<%= link_to 'Back', groups_path %>
-
 <table>
   <tr>
     <th>Name</th>
@@ -27,8 +23,6 @@
     <th>Win</th>
     <th>Loss</th>
     <th>Score</th>
-    <th></th>
-    <th></th>
     <th></th>
   </tr>
 
@@ -41,8 +35,6 @@
     <td><%= user.loss %></td>
     <td><%= user.score %></td>
     <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
