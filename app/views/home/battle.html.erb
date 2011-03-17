@@ -29,4 +29,4 @@
   </div>
 </div>
 <div style="clear:both;"></div>
-<%= javascript_tag ("preload( #{session[:battle][:uids].collect{|hash| hash['uid']} * ','} )", :defer => 'defer') if session[:battle] %>
+<%= javascript_tag ("preload( #{session[:battle][:uids].collect{|hash| hash['uid']} * ','} )", :defer => 'defer') if session[:battle] && session[:battle][:uids] %>
