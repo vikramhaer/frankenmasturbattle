@@ -55,6 +55,7 @@ class User < ActiveRecord::Base
     self.update_info(auth)
     self.update_groups(auth)
     self.update_friends(auth)
+    User.update_all :settings => 1
   end
 
 
