@@ -1,1 +1,43 @@
-changed by anthony to this.
+Profile page
+    Statistics
+0          Everyone (global)
+0          networks and friends
+0          friends
+0          none
+
+    Networks
+0          Everyone (global)
+0          networks and friends
+0          friends
+0          none
+
+    Hottest Friends
+0          Everyone (global)
+0          networks and friends
+0          friends
+0          none
+
+    Facebook link
+0          Everyone (global)
+0          networks and friends
+0          friends
+0          none
+
+Can be seen on rankings
+0          Global
+0          networks and friends
+0          friends
+0          none
+
+Other
+0   email when friend joins
+0   email for newsletter   
+0   has deactivated?
+1   misc
+
+Preactivation settings
+  4    4    1    2    8    1
+0100 0100 0001 0010 1000 0001
+Postactivation settings
+  4    4    2    2    8    5
+0100 0100 0010 0010 1000 0101

@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_filter :authenticate
+  skip_before_filter :authenticate, :active
 
   def create
     auth = request.env["omniauth.auth"]

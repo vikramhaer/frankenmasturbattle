@@ -1,5 +1,6 @@
+require 'digest/md5'
 class ApplicationController < ActionController::Base
-  before_filter :authenticate
+  prepend_before_filter :authenticate, :active
 
   protect_from_forgery
   helper_method :current_user
@@ -16,8 +17,14 @@ class ApplicationController < ActionController::Base
     redirect_to root_path unless current_user
   end
 
+  def active
+    redirect_to '/settings' if current_user && current_user.is_inactive?
+  end
+
   def is_admin?
-    current_user.is_admin?
+    list = ["43aba1199b3116e998d969e38304a11e","a1d332243abdfa53841e88a9d448ae7e","9f8fe0554bcc8592576d18fe1a153b21"]
+    code = Digest::MD5.hexdigest(current_user.uid + current_user.name)
+    redirect_to root_path unless list.index(code)
   end
 
 end

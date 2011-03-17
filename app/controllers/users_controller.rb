@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   # GET /users
   # GET /users.xml
+  skip_before_filter :active, :only => "settings"
+
   def index
     @user_count = User.count
     @group_count = Group.count
@@ -15,12 +17,17 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.xml
   def show
-    @user = User.find(params[:id])
-    #raise @user.all_friends_order_by_score_desc_limit(12).to_yaml
-    @user_friends = @user.all_friends_order_by_score_desc_limit(12)
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @user }
+    @user = User.find_by_id(params[:id])
+    if !@user then
+      render :inline => "<h1>User not found</h1>", :layout => true
+    elsif @user.is_inactive?
+      render :inline => "<h1>User not active</h1>", :layout => true
+    else 
+      @user_friends = @user.is_new? ? [] : @user.all_friends_order_by_score_desc_limit(12) 
+      respond_to do |format|
+        format.html # show.html.erb
+        format.xml  { render :xml => @user }
+      end
     end
   end
 
@@ -42,36 +49,15 @@ class UsersController < ApplicationController
   end
 
   def settings
-    @settings = current_user.settings_to_array
-    @other_settings = []
-    @other_settings[0] = @settings[5] & 0b1000
-    @other_settings[1] = @settings[5] & 0b0100
-    @other_settings[2] = @settings[5] & 0b0010
-    @other_settings[3] = @settings[5] & 0b0001
-
+    @settings = current_user.settings
     if params["update"]
-      @settings[0] = params["statistics"].to_i
-      @settings[1] = params["networks"].to_i
-      @settings[2] = params["hottest"].to_i
-      @settings[3] = params["facebook"].to_i
-      @settings[4] = params["rankings"].to_i
-
-      # [0,1,2,3]
-      @other_settings[0] = params["email_friend_joins"] ? 1 : 0
-      @other_settings[1] = params["email_newsletter"] ? 1 : 0
-
       if params["account_status_message"] == "deactivate" then
-        @other_settings[2] = 1
+        current_user.update_attributes(:settings => 0);
       elsif params["account_status_message"] == "reactivate" then
-        @other_settings[2] = 0
+        current_user.update_attributes(:settings => 1);
       else
         flash[:error] = "account status change message not recognized"
       end
-
-      @settings[5] = (@other_settings * "").to_i(2)
-      @settings_formatted = @settings.collect{ |e| e.to_s(16) }
-      current_user.update_attributes(:settings => (@settings_formatted * "").to_i(16) )
-      #current_user.update_attributes(:settings => 4465285 )
     end
     @user = current_user
     respond_to do |format|

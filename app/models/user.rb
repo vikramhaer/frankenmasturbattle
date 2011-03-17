@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   scope :top25, order("score desc").limit(25)
   scope :top5, order("score desc").limit(5)
   scope :unrated, where("win = ? AND loss = ?", 0, 0)
+  scope :active, where("settings != ?", 0)
 
   def increment_login_count
     lg = self.login_count + 1
@@ -22,9 +23,10 @@ class User < ActiveRecord::Base
     self.update_attributes(:rating_count => rt.to_i)
   end
 
-  def settings_to_array
-    self.settings.to_s(16).split("").collect{|str| str.to_i(16)}
-  end
+  #postponed more complex settings until later...
+  #def settings_to_array
+  #  self.settings.to_s(16).split("").collect{|str| str.to_i(16)}
+  #end
 
   def all_friends
     self.friends | self.inverse_friends  
@@ -148,12 +150,12 @@ class User < ActiveRecord::Base
     networkid = (options["network"] || "0").to_i
 
     if networkid == 0 #only friends selected
-      size = self.friends.where(:gender => gender).size
-      pool = self.friends.where(:gender => gender).order("id asc")
+      size = self.friends.where(:gender => gender).active.size
+      pool = self.friends.where(:gender => gender).active.order("id asc")
     else
       network = self.groups.find_by_id(networkid)
-      size = network.users.where(:gender => gender).size
-      pool = network.users.where(:gender => gender).where("uid != ?", self.uid).order("id asc")
+      size = network.users.where(:gender => gender).active.size
+      pool = network.users.where(:gender => gender).active.where("uid != ?", self.uid).order("id asc")
     end
 
     if size < 10 then 
@@ -217,5 +219,13 @@ class User < ActiveRecord::Base
     else
       "male"
     end
+  end
+
+  def is_inactive?
+    self.settings == 0
+  end
+
+  def is_new?
+    self.login_count == 0
   end
 end
