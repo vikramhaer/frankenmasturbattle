@@ -44,15 +44,6 @@ class User < ActiveRecord::Base
       user.name = auth["user_info"]["name"]
       user.gender = auth["extra"]["user_hash"]["gender"]
     end
-    Crewait.start_waiting
-    usa = User.crewait(:name => "something", :uid => "blah")
-    Crewait.go!
-    usb = User.create(:name => "somethingagain", :uid => "oncemore")
-    Crewait.start_waiting
-    usc = User.crewait(:name => "omgmore?", :uid => "1234")
-    Crewait.go!
-    raise User.all.to_yaml
-
   end
 
   def login_procedure(auth)
@@ -101,7 +92,7 @@ class User < ActiveRecord::Base
 
   def update_friends(auth)
     #a = Time.now
-    fbquery = "SELECT uid, name, sex, current_location, education_history FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 =#{auth["uid"]})"
+    fbquery = "SELECT uid, name, sex, current_location, education_history, hs_info FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 =#{auth["uid"]})"
     fbq_friends = FbGraph::Query.new(fbquery).fetch(auth["credentials"]["token"]) #this might take a while...
     #b = Time.now
     users_from_fbq = User.where(:uid => fbq_friends.collect { |fbq_friend| fbq_friend["uid"].to_s } )
@@ -133,23 +124,23 @@ class User < ActiveRecord::Base
         #create each group
         group = Group.crewait(:name => group_name)
         #add each group to the hash to add memberships later on
-        hashed_groups_from_fbq[group_name] = group.id
+        hashed_groups_from_fbq[group_name] = group.id+1 #NEED +1 PATCH B/C CREWAIT's OFFBY1 ERROR.
       end
       friends_not_added.each do |friend|
-        Friendship.crewait(:user_id => self.id, :friend_id => friend.id)
+        Friendship.crewait(:user_id => self.id, :friend_id => friend.id ) #these are existing users so not affected by offby1
       end
       statlist = []
       friends_not_created.each do |fbq_friend|
         #create the friend
         friend = User.crewait(:uid => fbq_friend["uid"].to_s, :name => fbq_friend["name"], :gender => fbq_friend["sex"])
         #add the friendship
-        Friendship.crewait(:user_id => self.id, :friend_id => friend.id)
+        Friendship.crewait(:user_id => self.id, :friend_id => (friend.id+1) ) #NEED +1 PATCH B/C CREWAIT's OFFBY1 ERROR.
         #find the friend's groups
         groups_to_join = helper_get_group_names_from_fq(fbq_friend).uniq.reject{|g| g == nil}
-        statlist << (fbq_friend["name"] + "[" + friend.id.to_s + "]:" + groups_to_join.collect{|group_name| group_name + "[" + hashed_groups_from_fbq[group_name].to_s + "]"} * ",")
+        statlist << (fbq_friend["name"] + "[" + (friend.id+1).to_s + "]:" + groups_to_join.collect{|group_name| group_name + "[" + hashed_groups_from_fbq[group_name].to_s + "]"} * ",")
         groups_to_join.each do |group_name|
           #add memberships for each group
-          Membership.crewait(:user_id => friend.id, :group_id => hashed_groups_from_fbq[group_name])
+          Membership.crewait(:user_id => (friend.id+1), :group_id => hashed_groups_from_fbq[group_name] ) #NEED +1 PATCH B/C CREWAIT's OFFBY1 ERROR.
         end
       end
       #raise statlist.to_yaml
@@ -175,6 +166,18 @@ class User < ActiveRecord::Base
         rtn << name_formatted
       end
     end
+    
+    if fq['hs_info']
+      if fq['hs_info']['hs1_name'] && fq['hs_info']['hs1_name'] != ""
+        name_formatted = fq['hs_info']['hs1_name'].each { |word| word.capitalize! }
+        rtn << name_formatted
+      end
+      if fq['hs_info']['hs2_name'] && fq['hs_info']['hs2_name'] != ""
+        name_formatted = fq['hs_info']['hs2_name'].each { |word| word.capitalize! }
+        rtn << name_formatted
+      end
+    end
+
     return rtn
   end
     
