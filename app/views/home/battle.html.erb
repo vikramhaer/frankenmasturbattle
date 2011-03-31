@@ -1,10 +1,4 @@
 <%= javascript_include_tag "battle" %>
-<!-- <div id="left-column">
-	<div id="adright">
-<iframe id="left-column" width="120" height="640" src="" class="ad-col"
-        frameborder="0" scrolling="no"></iframe>
-	</div>
-</div> -->
 <div id="main">
 <div id="filters">
   <%= form_tag '/battle_update', :remote => true, :id => "battle_options", :method=> "get" do %>
@@ -22,11 +16,5 @@
 	</div>
 
 </div>
-<!-- <div id="right-column">
-	<div id="adright">
-<iframe id="right-column" width="120" height="640" src="" class="ad-col"
-        frameborder="0" scrolling="no"></iframe>
-  </div>
-</div> -->
 <div style="clear:both;"></div>
 <%= javascript_tag ("preload( #{session[:battle][:uids].collect{|hash| hash['uid']} * ','} )", :defer => 'defer') if @enough_people %>
