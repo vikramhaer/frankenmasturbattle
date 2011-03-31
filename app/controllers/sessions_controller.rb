@@ -5,20 +5,23 @@ class SessionsController < ApplicationController
     auth = request.env["omniauth.auth"]
     session[:uid] = auth["uid"]
     session[:access_token] = auth["credentials"]["token"]
-    #if !Beta.where(:uid => auth["uid"],:access => true).exists?
-    #  redirect_to new_beta_path
-    #  return
-    #end
+
     user = User.find_by_uid(auth["uid"]) || User.create_with_omniauth(auth)
-    user.login_procedure(auth)
     session[:user_id] = user.id
-    redirect_to battle_path, :notice => "Signed in!"
+    user.standard_login(auth)
+    if user.login_count == 1 then 
+      session[:loading_in_progress] = true
+      redirect_to "/invite"
+    else
+      redirect_to battle_path, :notice => "Signed in!"
+    end
   end
 
   def destroy
+    session[:uid] = nil
     session[:battle] = nil
     session[:user_id] = nil
-#    redirect_to "http://www.facebook.com/logout.php?app_key=#{api_key}&session_key=#{session_key}&next=google.com&confirm=1", :notice => "Signed out!"
+    session[:access_token] = nil
     redirect_to root_url, :notice => "Signed Out!"
   end
 end

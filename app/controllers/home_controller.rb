@@ -28,6 +28,16 @@ class HomeController < ApplicationController
     end
   end
 
+  def invite
+  end
+
+  def invite_update
+    current_user.first_login(session[:access_token])
+    respond_to do |format|
+      format.js { render :layout=>false }
+    end
+  end
+
   def battle
     session[:battle] = {} if !session[:battle] #initialize session[:battle] if not there
     #session[:battle][:last]

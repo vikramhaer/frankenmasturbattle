@@ -20,10 +20,13 @@ Masterater::Application.routes.draw do
 
   match "/settings" => "users#settings"
   get "user/show"
+  get "user/update_info"
 
   match "/about" => "home#about"
   match "/privacy" => "home#privacy"
-  match "/battle_update" => "home#battle_update", :via=>[:get, :post]
+  match "/battle_update" => "home#battle_update"
+  match "/invite" => "home#invite"
+  match "/invite_update" => "home#invite_update"
 
   #get "home/index"
   match "/battle" => "home#battle"
