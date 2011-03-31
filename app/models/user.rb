@@ -208,27 +208,32 @@ class User < ActiveRecord::Base
   end
 
   def random_match(options)
+    a = Time.now
     gender = options["gender"] || "female"
     networkid = (options["network"] || "0").to_i
 
     if networkid == 0 #only friends selected
-      size = self.friends.where(:gender => gender).active.size
-      pool = self.friends.where(:gender => gender).active.order("id asc")
+      @friends = self.friends.where(:gender => gender).active
+      size = @friends.length
+      pool = @friends
+      #size = self.friends.where(:gender => gender).active.size
+      #pool = self.friends.where(:gender => gender).active.order("id asc")
     else
-      network = self.groups.find_by_id(networkid)
-      size = network.users.where(:gender => gender).active.size
-      pool = network.users.where(:gender => gender).active.where("uid != ?", self.uid).order("id asc")
+      @network_users = self.groups.find_by_id(networkid).where(:gender => gender).active
+      size = @network_users.length
+      pool = @network_users
     end
-
+    b = Time.now
     if size < 10 then 
       return [nil, nil]
     else
       results = []
       cap = ([(size-1)/2*2, 30].min) -1
       (0..size-1).sort_by{rand}[0..cap].each do |offset|
-        results << pool.offset(offset).limit(1)
+        results << pool[offset]
       end
-      return results.collect{ |user| {"name" => user[0].name, "uid" => user[0].uid} }
+      c = Time.now
+      return results.collect{ |user| {"name" => user.name, "uid" => user.uid} }
     end
   end   
 

@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     user = User.find_by_uid(auth["uid"]) || User.create_with_omniauth(auth)
     session[:user_id] = user.id
     user.standard_login(auth)
-    if true or user.login_count == 1 then 
+    if user.login_count == 1 then 
       session[:loading_in_progress] = true
       redirect_to "/invite"
     else
