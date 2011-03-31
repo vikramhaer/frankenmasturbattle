@@ -1,18 +1,6 @@
 class UsersController < ApplicationController
-  # GET /users
-  # GET /users.xml
+
   skip_before_filter :active, :only => "settings"
-
-  def index
-    @user_count = User.count
-    @group_count = Group.count
-    @users = User.find(:all, :order => "score desc")
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @users }
-    end
-  end
 
   # GET /users/1
   # GET /users/1.xml
@@ -94,6 +82,19 @@ class UsersController < ApplicationController
         format.html { render :action => "new" }
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
       end
+    end
+  end
+
+  # GET /users
+  # GET /users.xml
+  def index
+    @user_count = User.count
+    @group_count = Group.count
+    @users = User.find(:all, :order => "score desc")
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @users }
     end
   end
 

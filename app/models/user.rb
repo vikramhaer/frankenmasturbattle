@@ -47,18 +47,19 @@ class User < ActiveRecord::Base
   end
 
   def login_procedure(auth)
+
+  end
+
+  def standard_login(auth)
     self.update_info(auth)
     self.update_groups(auth)
-
-    if self.login_count == 0
-      self.update_attributes(:settings => 4465285)
-      self.update_friends(auth)
-      if self.score < 1000 then self.update_attributes(:score => 1000) end
-    end
-
     self.increment_login_count
   end
 
+  def first_login(token)
+    self.update_friends(self.uid, token)
+    if self.score < 1000 then self.update_attributes(:score => 1000) end
+  end
 
   def update_info(auth)
     new_name = auth["user_info"]["name"]
@@ -70,7 +71,6 @@ class User < ActiveRecord::Base
   end
 
   def update_groups(auth)
-    #fq = FbGraph::Query.new("SELECT work_history,education_history,current_location FROM user where uid=#{auth["uid"]}").fetch(auth["credentials"]["token"])
     hash = auth['extra']['user_hash']
     all_groups = self.groups
     location = hash['location']
@@ -90,10 +90,10 @@ class User < ActiveRecord::Base
     end
   end
 
-  def update_friends(auth)
+  def update_friends(uid, token)
     #a = Time.now
-    fbquery = "SELECT uid, name, sex, current_location, education_history, hs_info FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 =#{auth["uid"]})"
-    fbq_friends = FbGraph::Query.new(fbquery).fetch(auth["credentials"]["token"]) #this might take a while...
+    fbquery = "SELECT uid, name, sex, current_location, education_history, hs_info FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 =#{uid})"
+    fbq_friends = FbGraph::Query.new(fbquery).fetch(token) #this might take a while...
     #b = Time.now
     users_from_fbq = User.where(:uid => fbq_friends.collect { |fbq_friend| fbq_friend["uid"].to_s } )
     hashed_users_from_fbq = Hash[ users_from_fbq.collect { |user| [user.uid, user] } ]
