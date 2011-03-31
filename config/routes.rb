@@ -6,7 +6,7 @@ Masterater::Application.routes.draw do
   get "rankings/friends"
   get "rankings/groups"
   match "rankings" => "rankings#index"
-  match 'rankings/groups/:id' => 'groups#show'
+  #match 'rankings/groups/:id' => 'groups#show'  DO THIS LATER
 
   resources :groups, :only => ["show"]
 

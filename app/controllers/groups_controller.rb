@@ -15,7 +15,8 @@ class GroupsController < ApplicationController
   # GET /groups/1.xml
   def show
     @group = Group.find(params[:id])
-    @users = @group.users.find(:all, :order => "score desc", :limit => 50)
+    @top_females = @group.users.female.top25
+    @top_males = @group.users.male.top25
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @group }

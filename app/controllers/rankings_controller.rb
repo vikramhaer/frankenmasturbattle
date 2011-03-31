@@ -22,7 +22,7 @@ class RankingsController < ApplicationController
       raise "Group with id #{params[:id]} not found"
     else
       @top_females = @group.users.female.top25
-      @top_males = @group.users.male.top25
+      @top_males = @group.users.male.top25    
       respond_to do |format|
         format.html
       end
