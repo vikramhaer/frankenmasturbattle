@@ -32,7 +32,9 @@ class HomeController < ApplicationController
   end
 
   def invite_update
-    current_user.first_login(session[:access_token])
+    if current_user.login_count == 1
+      current_user.first_login(session[:access_token])
+    end
     respond_to do |format|
       format.js { render :layout=>false }
     end
