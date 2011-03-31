@@ -39,8 +39,7 @@
     <%= link_to image_tag("http://graph.facebook.com/#{current_user.uid}/picture" , :class=>"left userimg"), current_user %>
     <ul>
    		<li><%= link_to current_user.name.split(" ")[0], current_user %></li>
-      <li><%= link_to "Settings", "/settings" %></li>
-			<li><%= link_to "Start Franking", battle_path %></li>
+			<li><%= link_to "Battle!", battle_path %></li>
 			<li><%= link_to "Rankings", rankings_path %></li>
  <!--       <ul>
           <li>Global</li>

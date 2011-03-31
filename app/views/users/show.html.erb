@@ -8,6 +8,9 @@
 <p class="username left">
   <%= link_to(@user.name, "http://www.facebook.com/profile.php?id=#{@user.uid}", :target=>"_blank") %>
 </p>
+<div class="right smallbutton">
+<%= if @user.id == current_user.id then link_to("Settings", "/settings") end %>
+</div>
 <div style="clear:both;"></div>
 				<div class="statbox4">
 					<div class="stattitle">You've Voted</div>
