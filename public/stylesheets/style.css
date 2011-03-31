@@ -40,11 +40,10 @@ text-shadow: 0px 1px 0px white;
 }
 
 ul {
-list-style: none
+padding-left: 40px;
 }
 
 ul li {
-padding-left: 10px;
 }
 
 #wrapper {
@@ -110,6 +109,8 @@ width: 250px;
 font-size: 30px;
 font-family: 'lobster', helvetica, arial, san-serif;
 text-align: center;
+margin: 0;
+padding: 0;
 }
 
 .button {
@@ -502,6 +503,7 @@ margin: 0 0 -5px 0;
 .winloss {
 font-size: 15px;
 margin: 0 auto;
+padding: 0;
 }
 
 .loser {
@@ -553,6 +555,7 @@ margin: 10px auto;
 .lastround {
 font-size: 12px;
 margin: 0 10px;
+padding: 0;
 text-align: center;
 }
 
@@ -716,6 +719,7 @@ color: #fff;
 .score {
 font-size: 25px;
 margin-bottom: 5px;
+padding: 0;
 }
 
 /* Drop Shadows */
