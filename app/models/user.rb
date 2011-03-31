@@ -219,7 +219,7 @@ class User < ActiveRecord::Base
       #size = self.friends.where(:gender => gender).active.size
       #pool = self.friends.where(:gender => gender).active.order("id asc")
     else
-      @network_users = self.groups.find_by_id(networkid).where(:gender => gender).active
+      @network_users = self.groups.find_by_id(networkid).users.where(:gender => gender).active
       size = @network_users.length
       pool = @network_users
     end
