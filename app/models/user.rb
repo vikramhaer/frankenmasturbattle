@@ -106,7 +106,7 @@ class User < ActiveRecord::Base
     groups_not_created = []
     if !friends_not_created.empty?
       #get all the groups of the friends not created yet
-      friends_not_created_groups = friends_not_created.collect{ |fq| helper_get_group_names_from_fq(fq) }.flatten!.reject!{|g| g == nil}.uniq!
+      friends_not_created_groups = friends_not_created.collect{ |fq| helper_get_group_names_from_fq(fq) }.flatten!.reject{|g| g == nil}.uniq!
       #find all the groups already in the db
       groups_from_fbq = Group.where(:name => friends_not_created_groups)
       #hash them for fast lookup later
