@@ -270,7 +270,7 @@ margin: 10px auto;
 #battleground {
 background: #eee;
 width: 600px;
-height: 330px;
+height: 350px;
 margin: 10px auto 25px auto; 
 padding: 10px;
 -webkit-box-shadow: 0 1px 2px #999;
@@ -639,7 +639,7 @@ margin: 10px;
 #mid {
 float: left;
 width: 60px;
-margin: 75px auto;
+margin: 60px auto 0 auto;
 text-align: center;
 font-size: 25px;
 font-family: "museo 700";

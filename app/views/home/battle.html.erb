@@ -1,14 +1,15 @@
 <%= javascript_include_tag "battle" %>
 <div id="main">
-<div id="filters">
+
+	<div id="battleground">
+    <%= render "bground" %>
+    <div id="filters">
   <%= form_tag '/battle_update', :remote => true, :id => "battle_options", :method=> "get" do %>
     <%= radio_button_tag 'gender', 'male', @options["gender"] == "male" %> male
     <%= radio_button_tag 'gender', 'female', @options["gender"] == "female" %> female
     <%= select_tag 'network', network_options_with_friends(current_user.groups, @options["network"]) %>
   <% end %>
 </div>
-	<div id="battleground">
-    <%= render "bground" %>
   </div>
 
 	<div id="battleground-history" class="old">
