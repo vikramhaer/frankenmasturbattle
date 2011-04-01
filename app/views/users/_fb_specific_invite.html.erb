@@ -10,14 +10,12 @@
 
 document.observe("dom:loaded", function() {
 
-  $$('invite_button').each(function(e){
-    e.observe("click", function(event) {
-      FB.ui({
-        method: 'apprequests', 
-        message: 'Hey, check out getFrankd!', 
-        title: 'Send out Requests for getFrankd',
-        to: '<%= @user.uid %>'
-      });
+  $('invite_button').observe("click", function(event) {
+    FB.ui({
+      method: 'apprequests', 
+      message: 'Hey, check out getFrankd!', 
+      title: 'Send out Requests for getFrankd',
+      to: '<%= @user.uid %>'
     });
   });
 });
