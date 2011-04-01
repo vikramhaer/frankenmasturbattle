@@ -2,16 +2,14 @@ class HomeController < ApplicationController
   skip_before_filter :authenticate, :except => "battle"
 
   def about
-    @no_ad = 1
     respond_to do |format|
-      format.html
+      format.html {render :layout =>"noad"}
     end
   end
 
   def privacy
-    @no_ad = 1
     respond_to do |format|
-      format.html
+      format.html {render :layout =>"noad"}
     end
   end
 
@@ -24,11 +22,14 @@ class HomeController < ApplicationController
     end
 
     respond_to do |format|
-      format.html
+      format.html {render :layout => false}
     end
   end
 
   def invite
+    respond_to do |format|
+      format.html {render :layout =>"noad"}
+    end
   end
 
   def invite_update

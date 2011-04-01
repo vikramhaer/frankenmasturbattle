@@ -50,7 +50,7 @@ class UsersController < ApplicationController
     end
     @user = current_user
     respond_to do |format|
-      format.html
+      format.html {render :layout => "noad"} 
     end
   end
 
