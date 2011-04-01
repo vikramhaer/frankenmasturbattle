@@ -9,6 +9,8 @@
   <%= @user.name %>
 </p>
 <%= if @user.id == current_user.id then link_to "Settings", "/settings", :class => 'right smallbutton' end %>
+<%= if @is_invitable then link_to "Invite " + @user.name, "/invite", :class => 'right smallbutton invite_button', :remote => true end %>
+<%= render 'fb_specific_invite' %>
 <div style="clear:both;"></div>
 				<div class="statbox4">
 					<div class="stattitle">You've Voted</div>
@@ -53,11 +55,12 @@
 			
 			<div style="clear:both;"></div>
   
+<% if !@user_friends.empty? %>
   <div class="statbox1">
 				<div class="stattitle">Hottest Friends </div>
         <% @user_friends.each do |friend| %>
         <%=  user_tile(friend) %>
         <% end %>
 					<div style="clear:both;"></div>
-	</div>
+	</div> <% end %>
 </div>

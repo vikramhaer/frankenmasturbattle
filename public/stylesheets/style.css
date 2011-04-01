@@ -147,10 +147,10 @@ text-shadow: 0px 1px 0px #5C9FC0;
 -webkit-border-radius: 10px;
 -moz-border-radius: 10px;
 border-radius: 10px;
-padding: 5px 15px;
-margin: 10px;
-background: #ccc;
-color: #000;
+padding: 10px 10px;
+margin: 15px;
+background: #3B5998;
+color: white !important;
 font-size: 20px;
 -webkit-box-shadow: 0px 1px 0px white;
 }

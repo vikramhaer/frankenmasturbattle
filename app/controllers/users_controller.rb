@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   # GET /users/1.xml
   def show
     @user = User.find_by_id(params[:id])
+    @is_invitable = !Friendship.where(:user_id => current_user.id, :friend_id => params[:id]).empty? && @user.login_count==0
     if !@user then
       render :inline => "<h1>User not found</h1>", :layout => true
     elsif @user.is_inactive?
