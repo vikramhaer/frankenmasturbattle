@@ -1,3 +1,24 @@
+<script type="text/javascript">
+var mp_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");
+document.write(unescape("%3Cscript src='" + mp_protocol + "api.mixpanel.com/site_media/js/api/mixpanel.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<!-- Initialize it with your project token -->
+<script type="text/javascript">
+try {
+    var mpmetrics = new MixpanelLib("0da1558adf4a69640712221ce816ddd2");
+} catch(err) {
+    var null_fn = function () {};
+    var mpmetrics = { 
+        track: null_fn, 
+        track_funnel: null_fn, 
+        register: null_fn, 
+        register_once: null_fn,
+        register_funnel: null_fn,
+        identify: null_fn
+    };
+}
+</script>
 <%= javascript_include_tag "battle" %>
 <div id="main">
 

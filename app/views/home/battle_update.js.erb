@@ -2,6 +2,13 @@ $("battleground-history").update("<%= escape_javascript(render(:partial => "bgro
 $("left").update("<%= escape_javascript(bigtile(@left_user, "left")) %>");
 $("right").update("<%= escape_javascript(bigtile(@right_user, "right")) %>");
 
+mpmetrics.track("vote", {
+      'user_id' : '<%= current_user.id %>',
+  'user_gender' : '<%= current_user.gender %>',
+ 'voted_gender' : '<%= session[:battle][:options]["gender"] %>',
+'voted_network' : '<%= session[:battle][:options]["network"] %>'
+    });
+
 <% if @ad_refresh %>
   $('top-ad-frame').src = $('top-ad-frame').src;
   $('bottom-ad-frame').src = $('bottom-ad-frame').src;
