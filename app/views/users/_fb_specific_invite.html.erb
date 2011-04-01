@@ -13,7 +13,7 @@ document.observe("dom:loaded", function() {
   $('invite_button').observe("click", function(event) {
     FB.ui({
       method: 'apprequests', 
-      message: 'Hey, check out getFrankd!', 
+      message: "Check out getFrankd! GetFrankd is a fun way to rate your friends' photos!", 
       title: 'Send out Requests for getFrankd',
       to: '<%= @user.uid %>'
     });
