@@ -37,7 +37,7 @@ document.observe("dom:loaded", function() {
     });
 
   $('skip').observe("click", function(event) {
-    $('skip').update("PUSSY");
+    $('skip').update("WIMP");
     setTimeout("$('skip').update('Skip')",1000);
     });
 });
