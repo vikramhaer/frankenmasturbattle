@@ -4,11 +4,13 @@
 <head>
   <title>getFrankd</title>
   <%= stylesheet_link_tag "style" %>
+  <%= stylesheet_link_tag "modalbox" %>
   <meta name="description" content="Rate how hot your facebook friends are to determine their Frank." />
   <meta name="keywords" content="beer, sports, basketball, football, hot girls, dating, singles, movies, video games, make up, cosmetics, weight loss, healthy, diet, shopping, discounts, deals, 
   celebrities, television shows, entertainment, travel, flight, cruise, airplane ticket, vacation, car rental, hotels, college students" />
   <link href="http://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
   <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag "modalbox", "builder" %>
   <%= csrf_meta_tag %>
   <script type="text/javascript">
 
@@ -70,6 +72,8 @@
   <iframe id="bottom-ad-frame" width="750" height="98" src="" frameborder="0" scrolling="no"></iframe>
   </div>
 <% end %>
+  <a id="feedback-tab" href="feedback.html" title="GetFrankd Feedback Form" onclick="
+Modalbox.show(this.href, {title: this.title, width: 600}); return false;"></a>
   <div id="footer">
   <ul>
     <li><%= link_to("About", :controller=> "home", :action=> "about") %></li>
@@ -78,5 +82,6 @@
    </ul>
   </div>
 <%= javascript_tag "$('top-ad-frame').src = '/ads/top-ad.html'; $('bottom-ad-frame').src = '/ads/bottom-ad.html';" %>
+
 </body>
 </html>

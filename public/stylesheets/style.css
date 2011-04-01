@@ -9,6 +9,24 @@ font-family: "Museo 300","Helvetica Neue (TT)","Helvetica Neue", Helvetica, Aria
 font-size:15px;
 }
 
+a#feedback-tab {
+background:url("/images/feedback_tab_white.png") no-repeat scroll 50% 50% #5C9FC0;
+display:block;
+height: 90px;
+width: 22px;
+line-height: 0;
+position: fixed;
+left: 0;
+text-indent: -999999px;
+top: 40%;
+padding: 5px;
+z-index: 1000001;
+}
+
+a#feedback-tab:hover{
+background:url("/images/feedback_tab_white.png") no-repeat scroll 50% 50% #3B5998;
+}
+
 a:link, a:visited {
 color: #000;
 text-decoration: none;
