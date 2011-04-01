@@ -8,7 +8,8 @@
 <p class="username left">
   <%= @user.name %>
 </p>
-<%= if @user.id == current_user.id then link_to "Settings", "/settings", :class => 'right smallbutton' end %>
+<%= if @user.id == current_user.id then link_to ("Settings", "/settings", :class => 'right smallbutton') + 
+link_to ("Invite Your Friends", "/invite", :class => 'right smallbutton') end %>
 <%= if @is_invitable then link_to "Invite " + @user.name, "/invite", :class => 'right smallbutton invite_button', :remote => true end %>
 <%= render 'fb_specific_invite' %>
 <div style="clear:both;"></div>

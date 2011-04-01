@@ -23,6 +23,11 @@ padding: 5px;
 z-index: 1000001;
 }
 
+#go_button {
+text-align: center;
+font-size: 50px !important;
+}
+
 a#feedback-tab:hover{
 background:url("/images/feedback_tab_white.png") no-repeat scroll 50% 50% #3B5998;
 }
