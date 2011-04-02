@@ -1,18 +1,18 @@
 <div id="fb-root"></div>
-<script src="http://connect.facebook.net/en_US/all.js"></script>
-<script>
-  FB.init({
-    appId  : '107180036028128',
-    status : true, // check login status
-    cookie : true, // enable cookies to allow the server to access the session
-    xfbml  : true  // parse XFBML
-  });
-  FB.ui({
-    method: 'apprequests', 
-    message: "Join me on getFrankd.com! It's a really fun way to rate your friends' photos!", 
-    title: 'Send out Requests for getFrankd'
-  });
-</script>
+<fb:serverfbml width="615">
+  <script type="text/fbml">
+    <fb:request-form action="http://getFrankd.com/invite"
+                     method="POST"
+                     invite="true"
+                     type="getFrankd"
+                     content="Join me on getFrankd! It's a really fun way of rating your friends' photos. <fb:req-choice url='http://getfrankd.com' label='Join getFrankd!' />">
+      <fb:multi-friend-selector showborder="false"
+                                bypass="cancel"
+                                cols=4
+                                actiontext="Invite others to getFrankd"/>
+    </fb:request-form>
+  </script>
+</fb:serverfbml>
 
 <%= javascript_include_tag "invite" %>
 <div id="go_button"> <p>Please wait for the application to load</p> <%= image_tag("/images/spinner.gif") %></div>
