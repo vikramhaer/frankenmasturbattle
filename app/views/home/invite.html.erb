@@ -1,18 +1,18 @@
 <div id="fb-root"></div>
 <script src="http://connect.facebook.net/en_US/all.js"></script>
-<fb:serverFbml class="fbFriendContainer"> 
-  <script type="text/fbml"> 
-      <fb:fbml>
-          <fb:is-logged-out>
-          <fb:else>
-            <fb:request-form content="Join me on getFrankd! It's a really fun way to rate your friends' photos. &lt;fb:req-choice url='http://getfrankd.com' label='Join getFrankd!' /&gt;" type="getfrankd" invite="true" method="POST" action="http://getfrankd.com/invite/">
-                <fb:multi-friend-selector showborder="false" cols="5" rows="3" exclude_ids="1237471,1072890013,1091370005,1238277,1221754,1237829,1034550077,557420494,1239364" actiontext="Invite your friends to getFrankd."></fb:multi-friend-selector>
-            </fb:request-form>
-          </fb:else>
-          </fb:is-logged-out>
-      </fb:fbml>
-   </script> 
-</fb:serverFbml>
+<script>
+  FB.init({
+    appId  : '107180036028128',
+    status : true, // check login status
+    cookie : true, // enable cookies to allow the server to access the session
+    xfbml  : true  // parse XFBML
+  });
+  FB.ui({
+    method: 'apprequests', 
+    message: "Join me on getFrankd.com! It's a really fun way to rate your friends' photos!", 
+    title: 'Send out Requests for getFrankd'
+  });
+</script>
 
 <%= javascript_include_tag "invite" %>
 <div id="go_button"> <p>Please wait for the application to load</p> <%= image_tag("/images/spinner.gif") %></div>
