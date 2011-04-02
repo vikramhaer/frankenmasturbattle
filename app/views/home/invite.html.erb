@@ -2,14 +2,14 @@
 <script src="http://connect.facebook.net/en_US/all.js"></script>
 <script>
   FB.init({
-    appId  : <%= if Rails.env == 'production' then '107180036028128' else '171400646241780' end %>,
+    appId  : '107180036028128',
     status : true, // check login status
     cookie : true, // enable cookies to allow the server to access the session
     xfbml  : true  // parse XFBML
   });
   FB.ui({
     method: 'apprequests', 
-    message: "Check out getFrankd! GetFrankd is a fun way to rate your friends' photos!", 
+    message: "Check out getFrankd.com! GetFrankd is a fun way to rate your friends' photos!", 
     title: 'Send out Requests for getFrankd'
   });
 </script>
