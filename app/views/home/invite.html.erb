@@ -1,18 +1,59 @@
-<div id="fb-root"></div>
-<script src="http://connect.facebook.net/en_US/all.js"></script>
-<script>
-  FB.init({
-    appId  : '107180036028128',
-    status : true, // check login status
-    cookie : true, // enable cookies to allow the server to access the session
-    xfbml  : true  // parse XFBML
-  });
-  FB.ui({
-    method: 'apprequests', 
-    message: "Join me on getFrankd.com! It's a really fun way to rate your friends' photos!", 
-    title: 'Send out Requests for getFrankd'
-  });
-</script>
+    <fb:serverFbml class="fbFriendContainer"> 
+      <script type="text/fbml"> 
+          <fb:fbml>
+              <fb:is-logged-out>
+              <fb:else>
+                <fb:request-form content="Join me on getFrankd! It's a really fun way to rate your friends' pictures. &lt;fb:req-choice url='http://getfrankd.com' label='Join getFrankd!' /&gt;" type="getFrankd" invite="true" method="POST" action="http://getFrankd.com/invite/">
+                    <fb:multi-friend-selector showborder="false" cols="5" rows="3" actiontext="Invite your friends to getFrankd."></fb:multi-friend-selector>
+                </fb:request-form>
+              </fb:else>
+              </fb:is-logged-out>
+          </fb:fbml>
+       </script> 
+    </fb:serverFbml> 
+    
+  
+    
+<div id="fb-root"></div> 
+
+  <script> 
+    getfrankd.fbAppId = '86734274142';
+    getfrankd.fbPerms = 'offline_access,publish_stream,user_checkins,friends_checkins';
+    
+    (function() {
+      var e = document.createElement('script');
+      e.src = 'https://connect.facebook.net/en_US/all.js';
+      e.async = true;
+      document.getElementById('fb-root').appendChild(e);
+    }());
+  </script> 
+
+
+    <script type="text/javascript"> 
+      window.fbAsyncInit = function() {
+        FB.init({ appId: getfrankd.fbAppId, status: true, cookie: true, xfbml: true });
+      
+      
+        FB.getLoginStatus(function(response) {
+          $('#status').hide()
+        
+          if(response.session) { 
+            loggedIn = true;
+          } else {
+            $('#login').show();
+            $('#why').show();
+            $('#nextLink').show()
+            loggedIn = false;
+          } 
+        })  
+      }
+    
+      function onlogin() {
+        $('#login').hide();
+        $('#why').hide();
+        $('#nextLink').hide()
+      }
+    </script>
 
 
 <%= javascript_include_tag "invite" %>
