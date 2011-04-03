@@ -3,15 +3,16 @@
 
 <!-- <p id="notice"><%= notice %></p> -->
 
-  <%= image_tag("http://graph.facebook.com/#{@user.uid}/picture", :class=>"left profimg") %>
+<%= image_tag("http://graph.facebook.com/#{@user.uid}/picture", :class=>"left profimg") %>
 
 <p class="username left">
   <%= @user.name %>
 </p>
 <%= if @user.id == current_user.id then link_to ("Settings", "/settings", :class => 'right smallbutton') + 
-link_to ("Invite Your Friends", "/invite", :class => 'right smallbutton') end %>
+link_to ("Invite Your Friends", "/invite", :class => 'right smallbutton',:id => 'gen_invite', :remote => true) end %>
 <%= if @is_invitable then link_to "Invite " + @user.name, "/invite", :class => 'right smallbutton', :id => 'invite_button', :remote => true end %>
 <%= render 'fb_specific_invite' %>
+<%= render 'fb_general_invite' %> 
 <div style="clear:both;"></div>
 				<div class="statbox4">
 					<div class="stattitle">You've Voted</div>

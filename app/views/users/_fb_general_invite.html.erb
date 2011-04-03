@@ -10,12 +10,11 @@
 
 document.observe("dom:loaded", function() {
 
-  $('invite_button').observe("click", function(event) {
+  $('gen_invite').observe("click", function(event) {
     FB.ui({
       method: 'apprequests', 
       message: "Check out getFrankd! GetFrankd is a fun way to rate your friends' photos!", 
-      title: 'Send out Requests for getFrankd',
-      to: '<%= @user.uid %>'
+      title: 'Send out Requests for getFrankd'
     });
   });
 });
