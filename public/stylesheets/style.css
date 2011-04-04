@@ -793,7 +793,7 @@ padding: 0;
 /* CANVAS PAGE STUFF */
 
 .canvas {
-width: 760px;
+width: 720px;
 margin: 15px auto 25px 0;
 padding: 10px;
 -webkit-box-shadow: 0 1px 2px #999;
@@ -806,7 +806,7 @@ background: #eee repeat;
 }
 
 #canvas_wrapper {
-width: 760px;
+width: 720px;
 height: 100%;
 margin: 0px auto;
 }
