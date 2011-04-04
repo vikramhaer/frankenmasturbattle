@@ -73,8 +73,10 @@
   <iframe id="bottom-ad-frame" width="750" height="98" src="" frameborder="0" scrolling="no"></iframe>
   </div>
 <% end %>
-  <a id="feedback-tab" href="/feedback.html" title="GetFrankd Feedback Form" onclick="
-Modalbox.show(this.href, {title: this.title, width: 600}); return false;"></a>
+  <a id="feedback" class="vertical-text tab feedback" href="/feedback.html" title="GetFrankd Feedback Form" onclick="
+Modalbox.show(this.href, {title: this.title, width: 600}); return false;">Feedback</a>
+  <%= link_to ("Invite Friends!", "/invite", :class => 'vertical-text tab gen_invite', :id => 'invites', :remote => true) %>
+  <%= render 'layouts/fb_general_invite' %> 
   <div id="footer">
   <ul>
     <li><%= link_to("About", :controller=> "home", :action=> "about") %></li>
