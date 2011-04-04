@@ -34,7 +34,7 @@ class HomeController < ApplicationController
 
   def canvas
     respond_to do |format|
-      format.html {render :layout =>"noad"}
+      format.html {render :layout => false}
     end
   end
 
