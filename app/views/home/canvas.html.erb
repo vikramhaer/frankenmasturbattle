@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script> target="_blank"</script>
-<script>top.location.href="http://getfrankd.com"</script>
-
   <title>getFrankd</title>
   <%= stylesheet_link_tag "style" %>
   <%= stylesheet_link_tag "modalbox" %>
@@ -43,7 +40,7 @@
     <h2>Rank your friends based on their hotness.</h2>
     <h2>Find out how hot your friends think you are.</h2>
     <%= image_tag("/images/podium.png" , :class=>"smaller") %>
-    <div id="buttonhold"><span class="button"><%= link_to "Sign in with Facebook", "http://getfrankd.com/auth/facebook" %></span></div>
+    <div id="buttonhold"><span class="button"><%= link_to "Sign in with Facebook", "http://getfrankd.com/auth/facebook", target="_new" %></span></div>
      <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fgetfrankd.com&amp;layout=button_count&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:21px;" allowTransparency="true"></iframe>
      <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.getFrankd.com" data-counturl="http://getFrankd.com/" data-text="I've been Frankd!" data-count="horizontal" data-via="getFrankd">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 		</div>
