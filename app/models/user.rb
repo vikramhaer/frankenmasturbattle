@@ -46,14 +46,14 @@ class User < ActiveRecord::Base
     end
   end
 
-  def login_procedure(auth)
-
-  end
-
   def standard_login(auth)
     self.update_info(auth)
     self.update_groups(auth)
     self.increment_login_count
+  end
+
+  def ranking
+    User.where("score > ? AND gender = ?", self.score, self.gender).count() + 1;
   end
 
   def first_login(token)

@@ -14,9 +14,9 @@ link_to ("Invite Your Friends", "/invite", :class => 'right smallbutton') end %>
 <%= render 'fb_specific_invite' %>
 <div style="clear:both;"></div>
 				<div class="statbox4">
-					<div class="stattitle">You've Voted</div>
+					<div class="stattitle">Your Rank</div>
 					<div class="statcontent">
-						<span class="bignumber"><%= @user.rating_count %></span>Times
+						#<span class="bignumber"><%= @user.ranking %></span>
 					</div>
 				</div>
 				<div class="statbox4">
