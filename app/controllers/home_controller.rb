@@ -32,6 +32,12 @@ class HomeController < ApplicationController
     end
   end
 
+  def canvas
+    respond_to do |format|
+      format.html {render :layout => false}
+    end
+  end
+
   def invite_update
     if current_user.login_count == 1
       current_user.first_login(session[:access_token])

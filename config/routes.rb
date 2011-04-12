@@ -28,6 +28,8 @@ Masterater::Application.routes.draw do
   match "/invite" => "home#invite"
   match "/invite_update" => "home#invite_update"
 
+  match "/canvas" => "home#canvas"
+
   #get "home/index"
   match "/battle" => "home#battle"
 

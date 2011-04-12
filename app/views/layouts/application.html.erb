@@ -8,6 +8,7 @@
   <meta name="description" content="Rate how hot your facebook friends are to determine their Frank." />
   <meta name="keywords" content="beer, sports, basketball, football, hot girls, dating, singles, movies, video games, make up, cosmetics, weight loss, healthy, diet, shopping, discounts, deals, 
   celebrities, television shows, entertainment, travel, flight, cruise, airplane ticket, vacation, car rental, hotels, college students" />
+  <link rel="image_src" href="images/logo.png" />
   <link href="http://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
   <%= javascript_include_tag :defaults %>
   <%= javascript_include_tag "modalbox", "builder" %>
@@ -34,7 +35,7 @@
 		<h1><%= link_to "getFrankd", battle_path, :class=>"no-dec" %></h1>
     <div id="social-butts">
     <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.getFrankd.com" data-counturl="http://getFrankd.com/" data-text="I've been Frankd!" data-count="horizontal" data-via="getFrankd">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-    <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FGetFrankd%2F167851896596886&amp;layout=button_count&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:21px;" allowTransparency="true"></iframe> 
+    <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fgetfrankd.com&amp;layout=button_count&amp;show_faces=false&amp;width=1&amp;action=like&amp;font=verdana&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:20px;" allowTransparency="true"></iframe>
     </div>
     <div id="right-nav">
 		
@@ -72,8 +73,10 @@
   <iframe id="bottom-ad-frame" width="750" height="98" src="" frameborder="0" scrolling="no"></iframe>
   </div>
 <% end %>
-  <a id="feedback-tab" href="/feedback.html" title="GetFrankd Feedback Form" onclick="
-Modalbox.show(this.href, {title: this.title, width: 600}); return false;"></a>
+  <a id="feedback" class="vertical-text tab feedback" href="/feedback.html" title="GetFrankd Feedback Form" onclick="
+Modalbox.show(this.href, {title: this.title, width: 600}); return false;">Feedback</a>
+  <%= link_to ("Invite Friends!", "/invite", :class => 'vertical-text tab gen_invite', :id => 'invites', :remote => true) %>
+  <%= render 'layouts/fb_general_invite' %> 
   <div id="footer">
   <ul>
     <li><%= link_to("About", :controller=> "home", :action=> "about") %></li>
@@ -83,6 +86,5 @@ Modalbox.show(this.href, {title: this.title, width: 600}); return false;"></a>
    <a href="http://mixpanel.com/?from=partner"><img src="http://mixpanel.com/site_media/images/mixpanel_partner_logo.gif" alt="Mobile Analytics by Mixpanel" /></a>
   </div>
 <%= javascript_tag "$('top-ad-frame').src = '/ads/top-ad.html'; $('bottom-ad-frame').src = '/ads/bottom-ad.html';" %>
-
 </body>
-</html><a href="http://mixpanel.com/?from=partner"><img src="http://mixpanel.com/site_media/images/mixpanel_partner_logo.gif" alt="Mobile Analytics by Mixpanel" /></a>
+</html>
