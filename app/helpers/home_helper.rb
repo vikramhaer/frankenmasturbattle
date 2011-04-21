@@ -39,7 +39,7 @@ module HomeHelper
   end
 
   def network_options_with_friends(networks, id)
-    "<option value=\"0\">All Friends (#{current_user.friends.size})</option>".html_safe + 
+    ("<option value=\"0\">All Friends (" + Friendship.where(:user_id => current_user.id).count.to_s + ")</option>").html_safe + 
         options_from_collection_for_select(networks, "id", "name_and_size", id)
   end
 
