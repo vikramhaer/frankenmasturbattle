@@ -21,23 +21,16 @@ link_to ("Invite Your Friends", "/invite", :class => 'right smallbutton gen_invi
 					</div>
 				</div>
 				<div class="statbox4">
-					<div class="stattitle">Your Wins/Losses</div>
-					<div class="statcontent">
-						<span class="bignumber"><%= @user.win %></span>/<%= @user.loss %>
-					</div>
-				</div>
-				<div class="statbox4">
 					<div class="stattitle">Your Score</div>
 					<div class="statcontent">
 						<span class="bignumber"><%= Integer(@user.score.round) %></span>
 					</div>
 				</div>
 				<div class="statbox4">
-					<div class="stattitle">Frankers</div>
+					<div class="stattitle">Your Wins/Losses</div>
 					<div class="statcontent">
-						<span class="bignumber">?</span>
+						<span class="bignumber"><%= @user.win %></span>/<%= @user.loss %>
 					</div>
-          <div style="clear:both;"></div>	
 				</div>
 						
 	<div class="statbox2">

@@ -15,8 +15,13 @@ class GroupsController < ApplicationController
   # GET /groups/1.xml
   def show
     @group = Group.find(params[:id])
-    @top_females = @group.users.female.top25
-    @top_males = @group.users.male.top25
+    group_members = @group.users
+    @group_size = group_members.size
+    @group_average = (group_members.average(:score)) # / @group_size
+    @group_win = group_members.inject (0) { |sum,user| sum + user.win }
+    @group_loss = group_members.inject (0) { |sum,user| sum + user.loss }
+    @top_females = group_members.female.top25
+    @top_males = group_members.male.top25
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @group }

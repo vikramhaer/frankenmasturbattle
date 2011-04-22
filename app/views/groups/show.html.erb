@@ -1,2 +1,29 @@
-<h1 class="center-text">Hottest in <%= @group.name %></h1>
+<h1 class="center-text">Stats for <%= @group.name %></h1>
+<div style="clear:both;"></div>
+				<!--<div class="statbox4">
+					<div class="stattitle">Group Rank</div>
+					<div class="statcontent">
+						#<span class="bignumber"><%= 9001 %></span>
+					</div>
+				</div> -->
+				<div class="statbox4">
+					<div class="stattitle">Average Score</div>
+					<div class="statcontent">
+						<span class="bignumber"><%= @group_average.to_i %></span>
+					</div>
+				</div>
+				<div class="statbox4">
+					<div class="stattitle">Group Wins/Losses</div>
+					<div class="statcontent">
+						<span class="bignumber"><%= @group_win %></span>/<%= @group_loss %>
+					</div>
+				</div>
+				<div class="statbox4">
+					<div class="stattitle">Members</div>
+					<div class="statcontent">
+						<span class="bignumber"><%= @group_size %></span>
+					</div>
+          <div style="clear:both;"></div>	
+				</div>
+
 <%= render "layouts/top25" %>
