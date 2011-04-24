@@ -32,7 +32,7 @@ link_to ("Invite Your Friends", "/invite", :class => 'right smallbutton gen_invi
 						<span class="bignumber"><%= @user.win %></span>/<%= @user.loss %>
 					</div>
 				</div>
-						
+			<div style="clear:both;"></div>			
 	<div class="statbox2">
 				<div class="stattitle">Network Rankings</div>
 <img src="http://chart.apis.google.com/chart?chs=400x210&cht=gm&chd=t:70" width="400" height="210" alt="" />
@@ -43,7 +43,7 @@ link_to ("Invite Your Friends", "/invite", :class => 'right smallbutton gen_invi
 
 				<ul class="statlists">
           <% for group in @user.groups %>
-          <li><strong><%=h link_to group.name, group %></strong</li>
+          <li><strong><%=h link_to group.name, group %></strong></li>
           <% end %>
 				</ul>
 				</div>
